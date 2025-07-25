@@ -20,7 +20,8 @@
             --light: #f5f5f5;
             --accent: #00c853;
             --error: #f44336;
-            --info: #29b6f6;
+            --whatsapp: #25D366;
+            --telegram: #0088CC;
         }
         
         body {
@@ -313,12 +314,11 @@
         
         .instructions {
             background: rgba(255, 107, 0, 0.1);
-            border-left: 4px solid var(--primary);
-            padding: 20px;
+            padding: 25px;
             margin-top: 20px;
             text-align: left;
-            border-radius: 0 8px 8px 0;
-            display: none;
+            border-radius: 15px;
+            border-left: 4px solid var(--primary);
         }
         
         .instructions h3 {
@@ -417,17 +417,6 @@
             box-shadow: 0 8px 20px rgba(0, 200, 83, 0.5);
         }
         
-        .loader {
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-            display: none;
-        }
-        
         .status-message {
             margin: 10px 0;
             font-weight: bold;
@@ -460,83 +449,141 @@
             border: 1px solid var(--primary);
         }
         
-        .verification-input {
-            width: 100%;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #444;
-            background: #333;
-            color: white;
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            text-align: center;
+        .contact-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+            flex-wrap: wrap;
         }
         
-        .contact-form {
+        .contact-card {
+            flex: 1;
+            min-width: 250px;
+            max-width: 350px;
             background: rgba(255, 255, 255, 0.05);
-            padding: 25px;
             border-radius: 15px;
-            margin: 20px 0;
-            border: 1px solid var(--info);
-            text-align: left;
+            padding: 30px 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
         }
         
-        .contact-form h3 {
-            color: var(--info);
+        .contact-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .contact-card.whatsapp {
+            border-top: 4px solid var(--whatsapp);
+        }
+        
+        .contact-card.telegram {
+            border-top: 4px solid var(--telegram);
+        }
+        
+        .contact-icon {
+            font-size: 3.5rem;
             margin-bottom: 20px;
-            text-align: center;
-            font-size: 1.4rem;
         }
         
-        .input-group {
-            margin-bottom: 20px;
+        .contact-card.whatsapp .contact-icon {
+            color: var(--whatsapp);
         }
         
-        .input-group label {
-            display: block;
-            margin-bottom: 8px;
+        .contact-card.telegram .contact-icon {
+            color: var(--telegram);
+        }
+        
+        .contact-name {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .contact-desc {
+            font-size: 1rem;
             color: #ccc;
-            font-weight: 500;
+            margin-bottom: 20px;
+            min-height: 60px;
         }
         
-        .input-group input {
+        .contact-btn {
+            display: inline-block;
             width: 100%;
             padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #444;
-            background: #333;
-            color: white;
-            font-size: 1rem;
-        }
-        
-        .info-box {
-            background: rgba(41, 182, 246, 0.1);
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            border-left: 4px solid var(--info);
-            text-align: left;
-            font-size: 0.9rem;
-            color: #bbdefb;
-        }
-        
-        .info-box i {
-            margin-right: 10px;
-            color: var(--info);
-        }
-        
-        .code-display {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            text-align: center;
-            border: 1px solid var(--info);
-            font-size: 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
             font-weight: bold;
-            letter-spacing: 3px;
-            color: var(--accent);
-            display: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .contact-card.whatsapp .contact-btn {
+            background: linear-gradient(135deg, var(--whatsapp), #128C7E);
+            color: white;
+        }
+        
+        .contact-card.telegram .contact-btn {
+            background: linear-gradient(135deg, var(--telegram), #006699);
+            color: white;
+        }
+        
+        .contact-card.whatsapp .contact-btn:hover {
+            background: linear-gradient(135deg, #00E676, #128C7E);
+            transform: scale(1.05);
+        }
+        
+        .contact-card.telegram .contact-btn:hover {
+            background: linear-gradient(135deg, #2AABEE, #006699);
+            transform: scale(1.05);
+        }
+        
+        .steps-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 40px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 200px;
+            max-width: 250px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            position: relative;
+            border: 1px solid rgba(255, 107, 0, 0.3);
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .step h4 {
+            margin: 15px 0 10px;
+            color: var(--secondary);
+            font-size: 1.2rem;
+        }
+        
+        .step p {
+            color: #ccc;
+            font-size: 0.9rem;
         }
         
         @keyframes pulse {
@@ -557,11 +604,6 @@
             100% { opacity: 1; }
         }
         
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
         @keyframes backgroundMove {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -578,6 +620,10 @@
             .features { flex-direction: column; align-items: center; }
             .feature { width: 100%; max-width: 300px; }
             .payment-card { max-width: 100%; }
+            .contact-options { flex-direction: column; }
+            .contact-card { max-width: 100%; }
+            .steps-container { flex-direction: column; align-items: center; }
+            .step { max-width: 100%; }
         }
     </style>
 </head>
@@ -617,98 +663,87 @@
         <div id="countdown">04:00:00</div>
         
         <div class="payment-options">
-            <div class="payment-card selected" data-method="pix">
+            <div class="payment-card selected">
                 <div class="payment-icon"><i class="fas fa-qrcode"></i></div>
                 <div class="payment-name">Pagamento via PIX</div>
-                <div class="payment-desc">Pagamento instantâneo e entrega automática</div>
-                <div class="payment-time">ENTREGA IMEDIATA</div>
+                <div class="payment-desc">Pagamento instantâneo e entrega após confirmação</div>
+                <div class="payment-time">ENTREGA EM ATÉ 15 MINUTOS</div>
             </div>
         </div>
         
-        <button id="paymentBtn" class="btn">CONTINUAR COM PAGAMENTO VIA PIX</button>
-        
-        <div id="contactForm" class="contact-form">
-            <h3><i class="fas fa-envelope"></i> Informe seus dados para receber o código</h3>
-            <div class="input-group">
-                <label for="userEmail">E-mail:</label>
-                <input type="email" id="userEmail" placeholder="seuemail@exemplo.com" required>
-            </div>
-            
-            <div class="input-group">
-                <label for="userPhone">Telefone (opcional para SMS):</label>
-                <input type="tel" id="userPhone" placeholder="(11) 99999-9999">
-            </div>
-            
-            <div class="info-box">
-                <i class="fas fa-info-circle"></i> 
-                Após realizar o pagamento PIX, enviaremos um código de 6 dígitos para seu e-mail e telefone (se informado).
-            </div>
-            
-            <button id="saveContactBtn" class="btn">
-                <i class="fas fa-save"></i> SALVAR DADOS E GERAR PIX
-            </button>
-        </div>
-        
-        <div id="pixInstructions" class="instructions">
-            <h3><span class="pix-logo"></span> Pagamento via PIX:</h3>
+        <div class="instructions">
+            <h3><span class="pix-logo"></span> Instruções de Pagamento:</h3>
             <p>1. Faça o pagamento de R$ 97,00 usando a chave PIX abaixo:</p>
             <div class="address-box">
                 <div id="pixKey">the4hourblueprint@venda.com</div>
                 <button class="copy-btn" onclick="copyToClipboard('the4hourblueprint@venda.com')">Copiar</button>
             </div>
-            
-            <div class="code-display" id="confirmationCodeDisplay">
-                Seu código de confirmação: <span id="displayedCode">000000</span>
-            </div>
-            
-            <p>2. Após o pagamento, você receberá o código de confirmação por e-mail/SMS</p>
-            <p>3. Insira o código abaixo para liberar seu acesso:</p>
-            
-            <div class="verification-box">
-                <input type="text" id="pixCode" class="verification-input" placeholder="Digite seu código de 6 dígitos" maxlength="6">
-                <button id="verifyPixBtn" class="btn">
-                    <i class="fas fa-check-circle"></i> VERIFICAR PAGAMENTO
-                </button>
-            </div>
-            
-            <div class="loader" id="pixLoader"></div>
-            <div class="status-message" id="pixStatus"></div>
-            
-            <div class="info-box">
-                <i class="fas fa-info-circle"></i> 
-                Caso não tenha recebido o código, verifique sua caixa de spam ou clique em "Reenviar Código" abaixo.
-            </div>
-            
-            <button id="resendCodeBtn" class="btn" style="background: linear-gradient(135deg, var(--info), #0288d1);">
-                <i class="fas fa-redo"></i> REENVIAR CÓDIGO
-            </button>
+            <p>2. Após realizar o pagamento, envie o comprovante para nosso WhatsApp ou Telegram:</p>
         </div>
         
-        <div id="productDelivery" class="product-delivery">
-            <h2><i class="fas fa-check-circle"></i> PAGAMENTO CONFIRMADO!</h2>
-            <p>Obrigado por sua compra. Aqui está seu produto:</p>
+        <div class="contact-options">
+            <div class="contact-card whatsapp">
+                <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+                <div class="contact-name">WhatsApp</div>
+                <div class="contact-desc">Envie seu comprovante via WhatsApp para receber o produto mais rápido</div>
+                <a href="https://wa.me/5511999999999" class="contact-btn">
+                    <i class="fab fa-whatsapp"></i> ENVIAR COMPROVANTE
+                </a>
+            </div>
             
-            <div class="product-content">
-                <h3>THE 4-HOUR $423 SURVIVAL BLUEPRINT</h3>
-                <p><strong>O Método Comprovado que Funcionou no Brasil</strong></p>
-                <p>Este guia completo vai te ensinar como gerar R$ 2.100 em apenas 4 horas usando apenas seu celular ou computador.</p>
-                
-                <ul style="margin: 15px 0 15px 20px;">
-                    <li>Passo a passo para ganhos rápidos</li>
-                    <li>Estratégias testadas no mercado brasileiro</li>
-                    <li>Sem necessidade de investimento inicial</li>
-                    <li>Funciona em qualquer lugar com internet</li>
-                    <li>Suporte 24/7 para todos os compradores</li>
-                </ul>
-                
-                <a href="#" class="download-btn"><i class="fas fa-download"></i> BAIXAR AGORA (PDF)</a>
-                <p style="margin-top: 15px; font-size: 0.9rem;">Você também receberá uma cópia por e-mail em até 5 minutos.</p>
+            <div class="contact-card telegram">
+                <div class="contact-icon"><i class="fab fa-telegram"></i></div>
+                <div class="contact-name">Telegram</div>
+                <div class="contact-desc">Envie seu comprovante via Telegram para receber o produto</div>
+                <a href="https://t.me/yourusername" class="contact-btn">
+                    <i class="fab fa-telegram"></i> ENVIAR COMPROVANTE
+                </a>
+            </div>
+        </div>
+        
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <i class="fas fa-money-bill-wave" style="font-size: 2.5rem; color: #ffa726;"></i>
+                <h4>Faça o Pagamento</h4>
+                <p>Realize o pagamento de R$ 97,00 via PIX utilizando a chave fornecida</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <i class="fas fa-file-invoice" style="font-size: 2.5rem; color: #ffa726;"></i>
+                <h4>Salve o Comprovante</h4>
+                <p>Salve o comprovante de pagamento no seu celular ou computador</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <i class="fas fa-share-alt" style="font-size: 2.5rem; color: #ffa726;"></i>
+                <h4>Envie o Comprovante</h4>
+                <p>Clique em um dos botões acima e envie o comprovante pelo WhatsApp ou Telegram</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">4</div>
+                <i class="fas fa-box-open" style="font-size: 2.5rem; color: #ffa726;"></i>
+                <h4>Receba seu Produto</h4>
+                <p>Após verificação, você receberá o produto por e-mail em até 15 minutos</p>
             </div>
         </div>
         
         <div class="guarantee">
-            <h3><i class="fas fa-shield-alt"></i> Garantia de 7 Dias</h3>
+            <h3><i class="fas fa-shield-alt"></i> Garantia de Satisfação</h3>
             <p>Se você não gerar pelo menos R$ 500 nas primeiras 24 horas usando nosso método, devolvemos 100% do seu dinheiro sem perguntas!</p>
+        </div>
+        
+        <div class="instructions" style="background: rgba(255, 107, 0, 0.05);">
+            <h3><i class="fas fa-info-circle"></i> Informações Importantes:</h3>
+            <ul style="margin: 15px 0 15px 20px; color: #ccc; line-height: 1.8;">
+                <li>O produto será enviado por e-mail após confirmação do pagamento</li>
+                <li>Verificamos os pagamentos a cada 15 minutos durante o horário comercial</li>
+                <li>Pagamentos realizados após as 18h serão verificados no dia seguinte</li>
+                <li>Em caso de dúvidas, entre em contato pelo WhatsApp ou Telegram</li>
+            </ul>
         </div>
         
         <p class="disclaimer">
@@ -721,127 +756,9 @@
         const PRODUCT_PRICE = 97;
         let paymentVerified = false;
         let timeLeft = 4 * 60 * 60; // 4 horas em segundos
-        let validPixCode = null;
-        let userEmail = '';
-        let userPhone = '';
         
         // Elementos DOM
         const countdownElement = document.getElementById('countdown');
-        const paymentBtn = document.getElementById('paymentBtn');
-        const saveContactBtn = document.getElementById('saveContactBtn');
-        const pixLoader = document.getElementById('pixLoader');
-        const pixStatus = document.getElementById('pixStatus');
-        const productDelivery = document.getElementById('productDelivery');
-        const contactForm = document.getElementById('contactForm');
-        const pixInstructions = document.getElementById('pixInstructions');
-        const resendCodeBtn = document.getElementById('resendCodeBtn');
-        const confirmationCodeDisplay = document.getElementById('confirmationCodeDisplay');
-        const displayedCode = document.getElementById('displayedCode');
-        
-        // Gerar código único para cada comprador
-        function generateVerificationCode() {
-            return Math.floor(100000 + Math.random() * 900000); // Código de 6 dígitos
-        }
-        
-        // Seleção de método de pagamento (apenas PIX)
-        const paymentCard = document.querySelector('.payment-card');
-        paymentCard.classList.add('selected');
-        
-        // Botão de ação principal
-        paymentBtn.addEventListener('click', function() {
-            // Esconde o botão principal
-            this.style.display = 'none';
-            
-            // Mostra o formulário de contato
-            contactForm.style.display = 'block';
-            contactForm.scrollIntoView({ behavior: 'smooth' });
-        });
-        
-        // Salvar dados do usuário e mostrar instruções PIX
-        saveContactBtn.addEventListener('click', function() {
-            userEmail = document.getElementById('userEmail').value;
-            userPhone = document.getElementById('userPhone').value;
-            
-            if (!userEmail) {
-                pixStatus.textContent = 'Por favor, informe um e-mail válido.';
-                pixStatus.style.color = '#f44336';
-                pixStatus.style.display = 'block';
-                return;
-            }
-            
-            // Gerar código de confirmação
-            validPixCode = generateVerificationCode();
-            
-            // Mostrar o código na tela para simulação
-            displayedCode.textContent = validPixCode;
-            confirmationCodeDisplay.style.display = 'block';
-            
-            // Simular envio do código
-            pixStatus.textContent = `Código enviado para ${userEmail}${userPhone ? ` e ${userPhone}` : ''}. Verifique sua caixa de entrada!`;
-            pixStatus.style.color = '#4caf50';
-            pixStatus.style.display = 'block';
-            
-            // Esconder formulário e mostrar instruções PIX
-            contactForm.style.display = 'none';
-            pixInstructions.style.display = 'block';
-            pixInstructions.scrollIntoView({ behavior: 'smooth' });
-        });
-        
-        // Botão para reenviar código
-        resendCodeBtn.addEventListener('click', function() {
-            pixStatus.textContent = `Código reenviado para ${userEmail}${userPhone ? ` e ${userPhone}` : ''}!`;
-            pixStatus.style.color = '#4caf50';
-            pixStatus.style.display = 'block';
-            
-            // Simular novo envio
-            setTimeout(() => {
-                pixStatus.textContent = 'Código enviado com sucesso!';
-            }, 2000);
-        });
-        
-        // Botão de verificação PIX
-        document.getElementById('verifyPixBtn').addEventListener('click', function() {
-            const enteredCode = document.getElementById('pixCode').value;
-            
-            if (!enteredCode || enteredCode.length !== 6) {
-                pixStatus.textContent = 'Código inválido. Deve ter 6 dígitos.';
-                pixStatus.style.color = '#f44336';
-                pixStatus.style.display = 'block';
-                return;
-            }
-            
-            pixLoader.style.display = 'block';
-            pixStatus.textContent = 'Verificando código de pagamento...';
-            pixStatus.style.color = '#ffa726';
-            pixStatus.style.display = 'block';
-            
-            // Verifica o código após 3 segundos (simulando processo)
-            setTimeout(() => {
-                if (enteredCode == validPixCode) {
-                    pixStatus.textContent = 'Pagamento confirmado! Entregando seu produto...';
-                    pixStatus.style.color = '#4caf50';
-                    
-                    // Mostra o produto após 2 segundos
-                    setTimeout(() => {
-                        pixLoader.style.display = 'none';
-                        productDelivery.style.display = 'block';
-                        paymentVerified = true;
-                        
-                        // Atualiza o contador
-                        countdownElement.textContent = "PRODUTO ENTREGUE!";
-                        countdownElement.style.color = "#4caf50";
-                        countdownElement.style.animation = "none";
-                        
-                        // Rola a página até o produto
-                        productDelivery.scrollIntoView({ behavior: 'smooth' });
-                    }, 2000);
-                } else {
-                    pixLoader.style.display = 'none';
-                    pixStatus.textContent = 'Código inválido ou pagamento não confirmado.';
-                    pixStatus.style.color = '#f44336';
-                }
-            }, 3000);
-        });
         
         // Copiar para área de transferência
         function copyToClipboard(text) {
@@ -873,7 +790,6 @@
                 countdownElement.innerHTML = "OFERTA EXPIRADA";
                 countdownElement.style.color = "#f44336";
                 countdownElement.style.animation = "none";
-                paymentBtn.disabled = true;
             } else if (!paymentVerified) {
                 timeLeft--;
             }
