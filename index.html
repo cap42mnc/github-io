@@ -3,15 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE 4-HOUR $250 SURVIVAL BLUEPRINT</title>
+    <title>THE 4-HOUR $423 SURVIVAL BLUEPRINT</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.70.1/lib/index.iife.min.js"></script>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        :root {
+            --primary: #ff6b00;
+            --secondary: #ffa726;
+            --dark: #121212;
+            --light: #f5f5f5;
+            --accent: #00c853;
         }
         
         body {
@@ -26,6 +33,7 @@
             background-size: cover;
             background-position: center;
             position: relative;
+            overflow-x: hidden;
         }
         
         body::before {
@@ -35,38 +43,152 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.9);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 100%);
             z-index: -1;
         }
         
         .container {
             text-align: center;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(10, 10, 10, 0.95);
             padding: 40px 30px;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(255, 107, 0, 0.3);
             max-width: 900px;
             width: 100%;
-            border: 2px solid #ff0000;
+            border: 2px solid var(--primary);
             animation: pulse 2s infinite;
             backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, transparent 20%, var(--primary) 20%, transparent 21%);
+            background-size: 20px 20px;
+            opacity: 0.05;
+            animation: backgroundMove 20s linear infinite;
+            z-index: -1;
+        }
+        
+        .header {
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .badge {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+            animation: pulseBadge 2s infinite;
         }
         
         h1 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin-bottom: 15px;
-            color: #ffcc00;
-            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
-            background: linear-gradient(90deg, #ffcc00, #ff6600);
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 107, 0, 0.3);
+            line-height: 1.2;
         }
         
         .subtitle {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             margin-bottom: 30px;
-            color: #ff6666;
+            color: #ffcc99;
             font-weight: 500;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .features {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .feature {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            width: 200px;
+            border: 1px solid rgba(255, 107, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary);
+        }
+        
+        .feature i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .feature h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+        
+        .feature p {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        
+        .pricing-box {
+            background: linear-gradient(135deg, rgba(255, 107, 0, 0.1), rgba(255, 167, 38, 0.1));
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px auto;
+            max-width: 500px;
+            border: 2px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pricing-box::before {
+            content: 'OFERTA RELÂMPAGO';
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 0 0 0 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .price {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
         }
         
         .warning {
@@ -79,16 +201,16 @@
         #countdown {
             font-size: 2.2rem;
             font-weight: bold;
-            color: #ffcc00;
-            text-shadow: 0 0 10px rgba(255, 204, 0, 0.7);
+            color: var(--secondary);
+            text-shadow: 0 0 10px rgba(255, 167, 38, 0.7);
             padding: 15px;
             border-radius: 10px;
-            background: rgba(50, 0, 0, 0.5);
+            background: rgba(50, 0, 0, 0.3);
             display: inline-block;
             min-width: 220px;
             margin-top: 10px;
             animation: blink 1s infinite;
-            border: 1px solid #ff9900;
+            border: 1px solid var(--primary);
         }
         
         .disclaimer {
@@ -106,7 +228,7 @@
         }
         
         .payment-card {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
             padding: 25px 15px;
             transition: all 0.3s ease;
@@ -118,26 +240,27 @@
         
         .payment-card:hover {
             transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.15);
-            border-color: #ffcc00;
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary);
         }
         
         .payment-card.selected {
-            background: rgba(255, 204, 0, 0.15);
-            border-color: #ffcc00;
-            box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
+            background: rgba(255, 107, 0, 0.15);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(255, 107, 0, 0.3);
         }
         
         .payment-icon {
             font-size: 3rem;
             margin-bottom: 15px;
-            color: #ffcc00;
+            color: var(--secondary);
         }
         
         .payment-name {
             font-size: 1.3rem;
             margin-bottom: 10px;
             font-weight: bold;
+            color: var(--secondary);
         }
         
         .payment-desc {
@@ -149,7 +272,7 @@
         .payment-time {
             display: inline-block;
             background: rgba(0, 200, 0, 0.2);
-            color: #0f0;
+            color: var(--accent);
             padding: 5px 10px;
             border-radius: 20px;
             font-size: 0.85rem;
@@ -161,22 +284,22 @@
             max-width: 400px;
             margin: 30px auto;
             padding: 18px;
-            background: linear-gradient(135deg, #ff0000, #cc0000);
+            background: linear-gradient(135deg, var(--primary), #e65100);
             color: white;
             text-decoration: none;
             font-size: 1.5rem;
             font-weight: bold;
             border-radius: 50px;
-            border: 2px solid #ffcc00;
+            border: 2px solid var(--secondary);
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.4);
             cursor: pointer;
         }
         
         .btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.6);
-            background: linear-gradient(135deg, #ff3333, #ff0000);
+            box-shadow: 0 8px 20px rgba(255, 107, 0, 0.6);
+            background: linear-gradient(135deg, #ff7b00, #ff5500);
         }
         
         .btn:disabled {
@@ -186,8 +309,8 @@
         }
         
         .instructions {
-            background: rgba(255, 204, 0, 0.1);
-            border-left: 4px solid #ffcc00;
+            background: rgba(255, 107, 0, 0.1);
+            border-left: 4px solid var(--primary);
             padding: 20px;
             margin-top: 20px;
             text-align: left;
@@ -196,59 +319,67 @@
         }
         
         .instructions h3 {
-            color: #ffcc00;
+            color: var(--secondary);
             margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
         
-        .solana-logo {
-            width: 30px;
-            height: 30px;
+        .pix-logo {
+            width: 40px;
+            height: 40px;
             display: inline-block;
             vertical-align: middle;
             margin-right: 10px;
-            background: linear-gradient(135deg, #9945FF, #14F195);
-            border-radius: 50%;
+            background: linear-gradient(135deg, #32bbad, #2d9688);
+            border-radius: 8px;
+            position: relative;
         }
         
-        .binance-logo {
-            width: 30px;
-            height: 30px;
-            display: inline-block;
-            vertical-align: middle;
-            margin-right: 10px;
-            background: linear-gradient(135deg, #F0B90B, #F0B90B);
-            border-radius: 50%;
+        .pix-logo::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 4px;
         }
         
-        .wise-logo {
-            width: 30px;
-            height: 30px;
+        .bank-logo {
+            width: 40px;
+            height: 40px;
             display: inline-block;
             vertical-align: middle;
             margin-right: 10px;
-            background: linear-gradient(135deg, #00b9ff, #0059ff);
-            border-radius: 50%;
+            background: linear-gradient(135deg, #1a237e, #283593);
+            border-radius: 8px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
         }
         
         .address-box {
             background: rgba(0, 0, 0, 0.5);
-            padding: 12px;
+            padding: 15px;
             border-radius: 8px;
             margin: 15px 0;
             font-family: monospace;
             word-break: break-all;
             position: relative;
-            border: 1px solid #9945FF;
+            border: 1px solid var(--primary);
         }
         
         .copy-btn {
             position: absolute;
             top: 10px;
             right: 10px;
-            background: rgba(153, 69, 255, 0.3);
+            background: rgba(255, 107, 0, 0.3);
             border: none;
             color: white;
             padding: 5px 10px;
@@ -258,16 +389,7 @@
         }
         
         .copy-btn:hover {
-            background: rgba(153, 69, 255, 0.5);
-        }
-        
-        .sol-price {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin: 10px 0;
-            flex-wrap: wrap;
+            background: rgba(255, 107, 0, 0.5);
         }
         
         .product-delivery {
@@ -276,7 +398,7 @@
             padding: 30px;
             border-radius: 10px;
             margin-top: 30px;
-            border: 2px solid #0f0;
+            border: 2px solid var(--accent);
         }
         
         .product-content {
@@ -289,24 +411,28 @@
         
         .download-btn {
             display: inline-block;
-            background: linear-gradient(135deg, #00cc00, #009900);
+            background: linear-gradient(135deg, var(--accent), #009624);
             color: white;
-            padding: 12px 30px;
+            padding: 15px 40px;
             border-radius: 50px;
             text-decoration: none;
             margin-top: 20px;
             font-weight: bold;
             transition: all 0.3s ease;
+            font-size: 1.2rem;
+            border: 2px solid #4caf50;
+            box-shadow: 0 5px 15px rgba(0, 200, 83, 0.3);
         }
         
         .download-btn:hover {
             transform: scale(1.05);
-            background: linear-gradient(135deg, #00ee00, #00bb00);
+            background: linear-gradient(135deg, #00e676, #00c853);
+            box-shadow: 0 8px 20px rgba(0, 200, 83, 0.5);
         }
         
         .loader {
             border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid #ffcc00;
+            border-top: 4px solid var(--primary);
             border-radius: 50%;
             width: 30px;
             height: 30px;
@@ -318,12 +444,34 @@
         .status-message {
             margin: 10px 0;
             font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .guarantee {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+            border: 1px solid var(--accent);
+            text-align: center;
+        }
+        
+        .guarantee h3 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
         }
         
         @keyframes pulse {
-            0% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.3); }
-            50% { box-shadow: 0 0 40px rgba(255, 0, 0, 0.6); }
-            100% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.3); }
+            0% { box-shadow: 0 0 20px rgba(255, 107, 0, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(255, 107, 0, 0.6); }
+            100% { box-shadow: 0 0 20px rgba(255, 107, 0, 0.3); }
+        }
+        
+        @keyframes pulseBadge {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
         
         @keyframes blink {
@@ -337,240 +485,215 @@
             100% { transform: rotate(360deg); }
         }
         
-        @media (max-width: 600px) {
-            h1 { font-size: 1.8rem; }
+        @keyframes backgroundMove {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .subtitle { font-size: 1.1rem; }
             .btn { font-size: 1.2rem; padding: 15px; }
             #countdown { font-size: 1.8rem; }
             .container { padding: 25px 15px; }
             .payment-options { grid-template-columns: 1fr; }
+            .price { font-size: 2.5rem; }
+            .features { flex-direction: column; align-items: center; }
+            .feature { width: 100%; max-width: 300px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>THE 4-HOUR $250 SURVIVAL BLUEPRINT</h1>
-        <p class="subtitle">Proven in Brazil - Requires only phone/computer</p>
+        <div class="header">
+            <div class="badge">LANÇAMENTO EXCLUSIVO</div>
+            <h1>THE 4-HOUR $423 SURVIVAL BLUEPRINT</h1>
+            <p class="subtitle">O Método Brasileiro Comprovado para Gerar R$ 2.100 em Apenas 4 Horas Usando Apenas Celular ou Computador</p>
+        </div>
         
-        <p class="warning">⚠️ OFFER EXPIRES IN:</p>
+        <div class="features">
+            <div class="feature">
+                <i class="fas fa-bolt"></i>
+                <h3>Rápido</h3>
+                <p>Resultados em apenas 4 horas</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Simples</h3>
+                <p>Usando apenas celular ou computador</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-chart-line"></i>
+                <h3>Comprovado</h3>
+                <p>Mais de 237 casos de sucesso</p>
+            </div>
+        </div>
+        
+        <div class="pricing-box">
+            <div class="old-price">De R$ 497,00</div>
+            <div class="price">R$ 97,00</div>
+            <p>Preço promocional por tempo limitado!</p>
+        </div>
+        
+        <p class="warning">⚠️ OFERTA EXPIRA EM:</p>
         <div id="countdown">04:00:00</div>
         
         <div class="payment-options">
-            <div class="payment-card" data-method="solana">
-                <div class="payment-icon"><i class="fa-brands fa-ethereum"></i></div>
-                <div class="payment-name">Phantom Wallet</div>
-                <div class="payment-desc">Solana (SOL) payment</div>
-                <div class="payment-time">INSTANT DELIVERY</div>
+            <div class="payment-card" data-method="pix">
+                <div class="payment-icon"><i class="fas fa-qrcode"></i></div>
+                <div class="payment-name">Pagamento via PIX</div>
+                <div class="payment-desc">Pagamento instantâneo e entrega automática</div>
+                <div class="payment-time">ENTREGA IMEDIATA</div>
             </div>
             
-            <div class="payment-card" data-method="wise">
-                <div class="payment-icon"><i class="fa-solid fa-building-columns"></i></div>
-                <div class="payment-name">Wise Transfer</div>
-                <div class="payment-desc">Bank transfer in USD</div>
-                <div class="payment-time">AVAILABLE NOW</div>
-            </div>
-            
-            <div class="payment-card" data-method="binance">
-                <div class="payment-icon"><i class="fa-brands fa-bitcoin"></i></div>
-                <div class="payment-name">BNB Smart Chain</div>
-                <div class="payment-desc">Pay with USDT or BRL</div>
-                <div class="payment-time">INSTANT PAYMENT</div>
+            <div class="payment-card" data-method="transferencia">
+                <div class="payment-icon"><i class="fas fa-university"></i></div>
+                <div class="payment-name">Transferência Bancária</div>
+                <div class="payment-desc">Pagamento via TED/DOC</div>
+                <div class="payment-time">ENTREGA APÓS CONFIMAÇÃO</div>
             </div>
         </div>
         
-        <button id="paymentBtn" class="btn" disabled>SELECT PAYMENT METHOD FIRST</button>
+        <button id="paymentBtn" class="btn" disabled>SELECIONE SUA FORMA DE PAGAMENTO</button>
         
-        <div id="solanaInstructions" class="instructions">
-            <h3><span class="solana-logo"></span> Phantom Wallet Instructions:</h3>
-            <p>1. Send payment in SOL (Solana) equivalent to $25:</p>
-            <div class="sol-price">
-                <div class="payment-time">CURRENT SOL PRICE: <span id="solPrice">$0.00</span></div>
-                <div class="payment-time">AMOUNT REQUIRED: <span id="solAmount">0.00 SOL</span></div>
-            </div>
+        <div id="pixInstructions" class="instructions">
+            <h3><span class="pix-logo"></span> Pagamento via PIX:</h3>
+            <p>1. Faça o pagamento de R$ 97,00 usando a chave PIX abaixo:</p>
             <div class="address-box">
-                <div id="solAddress">7q72fQboYW6Y58jw1tVv7fvaPCKZNTpmXg3ao3W2CfJ9</div>
-                <button class="copy-btn" onclick="copyToClipboard('7q72fQboYW6Y58jw1tVv7fvaPCKZNTpmXg3ao3W2CfJ9')">Copy</button>
+                <div id="pixKey">the4hourblueprint@venda.com</div>
+                <button class="copy-btn" onclick="copyToClipboard('the4hourblueprint@venda.com')">Copiar</button>
             </div>
-            <p>2. Send payment using Phantom Wallet app</p>
-            <p>3. Access will be delivered automatically after payment confirmation</p>
+            <p>2. Após o pagamento, clique no botão abaixo para liberar seu acesso:</p>
             
-            <button id="checkSolPaymentBtn" class="btn" style="margin-top: 20px;">
-                <i class="fas fa-sync-alt"></i> CHECK PAYMENT STATUS
+            <button id="confirmPixBtn" class="btn" style="margin-top: 20px;">
+                <i class="fas fa-check-circle"></i> JÁ EFETUEI O PAGAMENTO PIX
             </button>
             
-            <div class="loader" id="solPaymentLoader"></div>
-            <div class="status-message" id="solPaymentStatus"></div>
+            <div class="loader" id="pixLoader"></div>
+            <div class="status-message" id="pixStatus"></div>
         </div>
         
-        <div id="wiseInstructions" class="instructions">
-            <h3><span class="wise-logo"></span> Wise Payment Instructions:</h3>
-            <p>1. Send $25 via bank transfer to:</p>
+        <div id="transferInstructions" class="instructions">
+            <h3><span class="bank-logo">R$</span> Transferência Bancária:</h3>
+            <p>1. Faça uma transferência de R$ 97,00 para:</p>
             <div class="address-box">
-                Account Name: Jorge Vytor<br>
-                Routing Number: 084009519<br>
-                Account Number: 221006827362543
-                <button class="copy-btn" onclick="copyToClipboard('084009519\n9600000000000000')">Copy</button>
+                Banco: 260 - Nu Pagamentos S.A.<br>
+                Agência: 0001<br>
+                Conta: 1234567-8<br>
+                Nome: THE 4-HOUR BLUEPRINT LTDA<br>
+                CNPJ: 12.345.678/0001-90
+                <button class="copy-btn" onclick="copyToClipboard('Banco: 260 - Nu Pagamentos S.A.\nAgência: 0001\nConta: 1234567-8')">Copiar</button>
             </div>
-            <p>2. After payment, email the receipt to:cap42mnc0@gmail.com</p>
-            <p>3. You'll receive access within 15 minutes of confirmation</p>
+            <p>2. Após a transferência, envie o comprovante para WhatsApp:</p>
             
-            <button id="confirmWiseBtn" class="btn" style="margin-top: 20px;">
-                <i class="fas fa-envelope"></i> EMAIL PAYMENT RECEIPT
-            </button>
-        </div>
-        
-        <div id="binanceInstructions" class="instructions">
-            <h3><span class="binance-logo"></span> BNB Smart Chain Instructions:</h3>
-            <p>1. Send $25 equivalent in USDT or BRL via BNB Smart Chain</p>
-            <div class="address-box">
-                Address Wallet: 0x9c39F6a8e54e8756c47ed9D7cEcE647eF2331657<br>
-                Phone Number: +55 21 97714-4747<br>
-                <button class="copy-btn" onclick="copyToClipboard('123456789\n+55 11 98765-4321')">Copy</button>
-            </div>
-            <p>2. After payment, send transaction screenshot to WhatsApp or Telegram</p>
-            <p>3. Instant delivery after confirmation</p>
-            
-            <div style="margin-top: 20px; display: flex; justify-content: center; gap: 15px;">
-                <a href="https://wa.me/5521977144747" class="btn" style="background: linear-gradient(135deg, #25D366, #128C7E); width: auto;">
-                    <i class="fab fa-whatsapp"></i> WhatsApp
-                </a>
-                <a href="https://t.me/cap42mnc" class="btn" style="background: linear-gradient(135deg, #0088cc, #005f8c); width: auto;">
-                    <i class="fab fa-telegram"></i> Telegram
-                </a>
-            </div>
+            <a href="https://wa.me/5511999999999" class="btn" style="background: linear-gradient(135deg, #25D366, #128C7E); margin-top: 20px;">
+                <i class="fab fa-whatsapp"></i> ENVIAR COMPROVANTE VIA WHATSAPP
+            </a>
         </div>
         
         <div id="productDelivery" class="product-delivery">
-            <h2><i class="fas fa-check-circle"></i> PAYMENT CONFIRMED!</h2>
-            <p>Thank you for your purchase. Here's your product:</p>
+            <h2><i class="fas fa-check-circle"></i> PAGAMENTO CONFIRMADO!</h2>
+            <p>Obrigado por sua compra. Aqui está seu produto:</p>
             
             <div class="product-content">
-                <h3>THE 4-HOUR $250 SURVIVAL BLUEPRINT</h3>
-                <p><strong>Proven Method from Brazil</strong></p>
-                <p>This comprehensive guide will teach you how to generate $250 in just 4 hours using only your phone or computer.</p>
+                <h3>THE 4-HOUR $423 SURVIVAL BLUEPRINT</h3>
+                <p><strong>O Método Comprovado que Funcionou no Brasil</strong></p>
+                <p>Este guia completo vai te ensinar como gerar R$ 2.100 em apenas 4 horas usando apenas seu celular ou computador.</p>
                 
                 <ul style="margin: 15px 0 15px 20px;">
-                    <li>Step-by-step blueprint for quick earnings</li>
-                    <li>Proven strategies tested in the Brazilian market</li>
-                    <li>No initial investment required</li>
-                    <li>Works worldwide with internet access</li>
-                    <li>24/7 support for all buyers</li>
+                    <li>Passo a passo para ganhos rápidos</li>
+                    <li>Estratégias testadas no mercado brasileiro</li>
+                    <li>Sem necessidade de investimento inicial</li>
+                    <li>Funciona em qualquer lugar com internet</li>
+                    <li>Suporte 24/7 para todos os compradores</li>
                 </ul>
                 
-                <a href="#" class="download-btn"><i class="fas fa-download"></i> https://drive.google.com/file/d/1bmvJt44MB7Jwa0mwJg_f3gQervg6tYLy/view?usp=sharing (PDF)</a>
-                <p style="margin-top: 15px; font-size: 0.9rem;">You'll also receive a copy by email within 5 minutes.</p>
+                <a href="#" class="download-btn"><i class="fas fa-download"></i> BAIXAR AGORA (PDF)</a>
+                <p style="margin-top: 15px; font-size: 0.9rem;">Você também receberá uma cópia por e-mail em até 5 minutos.</p>
             </div>
         </div>
         
+        <div class="guarantee">
+            <h3><i class="fas fa-shield-alt"></i> Garantia de 7 Dias</h3>
+            <p>Se você não gerar pelo menos R$ 500 nas primeiras 24 horas usando nosso método, devolvemos 100% do seu dinheiro sem perguntas!</p>
+        </div>
+        
         <p class="disclaimer">
-            This is a limited time offer. All sales are final. By purchasing, you agree to our terms of service. 
-            Results may vary based on individual effort and market conditions. Cryptocurrency payments are non-refundable.
+            Este é um produto digital. O acesso será enviado por e-mail após confirmação do pagamento. Todos os direitos reservados. Resultados podem variar de acordo com o esforço individual.
         </p>
     </div>
 
     <script>
         // Configurações
-        const SOLANA_RPC_URL = 'https://api.mainnet-beta.solana.com';
-        const MERCHANT_WALLET = '7q72fQboYW6Y58jw1tVv7fvaPCKZNTpmXg3ao3W2CfJ9';
-        const PRODUCT_PRICE_USD = 25;
+        const PRODUCT_PRICE = 97;
+        let paymentVerified = false;
+        let timeLeft = 4 * 60 * 60; // 4 horas em segundos
         
         // Elementos DOM
         const countdownElement = document.getElementById('countdown');
         const paymentBtn = document.getElementById('paymentBtn');
-        const solPaymentLoader = document.getElementById('solPaymentLoader');
-        const solPaymentStatus = document.getElementById('solPaymentStatus');
+        const pixLoader = document.getElementById('pixLoader');
+        const pixStatus = document.getElementById('pixStatus');
         const productDelivery = document.getElementById('productDelivery');
-        const solPriceElement = document.getElementById('solPrice');
-        const solAmountElement = document.getElementById('solAmount');
         
-        // Estado da aplicação
-        let paymentVerified = false;
-        let timeLeft = 4 * 60 * 60; // 4 horas em segundos
-        let solPrice = 0;
-        let requiredSol = 0;
+        // Seleção de método de pagamento
+        const paymentCards = document.querySelectorAll('.payment-card');
         let selectedMethod = null;
         
-        // Conectar à rede Solana
-        const connection = new solanaWeb3.Connection(SOLANA_RPC_URL);
-        
-        // Atualizar preço do SOL
-        async function updateSolPrice() {
-            try {
-                // Em produção, você usaria uma API real
-                // Exemplo: const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd');
-                // solPrice = (await response.json()).solana.usd;
+        paymentCards.forEach(card => {
+            card.addEventListener('click', function() {
+                // Remove seleção anterior
+                paymentCards.forEach(c => c.classList.remove('selected'));
                 
-                // Simulação de preço
-                solPrice = 150 + (Math.random() * 10 - 5); // $150 ± $2.5
-                requiredSol = (PRODUCT_PRICE_USD / solPrice).toFixed(4);
+                // Seleciona o atual
+                this.classList.add('selected');
+                selectedMethod = this.dataset.method;
                 
-                solPriceElement.textContent = `$${solPrice.toFixed(2)}`;
-                solAmountElement.textContent = `${requiredSol} SOL`;
-            } catch (error) {
-                console.error('Error fetching SOL price:', error);
-                solPriceElement.textContent = 'Error loading price';
-            }
-        }
+                // Atualiza botão
+                paymentBtn.textContent = `CONTINUAR COM ${this.querySelector('.payment-name').textContent.toUpperCase()}`;
+                paymentBtn.disabled = false;
+                
+                // Mostra instruções
+                document.querySelectorAll('.instructions').forEach(el => el.style.display = 'none');
+                document.getElementById(`${selectedMethod}Instructions`).style.display = 'block';
+            });
+        });
         
-        // Verificar pagamento Solana
-        async function checkSolPayment() {
-            solPaymentLoader.style.display = 'block';
-            solPaymentStatus.textContent = 'Checking for payments...';
-            solPaymentStatus.style.color = '#ffcc00';
+        // Botão de ação principal
+        paymentBtn.addEventListener('click', function() {
+            if (!selectedMethod) return;
             
-            try {
-                // Obter transações da carteira
-                const publicKey = new solanaWeb3.PublicKey(MERCHANT_WALLET);
-                const transactions = await connection.getConfirmedSignaturesForAddress2(publicKey, {
-                    limit: 10
-                });
+            // Para PIX, o botão "JÁ EFETUEI O PAGAMENTO" já está visível
+            // Para transferência, o botão do WhatsApp já está na seção
+        });
+        
+        // Botão de confirmação PIX
+        document.getElementById('confirmPixBtn').addEventListener('click', function() {
+            pixLoader.style.display = 'block';
+            pixStatus.textContent = 'Verificando pagamento...';
+            pixStatus.style.color = '#ffa726';
+            
+            // Simula verificação do pagamento
+            setTimeout(() => {
+                pixLoader.style.display = 'none';
+                pixStatus.textContent = 'Pagamento confirmado! Entregando seu produto...';
+                pixStatus.style.color = '#4caf50';
                 
-                // Verificar se há pagamentos recentes
-                let paymentFound = false;
-                const now = Math.floor(Date.now() / 1000); // Timestamp atual
-                
-                for (const tx of transactions) {
-                    // Ignorar transações antigas (mais de 10 minutos)
-                    if (now - tx.blockTime > 600) continue;
+                // Mostra o produto após 2 segundos
+                setTimeout(() => {
+                    productDelivery.style.display = 'block';
+                    paymentVerified = true;
                     
-                    const txDetails = await connection.getTransaction(tx.signature);
+                    // Atualiza o contador
+                    countdownElement.textContent = "PRODUTO ENTREGUE!";
+                    countdownElement.style.color = "#4caf50";
+                    countdownElement.style.animation = "none";
                     
-                    // Verificar se o pagamento é suficiente
-                    const amount = txDetails.meta.preBalances[0] - txDetails.meta.postBalances[0];
-                    const amountInSol = amount / solanaWeb3.LAMPORTS_PER_SOL;
-                    
-                    if (amountInSol >= requiredSol * 0.95) { // Aceitar pagamentos com 5% de tolerância
-                        paymentFound = true;
-                        break;
-                    }
-                }
-                
-                if (paymentFound) {
-                    solPaymentStatus.textContent = 'Payment confirmed! Delivering your product...';
-                    solPaymentStatus.style.color = '#0f0';
-                    
-                    // Simular processamento
-                    setTimeout(() => {
-                        solPaymentLoader.style.display = 'none';
-                        productDelivery.style.display = 'block';
-                        paymentVerified = true;
-                        
-                        // Atualizar contador para "Oferta Expirada" para este cliente
-                        countdownElement.textContent = "PRODUCT DELIVERED";
-                        countdownElement.style.color = "#0f0";
-                        countdownElement.style.animation = "none";
-                    }, 3000);
-                } else {
-                    solPaymentLoader.style.display = 'none';
-                    solPaymentStatus.textContent = 'No payment detected yet. Please try again in 1 minute.';
-                    solPaymentStatus.style.color = '#ff6666';
-                }
-            } catch (error) {
-                console.error('Error checking payment:', error);
-                solPaymentLoader.style.display = 'none';
-                solPaymentStatus.textContent = 'Error checking payment. Please try again.';
-                solPaymentStatus.style.color = '#ff0000';
-            }
-        }
+                    // Rola a página até o produto
+                    productDelivery.scrollIntoView({ behavior: 'smooth' });
+                }, 2000);
+            }, 3000);
+        });
         
         // Copiar para área de transferência
         function copyToClipboard(text) {
@@ -578,13 +701,13 @@
                 .then(() => {
                     const btn = event.target;
                     const originalText = btn.textContent;
-                    btn.textContent = 'Copied!';
+                    btn.textContent = 'Copiado!';
                     setTimeout(() => {
                         btn.textContent = originalText;
                     }, 2000);
                 })
                 .catch(err => {
-                    console.error('Failed to copy: ', err);
+                    console.error('Falha ao copiar: ', err);
                 });
         }
         
@@ -599,56 +722,14 @@
             
             if (timeLeft <= 0) {
                 clearInterval(countdownInterval);
-                countdownElement.innerHTML = "OFFER EXPIRED";
-                countdownElement.style.color = "#ff0000";
+                countdownElement.innerHTML = "OFERTA EXPIRADA";
+                countdownElement.style.color = "#f44336";
                 countdownElement.style.animation = "none";
                 paymentBtn.disabled = true;
             } else if (!paymentVerified) {
                 timeLeft--;
             }
         }
-        
-        // Seleção de método de pagamento
-        const paymentCards = document.querySelectorAll('.payment-card');
-        
-        paymentCards.forEach(card => {
-            card.addEventListener('click', function() {
-                // Remove previous selection
-                paymentCards.forEach(c => c.classList.remove('selected'));
-                
-                // Select current card
-                this.classList.add('selected');
-                selectedMethod = this.dataset.method;
-                
-                // Update button
-                paymentBtn.textContent = `CONTINUE WITH ${this.querySelector('.payment-name').textContent.toUpperCase()}`;
-                paymentBtn.disabled = false;
-                
-                // Show instructions
-                document.querySelectorAll('.instructions').forEach(el => el.style.display = 'none');
-                document.getElementById(`${selectedMethod}Instructions`).style.display = 'block';
-            });
-        });
-        
-        // Botão de ação principal
-        paymentBtn.addEventListener('click', function() {
-            if (!selectedMethod) return;
-            
-            // Para Solana, o botão "CHECK PAYMENT" já está visível
-            // Para outros métodos, o botão de ação específico já está na seção
-        });
-        
-        // Botão de verificação Solana
-        document.getElementById('checkSolPaymentBtn').addEventListener('click', checkSolPayment);
-        
-        // Botão de confirmação Wise
-        document.getElementById('confirmWiseBtn').addEventListener('click', function() {
-            alert('Please send your payment receipt to cap42mnc0@gmail.com. We will verify and deliver your product within 15 minutes.');
-        });
-        
-        // Inicialização
-        updateSolPrice();
-        setInterval(updateSolPrice, 60000); // Atualizar preço a cada minuto
         
         // Atualizar contador a cada segundo
         const countdownInterval = setInterval(updateCountdown, 1000);
