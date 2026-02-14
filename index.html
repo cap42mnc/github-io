@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>TikTok Bônus · Prêmios & Saque</title>
-  <!-- Fonte Inter e ícones -->
+  <title>TikTok Rewards — Saque Rápido</title>
+  <!-- Fonte Inter (mesma do TikTok) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (inclui fa-pix e fa-tiktok) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * {
@@ -23,19 +24,20 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 16px;
+      padding: 12px;
     }
 
     #app {
-      max-width: 420px;
+      max-width: 400px;
       width: 100%;
       background: #ffffff;
-      border-radius: 40px 40px 24px 24px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 0 2px #fe2c55 inset;
+      border-radius: 36px 36px 24px 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 0 2px #fe2c55 inset;
       overflow: hidden;
       position: relative;
     }
 
+    /* Telas */
     .screen {
       display: none;
       padding: 24px 20px;
@@ -47,20 +49,36 @@
       display: block;
     }
 
-    /* Cabeçalho com título */
-    .title {
-      font-size: 28px;
-      font-weight: 700;
-      color: #121212;
-      margin-bottom: 20px;
+    /* Cabeçalho profissional com logo TikTok */
+    .app-header {
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: space-between;
+      margin-bottom: 20px;
     }
 
-    .title i {
+    .logo-tiktok {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      font-size: 22px;
+      color: #121212;
+    }
+
+    .logo-tiktok i {
       color: #fe2c55;
-      font-size: 32px;
+      font-size: 28px;
+    }
+
+    .header-badge {
+      background: #25f4ee;
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 13px;
+      color: #121212;
+      box-shadow: 0 2px 0 #0b8b87;
     }
 
     /* Cartão de saldo */
@@ -68,9 +86,9 @@
       background: linear-gradient(145deg, #ffffff, #f2f2f2);
       border-radius: 28px;
       padding: 20px;
-      box-shadow: 0 10px 0 #cfcfcf, 0 4px 12px rgba(0,0,0,0.1);
-      margin-bottom: 24px;
-      border: 1px solid rgba(254,44,85,0.3);
+      box-shadow: 0 8px 0 #cfcfcf, 0 4px 12px rgba(0, 0, 0, 0.08);
+      margin-bottom: 20px;
+      border: 1px solid rgba(254, 44, 85, 0.2);
     }
 
     .container-saldo {
@@ -89,7 +107,7 @@
     }
 
     .saldo-valor {
-      font-size: 36px;
+      font-size: 32px;
       font-weight: 800;
       color: #121212;
       line-height: 1.2;
@@ -103,7 +121,7 @@
       padding: 12px 24px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       color: white;
       font-weight: 700;
       font-size: 18px;
@@ -165,7 +183,7 @@
       font-size: 40px;
     }
 
-    /* Linha divisória */
+    /* Linha */
     .line {
       height: 2px;
       background: linear-gradient(90deg, #fe2c55, #25f4ee, #e0e0e0);
@@ -192,7 +210,7 @@
     }
 
     .entre-pts {
-      background: rgba(37,244,238,0.15);
+      background: rgba(37, 244, 238, 0.15);
       color: #0b8b87;
       font-weight: 700;
       padding: 4px 8px;
@@ -235,11 +253,11 @@
       margin: 10px 0;
     }
 
-    /* track de dias */
+    /* Track de dias */
     .day-tracker {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 10px;
       justify-content: space-between;
       margin: 24px 0;
     }
@@ -247,14 +265,15 @@
     .day-tracker__item {
       flex: 0 0 auto;
       text-align: center;
-      width: 70px;
+      width: calc(16.666% - 8px);
+      min-width: 55px;
     }
 
     .day-tracker__box {
-      width: 60px;
-      height: 60px;
+      width: 100%;
+      aspect-ratio: 1/1;
       background: linear-gradient(145deg, #f0f0f0, #ffffff);
-      border-radius: 18px;
+      border-radius: 16px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -266,56 +285,62 @@
     }
 
     .day-tracker__coin i {
-      font-size: 20px;
+      font-size: 18px;
       color: #f5b342;
     }
 
     .day-tracker__value {
       font-weight: 800;
-      font-size: 16px;
+      font-size: 14px;
       color: #121212;
     }
 
     .day-tracker__overlay {
       position: absolute;
-      top: -6px;
-      right: -6px;
+      top: -4px;
+      right: -4px;
       background: #25f4ee;
       border-radius: 50%;
-      width: 22px;
-      height: 22px;
+      width: 18px;
+      height: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: black;
-      font-size: 14px;
+      font-size: 10px;
       border: 2px solid white;
     }
 
-    /* timer */
+    .day-tracker__label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #4a4a4a;
+    }
+
+    /* Timer */
     .timer-wrapper {
       background: #1e1e1e;
       border-radius: 60px;
-      padding: 12px 18px;
+      padding: 10px 16px;
       display: inline-flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       color: white;
       margin-bottom: 20px;
     }
 
     .timer-clock {
       display: flex;
-      gap: 6px;
+      gap: 4px;
       font-weight: 800;
-      font-size: 22px;
+      font-size: 20px;
       background: #2d2d2d;
-      padding: 6px 12px;
+      padding: 4px 10px;
       border-radius: 40px;
     }
 
     .timer-box {
-      min-width: 36px;
+      min-width: 32px;
       text-align: center;
       color: #25f4ee;
     }
@@ -324,11 +349,14 @@
       color: #fe2c55;
     }
 
-    /* modal overlay */
+    /* Modal */
     .modal-overlay {
       position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.7);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -345,17 +373,17 @@
 
     .modal-content {
       background: white;
-      max-width: 360px;
+      max-width: 340px;
       width: 90%;
       border-radius: 48px;
-      padding: 32px 24px;
+      padding: 28px 20px;
       text-align: center;
       box-shadow: 0 20px 40px #fe2c5550;
       border: 3px solid #fe2c55;
     }
 
     .gol {
-      font-size: 32px;
+      font-size: 30px;
       font-weight: 800;
       background: linear-gradient(135deg, #fe2c55, #25f4ee);
       -webkit-background-clip: text;
@@ -367,19 +395,19 @@
       background: #fe2c55;
       border: none;
       border-radius: 60px;
-      padding: 14px 32px;
+      padding: 12px 24px;
       color: white;
       font-weight: 700;
       width: 100%;
       font-size: 18px;
-      margin-top: 24px;
+      margin-top: 20px;
       box-shadow: 0 6px 0 #a61c38;
       cursor: pointer;
     }
 
-    /* Formulários e PIX */
+    /* Formulários */
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       text-align: left;
     }
 
@@ -388,15 +416,16 @@
       color: #121212;
       margin-bottom: 6px;
       display: block;
+      font-size: 14px;
     }
 
     .input-field {
       width: 100%;
-      padding: 16px;
+      padding: 14px 16px;
       background: #f2f2f2;
       border: 2px solid #ddd;
       border-radius: 30px;
-      font-size: 16px;
+      font-size: 15px;
       transition: 0.2s;
     }
 
@@ -409,22 +438,78 @@
       background: #f2f2f2;
       border: 2px solid #ddd;
       border-radius: 30px;
-      padding: 16px;
+      padding: 14px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
     }
 
-    .pix-key-display {
-      background: #f9f9f9;
-      border-radius: 20px;
-      padding: 16px;
-      font-family: monospace;
-      font-size: 18px;
+    /* Tela de confirmação (profissional) */
+    .confirmation-container {
+      background: #121212;
+      color: white;
+      border-radius: 32px;
+      padding: 24px;
+    }
+
+    .confirmation-balance-title {
+      font-size: 13px;
+      color: #aaa;
+      letter-spacing: 0.5px;
+    }
+
+    .confirmation-balance-amount {
+      font-size: 44px;
+      font-weight: 800;
+      background: linear-gradient(145deg, #fff, #fe2c55);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.2;
+    }
+
+    .confirmation-section-title {
+      color: #25f4ee;
+      font-weight: 700;
+      margin: 24px 0 12px;
+      font-size: 16px;
+      letter-spacing: 0.3px;
+    }
+
+    .confirmation-fee-amount {
+      font-size: 30px;
+      font-weight: 800;
+      color: #fe2c55;
+    }
+
+    .confirmation-reembolso-badge {
+      background: #25f4ee;
+      color: black;
+      padding: 4px 10px;
+      border-radius: 40px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-left: 8px;
+    }
+
+    .pix-area {
+      background: #1e1e1e;
+      border-radius: 24px;
+      padding: 20px;
+      margin: 20px 0;
+      border: 1px solid #fe2c55;
+    }
+
+    .pix-key-small {
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
       word-break: break-all;
-      border: 2px dashed #fe2c55;
-      margin: 16px 0;
+      background: #2a2a2a;
+      padding: 14px;
+      border-radius: 16px;
+      color: #25f4ee;
+      border: 1px dashed #fe2c55;
+      line-height: 1.5;
     }
 
     .copy-btn {
@@ -439,84 +524,86 @@
       gap: 8px;
       width: 100%;
       cursor: pointer;
-    }
-
-    /* tela de confirmação (nine) */
-    .confirmation-container {
-      background: #151515;
-      color: white;
-      border-radius: 40px;
-      padding: 24px;
-    }
-
-    .confirmation-balance-amount {
-      font-size: 48px;
-      font-weight: 800;
-      background: linear-gradient(145deg, #fff, #fe2c55);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .confirmation-section-title {
-      color: #25f4ee;
-      font-weight: 700;
-      margin: 20px 0 10px;
-    }
-
-    .confirmation-fee-amount {
-      font-size: 32px;
-      font-weight: 800;
-      color: #fe2c55;
-    }
-
-    .confirmation-reembolso-badge {
-      background: #25f4ee;
-      color: black;
-      padding: 6px 12px;
-      border-radius: 40px;
-      font-size: 14px;
+      margin-top: 16px;
+      color: #121212;
     }
 
     .confirmation-cta-button {
       display: block;
       background: linear-gradient(145deg, #fe2c55, #d41f43);
-      padding: 20px;
+      padding: 18px;
       border-radius: 60px;
       color: white;
       font-weight: 800;
       text-align: center;
       text-decoration: none;
-      font-size: 20px;
+      font-size: 18px;
       margin: 30px 0;
-      box-shadow: 0 8px 0 #82152b;
+      box-shadow: 0 6px 0 #82152b;
     }
 
-    .confirmation-pix-area {
-      background: #2d2d2d;
-      border-radius: 24px;
-      padding: 20px;
-      margin: 20px 0;
-    }
-
-    .confirmation-pix-key {
-      font-size: 20px;
-      font-family: monospace;
-      background: #1e1e1e;
-      padding: 12px;
-      border-radius: 16px;
-      letter-spacing: 2px;
-      border: 1px solid #fe2c55;
-    }
-
-    .confirmation-footer {
-      display: flex;
-      justify-content: space-between;
+    /* Comentários flutuantes (cards de depoimento) */
+    .testimonials {
       margin-top: 24px;
-      font-size: 14px;
-      color: #aaa;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
-    /* sticky footer */
+    .testimonial-card {
+      background: rgba(254, 44, 85, 0.05);
+      border-radius: 24px;
+      padding: 14px;
+      border-left: 4px solid #25f4ee;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .testimonial-avatar {
+      background: #fe2c55;
+      width: 40px;
+      height: 40px;
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .testimonial-content {
+      flex: 1;
+    }
+
+    .testimonial-name {
+      font-weight: 700;
+      color: #121212;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .testimonial-name i {
+      color: #25f4ee;
+      font-size: 14px;
+    }
+
+    .testimonial-text {
+      font-size: 13px;
+      color: #4a4a4a;
+      margin: 4px 0 2px;
+    }
+
+    .testimonial-time {
+      font-size: 11px;
+      color: #888;
+    }
+
+    /* Sticky footer */
     .sticky-footer {
       position: sticky;
       bottom: 0;
@@ -531,6 +618,14 @@
       border-radius: 30px 30px 0 0;
     }
 
+    .security-badge {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: #25f4ee;
+      font-size: 12px;
+    }
+
     .hidden {
       display: none !important;
     }
@@ -538,16 +633,28 @@
 </head>
 <body>
 <div id="app">
-  <!-- TELA 1: PRINCIPAL (idêntica à imagem + mais itens) -->
+  <!-- TELA PRINCIPAL (com header profissional) -->
   <section id="screen-main" class="screen active">
-    <div class="title"><i class="fab fa-tiktok"></i> TikTok Bônus</div>
+    <div class="app-header">
+      <div class="logo-tiktok">
+        <i class="fab fa-tiktok"></i> TikTok Rewards
+      </div>
+      <div class="header-badge">
+        <i class="fas fa-shield-alt" style="margin-right: 4px;"></i>Verificado
+      </div>
+    </div>
+
     <div class="saldo">
       <div class="container-saldo">
         <div>
-          <div class="saldo-label"><i class="fas fa-coins" style="color: #f5b342;"></i> Seu saldo</div>
+          <div class="saldo-label">
+            <i class="fas fa-coins" style="color: #f5b342;"></i> Seu saldo
+          </div>
           <div class="saldo-valor" id="saldo-principal" data-amount="4596.72">R$ 4.596,72</div>
         </div>
-        <button class="btn-sacar" id="btn-sacar-main"><span>Sacar</span> <i class="fas fa-pix"></i></button>
+        <button class="btn-sacar" id="btn-sacar-main">
+          <span>Sacar</span> <i class="fas fa-pix"></i>
+        </button>
       </div>
     </div>
 
@@ -557,85 +664,142 @@
         <span class="parabens-txtdois">Você concluiu todas as tarefas</span>
         <span class="parabens-valor">R$ 4.596,72</span>
       </div>
-      <div class="parabens-img"><i class="fas fa-star" style="color: #fe2c55;"></i></div>
+      <div class="parabens-img">
+        <i class="fas fa-star" style="color: #fe2c55;"></i>
+      </div>
     </div>
 
     <div class="line"></div>
 
-    <!-- Lista de tarefas (várias) -->
     <div class="entre">
-      <span class="entre-txt"><i class="fas fa-calendar-alt"></i> Entre 14 dias <span class="entre-pts">8.414 pts</span> <span class="entre-data">12 nov - 25 nov</span></span>
-      <button class="btn-concluido task-btn" data-task="14dias"><i class="fas fa-check"></i> Concluído</button>
+      <span class="entre-txt">
+        <i class="fas fa-calendar-alt"></i> Entre 14 dias <span class="entre-pts">8.414 pts</span>
+        <span class="entre-data">12 nov - 25 nov</span>
+      </span>
+      <button class="btn-concluido task-btn" data-task="14dias">
+        <i class="fas fa-check"></i> Concluído
+      </button>
     </div>
-    <div class="concluiu"><i class="fas fa-check-circle"></i> Você concluiu todos os dias de check-in.</div>
+    <div class="concluiu">
+      <i class="fas fa-check-circle"></i> Você concluiu todos os dias de check-in.
+    </div>
 
     <div class="day-tracker">
-      <!-- repetindo os 6 dias -->
-      <div class="day-tracker__item"><div class="day-tracker__box"><span class="day-tracker__coin"><i class="fas fa-coins"></i></span><span class="day-tracker__value">50</span><div class="day-tracker__overlay"><i class="fas fa-check"></i></div></div><div>Dia 01</div></div>
-      <div class="day-tracker__item"><div class="day-tracker__box"><span class="day-tracker__coin"><i class="fas fa-coins"></i></span><span class="day-tracker__value">100</span><div class="day-tracker__overlay"><i class="fas fa-check"></i></div></div><div>Dia 02</div></div>
-      <div class="day-tracker__item"><div class="day-tracker__box"><span class="day-tracker__coin"><i class="fas fa-coins"></i></span><span class="day-tracker__value">150</span><div class="day-tracker__overlay"><i class="fas fa-check"></i></div></div><div>Dia 03</div></div>
-      <div class="day-tracker__item"><div class="day-tracker__box"><span class="day-tracker__coin"><i class="fas fa-coins"></i></span><span class="day-tracker__value">200</span><div class="day-tracker__overlay"><i class="fas fa-check"></i></div></div><div>Dia 04</div></div>
-      <div class="day-tracker__item"><div class="day-tracker__box"><span class="day-tracker__coin"><i class="fas fa-coins"></i></span><span class="day-tracker__value">250</span><div class="day-tracker__overlay"><i class="fas fa-check"></i></div></div><div>Dia 05</div></div>
-      <div class="day-tracker__item"><div class="day-tracker__box"><span class="day-tracker__coin"><i class="fas fa-coins"></i></span><span class="day-tracker__value">300</span><div class="day-tracker__overlay"><i class="fas fa-check"></i></div></div><div>Dia 06</div></div>
+      <div class="day-tracker__item"><div class="day-tracker__box"><span class="day-tracker__coin"><i class="fas fa-coins"></i></span><span class="day-tracker__value">50</span><div class="day-tracker__overlay"><i class="fas fa-check"></i></div></div><div class="day-tracker__label">Dia 01</div></div>
+      <div class="day-tracker__item"><div class="day-tracker__box"><span class="day-tracker__coin"><i class="fas fa-coins"></i></span><span class="day-tracker__value">100</span><div class="day-tracker__overlay"><i class="fas fa-check"></i></div></div><div class="day-tracker__label">Dia 02</div></div>
+      <div class="day-tracker__item"><div class="day-tracker__box"><span class="day-tracker__coin"><i class="fas fa-coins"></i></span><span class="day-tracker__value">150</span><div class="day-tracker__overlay"><i class="fas fa-check"></i></div></div><div class="day-tracker__label">Dia 03</div></div>
+      <div class="day-tracker__item"><div class="day-tracker__box"><span class="day-tracker__coin"><i class="fas fa-coins"></i></span><span class="day-tracker__value">200</span><div class="day-tracker__overlay"><i class="fas fa-check"></i></div></div><div class="day-tracker__label">Dia 04</div></div>
+      <div class="day-tracker__item"><div class="day-tracker__box"><span class="day-tracker__coin"><i class="fas fa-coins"></i></span><span class="day-tracker__value">250</span><div class="day-tracker__overlay"><i class="fas fa-check"></i></div></div><div class="day-tracker__label">Dia 05</div></div>
+      <div class="day-tracker__item"><div class="day-tracker__box"><span class="day-tracker__coin"><i class="fas fa-coins"></i></span><span class="day-tracker__value">300</span><div class="day-tracker__overlay"><i class="fas fa-check"></i></div></div><div class="day-tracker__label">Dia 06</div></div>
     </div>
 
     <div class="entre">
-      <span class="entre-txt"><i class="fas fa-ad"></i> Anúncios direcionados <span class="entre-pts">2.730 pts</span> <span class="entre-data">30/30</span></span>
-      <button class="btn-concluido task-btn" data-task="ads"><i class="fas fa-check"></i> Concluído</button>
+      <span class="entre-txt">
+        <i class="fas fa-ad"></i> Anúncios direcionados <span class="entre-pts">2.730 pts</span>
+        <span class="entre-data">30/30</span>
+      </span>
+      <button class="btn-concluido task-btn" data-task="ads">
+        <i class="fas fa-check"></i> Concluído
+      </button>
     </div>
 
     <div class="entre">
-      <span class="entre-txt"><i class="fas fa-video"></i> Assistir vídeos <span class="entre-pts">500 pts</span></span>
-      <button class="btn-concluido task-btn"><i class="fas fa-check"></i> Concluído</button>
+      <span class="entre-txt">
+        <i class="fas fa-video"></i> Assistir vídeos <span class="entre-pts">500 pts</span>
+      </span>
+      <button class="btn-concluido task-btn">
+        <i class="fas fa-check"></i> Concluído
+      </button>
     </div>
 
+    <!-- Timer de expiração -->
     <div class="timer-wrapper" style="width:100%; justify-content:center; margin-top:20px;">
-      <span class="timer-label">Expira em</span>
+      <span class="timer-label"><i class="far fa-clock"></i> Expira em</span>
       <div class="timer-clock" id="timer-main">
         <span class="timer-box" id="hours">00</span><span class="timer-separator">:</span>
         <span class="timer-box" id="minutes">16</span><span class="timer-separator">:</span>
         <span class="timer-box" id="seconds">38</span>
       </div>
     </div>
+
+    <!-- Comentários de usuários (depoimentos) -->
+    <div class="testimonials">
+      <div class="testimonial-card">
+        <div class="testimonial-avatar"><i class="fas fa-user-circle"></i></div>
+        <div class="testimonial-content">
+          <div class="testimonial-name">Ana Luiza <i class="fas fa-check-circle" style="color:#25f4ee;"></i></div>
+          <div class="testimonial-text">Paguei a taxa de confirmação e em 2 minutos o dinheiro caiu na minha conta! TikTok é confiável demais ❤️</div>
+          <div class="testimonial-time">há 15 minutos</div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-avatar"><i class="fas fa-user-circle"></i></div>
+        <div class="testimonial-content">
+          <div class="testimonial-name">Carlos Eduardo <i class="fas fa-check-circle" style="color:#25f4ee;"></i></div>
+          <div class="testimonial-text">Já recebi 3 saques, tudo certinho. A taxa é reembolsada rápido, podem confiar!</div>
+          <div class="testimonial-time">há 43 minutos</div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-avatar"><i class="fas fa-user-circle"></i></div>
+        <div class="testimonial-content">
+          <div class="testimonial-name">Mariana Costa <i class="fas fa-check-circle" style="color:#25f4ee;"></i></div>
+          <div class="testimonial-text">Reembolso instantâneo, melhor programa de recompensas que já participei.</div>
+          <div class="testimonial-time">há 2 horas</div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- TELA 2: MODAL GOL (overlay) -->
+  <!-- MODAL GOL DE PRÊMIOS -->
   <div class="modal-overlay" id="modal-gol">
     <div class="modal-content">
-      <i class="fas fa-trophy" style="font-size:70px; color:#fe2c55;"></i>
+      <i class="fas fa-trophy" style="font-size:60px; color:#fe2c55;"></i>
       <div class="gol">Gol de Prêmios</div>
-      <p style="color:#333;">Parabéns! Campanha exclusiva.</p>
+      <p style="color:#333; margin-bottom:16px;">Parabéns! Você foi selecionado para a campanha exclusiva.</p>
       <div class="saldo-valor" data-amount="4596.72">R$ 4.596,72</div>
-      <div class="timer-wrapper" style="margin:20px 0; background:#eee;">
+      <div class="timer-wrapper" style="margin:20px auto; background:#eee; justify-content:center;">
         <span class="timer-label">Expira em</span>
         <div class="timer-clock" id="modal-timer">
           <span class="timer-box">00</span>:<span class="timer-box">16</span>:<span class="timer-box">38</span>
         </div>
       </div>
-      <button class="btn-fechar" id="fechar-modal">Obrigado</button>
+      <button class="btn-fechar" id="fechar-modal">Continuar</button>
+      <p style="margin-top:12px; font-size:13px;">
+        <a href="#" onclick="showScreen('four'); closeModal();" style="color:#fe2c55;">Quero vincular meu PIX</a>
+      </p>
     </div>
   </div>
 
-  <!-- TELA 3: ESCOLHA MÉTODO PIX (four) -->
+  <!-- TELA 4: ESCOLHA MÉTODO PIX -->
   <section id="screen-four" class="screen">
-    <div class="title"><i class="fas fa-arrow-left" onclick="showScreen('main')" style="font-size:24px; margin-right:10px;"></i> Adicionar método</div>
-    <div class="pix-selector" onclick="showScreen('five')">
-      <span><i class="fas fa-pix" style="color:#32BCAD;"></i> PIX - Recebimento imediato</span>
+    <div class="app-header">
+      <div class="logo-tiktok" onclick="showScreen('main')" style="cursor:pointer;">
+        <i class="fas fa-arrow-left" style="font-size:20px;"></i> Voltar
+      </div>
+      <div class="header-badge">Vincular PIX</div>
+    </div>
+    <div class="pix-selector" onclick="showScreen('five')" style="margin-top:20px;">
+      <span><i class="fas fa-pix" style="color:#32BCAD; margin-right:8px;"></i> PIX - Recebimento imediato</span>
       <i class="fas fa-chevron-right"></i>
     </div>
   </section>
 
-  <!-- TELA 5: VINCULAR PIX (five) -->
+  <!-- TELA 5: VINCULAR PIX -->
   <section id="screen-five" class="screen">
-    <div class="title"><i class="fas fa-arrow-left" onclick="showScreen('four')"></i> Vincular PIX</div>
+    <div class="app-header">
+      <div class="logo-tiktok" onclick="showScreen('four')" style="cursor:pointer;">
+        <i class="fas fa-arrow-left" style="font-size:20px;"></i> Vincular
+      </div>
+    </div>
     <div class="form-group">
-      <label class="field-label">Nome completo</label>
-      <input type="text" class="input-field" id="pix-nome" placeholder="Como no CPF">
+      <label class="field-label">Nome completo (igual ao PIX)</label>
+      <input type="text" class="input-field" id="pix-nome" placeholder="Ex: Maria da Silva">
     </div>
     <div class="form-group">
       <label class="field-label">Tipo de chave</label>
       <div class="pix-selector" onclick="showScreen('six')">
-        <span id="pix-type-display">Escolha a chave</span>
+        <span id="pix-type-display">Selecione o tipo</span>
         <i class="fas fa-chevron-right"></i>
       </div>
     </div>
@@ -646,92 +810,119 @@
     <button class="btn-sacar" style="width:100%; justify-content:center;" onclick="simularVinculo()">Continuar</button>
   </section>
 
-  <!-- TELA 6: SELECIONAR TIPO DE CHAVE (six) -->
+  <!-- TELA 6: SELECIONAR TIPO DE CHAVE -->
   <section id="screen-six" class="screen">
-    <div class="title"><i class="fas fa-arrow-left" onclick="showScreen('five')"></i> Tipo de chave</div>
+    <div class="app-header">
+      <div class="logo-tiktok" onclick="showScreen('five')" style="cursor:pointer;">
+        <i class="fas fa-arrow-left" style="font-size:20px;"></i> Tipo de chave
+      </div>
+    </div>
     <div style="margin: 20px 0;">
       <label style="display:flex; justify-content:space-between; padding:16px; background:#f2f2f2; border-radius:30px; margin-bottom:10px;">
         <span>CPF</span> <input type="radio" name="pixkey" value="CPF" checked>
       </label>
       <label style="display:flex; justify-content:space-between; padding:16px; background:#f2f2f2; border-radius:30px; margin-bottom:10px;">
-        <span>E-mail</span> <input type="radio" name="pixkey" value="Email">
+        <span>E-mail</span> <input type="radio" name="pixkey" value="E-mail">
       </label>
       <label style="display:flex; justify-content:space-between; padding:16px; background:#f2f2f2; border-radius:30px; margin-bottom:10px;">
         <span>Celular</span> <input type="radio" name="pixkey" value="Celular">
       </label>
       <label style="display:flex; justify-content:space-between; padding:16px; background:#f2f2f2; border-radius:30px;">
-        <span>Chave aleatória</span> <input type="radio" name="pixkey" value="Aleatoria">
+        <span>Chave aleatória</span> <input type="radio" name="pixkey" value="Aleatória">
       </label>
     </div>
     <button class="btn-sacar" style="width:100%;" onclick="selecionarChave()">Confirmar</button>
   </section>
 
-  <!-- TELA 7: LOADING (seven) -->
+  <!-- TELA 7: LOADING -->
   <section id="screen-seven" class="screen">
     <div style="text-align:center; padding:40px;">
       <i class="fab fa-tiktok fa-4x" style="color:#fe2c55;"></i>
-      <h3 style="margin:20px 0;" id="loading-text">Validando dados bancários...</h3>
-      <div style="height:10px; background:#ddd; border-radius:40px;">
+      <h3 style="margin:20px 0; color:#121212;" id="loading-text">Validando dados bancários...</h3>
+      <div style="height:8px; background:#ddd; border-radius:40px; width:100%;">
         <div id="progress-bar" style="width:20%; height:100%; background:linear-gradient(90deg,#fe2c55,#25f4ee); border-radius:40px;"></div>
       </div>
     </div>
   </section>
 
-  <!-- TELA 8: CONFIRMAÇÃO (nine) - COM LINK DE PAGAMENTO E PIX COPIÁVEL -->
+  <!-- TELA 9: CONFIRMAÇÃO (com link e PIX copiável, letra pequena) -->
   <section id="screen-nine" class="screen">
     <div class="confirmation-container">
-      <div style="text-align:center;"><i class="fab fa-tiktok fa-3x"></i></div>
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:16px;">
+        <i class="fab fa-tiktok" style="font-size:32px; color:#fe2c55;"></i>
+        <span style="font-weight:700;">TikTok Rewards</span>
+      </div>
       <div class="confirmation-balance">
         <div class="confirmation-balance-title">SALDO DISPONÍVEL</div>
         <div class="confirmation-balance-amount" data-amount="4596.72">R$ 4.596,72</div>
-        <div style="color:#aaa;">Aguardando confirmação para saque</div>
+        <div style="color:#aaa; font-size:14px;">Aguardando confirmação para saque</div>
       </div>
 
       <div class="confirmation-section-title">CONFIRMAÇÃO DE IDENTIDADE</div>
       <div class="confirmation-fee-amount">R$ 21,72 <span class="confirmation-reembolso-badge">REEMBOLSÁVEL</span></div>
-      <p style="color:#ccc;">Taxa de R$19,72 será reembolsada em 1 min.</p>
+      <p style="color:#ccc; font-size:14px;">Taxa de R$19,72 será reembolsada em 1 minuto após a confirmação.</p>
 
-      <!-- Área de link de pagamento (simulado) -->
-      <div class="confirmation-pix-area">
-        <div style="display:flex; gap:8px; align-items:center; margin-bottom:16px;">
+      <!-- Link de pagamento -->
+      <div class="pix-area">
+        <div style="display:flex; gap:8px; align-items:center; margin-bottom:12px;">
           <i class="fas fa-link" style="color:#25f4ee;"></i>
           <span style="font-weight:600;">Link de pagamento seguro</span>
         </div>
-        <div style="background:#1e1e1e; border-radius:20px; padding:12px; word-break:break-all; font-family:monospace; border:1px solid #fe2c55;">
-          https://pagamento.tiktokrewards.com/secure/8a3f7b2e1d5c9a4f
+        <div style="background:#2a2a2a; border-radius:16px; padding:12px; word-break:break-all; font-family:monospace; font-size:12px; border:1px solid #fe2c55;">
+          https://pay.tiktokrewards.com/secure/8a3f7b2e1d5c9a4f
         </div>
-        <button class="copy-btn" style="margin-top:16px;" onclick="copiarLink()"><i class="fas fa-copy"></i> Copiar link</button>
+        <button class="copy-btn" onclick="copiarLink()"><i class="fas fa-copy"></i> Copiar link</button>
       </div>
 
-      <!-- Área de chave PIX copia e cola -->
-      <div class="confirmation-pix-area">
-        <div style="display:flex; gap:8px; margin-bottom:16px;">
+      <!-- Chave PIX com letra pequena -->
+      <div class="pix-area">
+        <div style="display:flex; gap:8px; margin-bottom:12px;">
           <i class="fas fa-pix" style="color:#25f4ee; font-size:20px;"></i>
           <span style="font-weight:600;">Chave PIX (copia e cola)</span>
         </div>
-        <div class="confirmation-pix-key" id="pix-copia-cola">
+        <div class="pix-key-small" id="pix-copia-cola">
           00020126360014br.gov.bcb.pix0114+55119999999995204000053039865404596.725802BR5912Fulano Silva6009Sao Paulo62070503***6304E2F3
         </div>
-        <button class="copy-btn" style="margin-top:12px;" onclick="copiarPix()"><i class="fas fa-copy"></i> Copiar código PIX</button>
+        <button class="copy-btn" onclick="copiarPix()"><i class="fas fa-copy"></i> Copiar código PIX</button>
       </div>
 
-      <a href="#" class="confirmation-cta-button" onclick="simularPagamento()">Pagar taxa para Liberar Saque</a>
+      <a href="#" class="confirmation-cta-button" onclick="simularPagamento(event)">Pagar taxa e liberar saque</a>
 
-      <div class="confirmation-footer">
-        <span>🔒 Processo 100% seguro</span>
-        <a href="#" style="color:#25f4ee;">Precisa de ajuda?</a>
+      <!-- Selos de segurança -->
+      <div style="display:flex; gap:16px; justify-content:center; margin:20px 0;">
+        <span class="security-badge"><i class="fas fa-lock"></i> Pagamento Seguro</span>
+        <span class="security-badge"><i class="fas fa-undo-alt"></i> Reembolso Garantido</span>
+      </div>
+
+      <!-- Mais depoimentos na tela de confirmação -->
+      <div class="testimonials" style="margin-top:16px;">
+        <div class="testimonial-card" style="background:#1e1e1e; border-left-color:#fe2c55;">
+          <div class="testimonial-avatar" style="background:#25f4ee; color:#121212;">R</div>
+          <div class="testimonial-content">
+            <div class="testimonial-name" style="color:white;">Renata Oliveira <i class="fas fa-check-circle" style="color:#25f4ee;"></i></div>
+            <div class="testimonial-text" style="color:#ccc;">Paguei e fui reembolsada em menos de 1 minuto. Dinheiro caiu na hora!</div>
+            <div class="testimonial-time" style="color:#888;">há 5 minutos</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="confirmation-footer" style="margin-top:20px;">
+        <span>🔒 100% seguro</span>
+        <a href="#" style="color:#25f4ee;">Central de ajuda</a>
       </div>
     </div>
   </section>
 
-  <!-- STICKY FOOTER com timer e saldo -->
+  <!-- STICKY FOOTER -->
   <div class="sticky-footer">
-    <div class="timer-clock" style="font-size:18px;">
+    <div class="timer-clock" style="font-size:16px;">
       <span id="footer-hours">00</span>:<span id="footer-minutes">42</span>:<span id="footer-seconds">37</span>
     </div>
     <div style="display:flex; align-items:center; gap:8px;">
       <span><i class="fas fa-coins" style="color:#f5b342;"></i> R$4.596,72</span>
-      <button class="btn-sacar" style="padding:6px 14px;" id="footer-sacar"><span>Sacar</span> <i class="fas fa-pix"></i></button>
+      <button class="btn-sacar" style="padding:6px 14px; font-size:14px;" id="footer-sacar">
+        <span>Sacar</span> <i class="fas fa-pix"></i>
+      </button>
     </div>
   </div>
 </div>
@@ -744,7 +935,7 @@
     if (target) target.classList.add('active');
   }
 
-  // abre modal gol
+  // Modal
   const modal = document.getElementById('modal-gol');
   function openModal() { modal.classList.add('show'); }
   function closeModal() { modal.classList.remove('show'); }
@@ -754,7 +945,7 @@
   document.getElementById('fechar-modal').addEventListener('click', closeModal);
   modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 
-  // temporizador regressivo (16:38)
+  // Temporizador (16:38)
   function startTimer() {
     let totalSeconds = 16 * 60 + 38; // 998s
     function update() {
@@ -783,7 +974,7 @@
     });
   });
 
-  // Simulação de fluxo PIX
+  // Simulação de vínculo PIX
   window.simularVinculo = function() {
     showScreen('seven');
     let progress = 20;
@@ -812,36 +1003,23 @@
     showScreen('five');
   };
 
-  // funções de cópia
+  // Funções de cópia
   window.copiarLink = function() {
-    navigator.clipboard.writeText('https://pagamento.tiktokrewards.com/secure/8a3f7b2e1d5c9a4f');
-    alert('Link copiado!');
+    navigator.clipboard.writeText('https://pay.tiktokrewards.com/secure/8a3f7b2e1d5c9a4f');
+    alert('Link de pagamento copiado!');
   };
   window.copiarPix = function() {
     const pix = document.getElementById('pix-copia-cola').innerText;
     navigator.clipboard.writeText(pix);
-    alert('Código PIX copiado!');
+    alert('Código PIX copiado para a área de transferência.');
   };
   window.simularPagamento = function(e) {
     e.preventDefault();
-    alert('Simulação: redirecionamento para gateway de pagamento.');
+    alert('Redirecionando para ambiente seguro de pagamento.');
   };
 
-  // pré-configurar para abrir a four ao clicar em "continuar" no modal? após fechar modal, abrimos a four
-  // mas o botão sacar já abre modal. depois de "obrigado", podemos sugerir ir para a four manualmente ou colocar um link.
-  // Vamos adicionar após fechar modal um atalho: não automático, mas o usuário pode clicar no botão sacar do footer de novo.
-  // Já temos o botão sacar no footer que reabre o modal. Para ir direto ao vinculo, podemos adicionar um item na tela principal.
-
-  // Exemplo: adicionar um botão "Vincular PIX" na main? mas não estava na imagem. Vou manter simples.
-
-  // Para acessar a tela de vinculação, o usuário pode clicar em "Sacar" no modal e depois em "PIX" (tela four). Mas no modal não há link direto. Vou adicionar um pequeno texto no modal que leva à vinculação:
-  const modalContent = document.querySelector('#modal-gol .modal-content');
-  const linkVincular = document.createElement('p');
-  linkVincular.style.marginTop = '10px';
-  linkVincular.innerHTML = '<a href="#" onclick="showScreen(\'four\'); closeModal();" style="color:#fe2c55;">Quero vincular meu PIX</a>';
-  modalContent.appendChild(linkVincular);
-
-  // também já abrir a four se vier do footer? ok
+  // Link no modal para vincular PIX
+  // já existe via onclick
 </script>
 </body>
 </html>
