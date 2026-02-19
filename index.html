@@ -1,1018 +1,1070 @@
+
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>TikTok Bônus · Pagamento</title>
-  <!-- Fonte Inter e ícones -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: white;
-      font-family: 'Inter', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    #app {
-      width: 100%;
-      max-width: 100%;
-      background: white;
-      position: relative;
-      min-height: 100vh;
-    }
-
-    .screen {
-      display: none;
-      padding: 24px 20px;
-      background: white;
-      min-height: 100vh;
-    }
-
-    .screen.active {
-      display: block;
-    }
-
-    /* Cabeçalho com título */
-    .title {
-      font-size: 28px;
-      font-weight: 700;
-      color: #121212;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .title i {
-      color: #fe2c55;
-      font-size: 32px;
-    }
-
-    /* Cartão de saldo */
-    .saldo {
-      background: linear-gradient(145deg, #ffffff, #fafafa);
-      border-radius: 28px;
-      padding: 20px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.03), 0 0 0 1px rgba(254,44,85,0.1);
-      margin-bottom: 24px;
-    }
-
-    .container-saldo {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .saldo-label {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      color: #6b6b6b;
-      font-weight: 600;
-      font-size: 15px;
-    }
-
-    .saldo-valor {
-      font-size: 36px;
-      font-weight: 800;
-      color: #121212;
-      line-height: 1.2;
-      letter-spacing: -0.5px;
-    }
-
-    .btn-sacar {
-      background: #fe2c55;
-      border: none;
-      border-radius: 40px;
-      padding: 12px 24px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: white;
-      font-weight: 700;
-      font-size: 18px;
-      box-shadow: 0 4px 10px rgba(254,44,85,0.2);
-      cursor: pointer;
-      transition: 0.1s linear;
-      border: 2px solid rgba(255,255,255,0.3);
-    }
-
-    .btn-sacar:active {
-      transform: translateY(2px);
-      box-shadow: 0 2px 5px rgba(254,44,85,0.3);
-    }
-
-    .btn-sacar i {
-      font-size: 22px;
-    }
-
-    /* Parabéns */
-    .parabens {
-      background: #ffffff;
-      border-radius: 24px;
-      padding: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-left: 8px solid #25f4ee;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-      margin: 20px 0;
-    }
-
-    .parabens-txtum {
-      color: #25f4ee;
-      font-weight: 800;
-      font-size: 20px;
-    }
-
-    .parabens-txtdois {
-      color: #4a4a4a;
-      font-weight: 500;
-      font-size: 15px;
-    }
-
-    .parabens-valor {
-      font-size: 28px;
-      font-weight: 800;
-      color: #fe2c55;
-      margin-top: 6px;
-    }
-
-    .parabens-img {
-      background: #fee2e7;
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 40px;
-    }
-
-    /* Linha divisória */
-    .line {
-      height: 2px;
-      background: linear-gradient(90deg, #fe2c55, #25f4ee, #e0e0e0);
-      margin: 20px 0;
-    }
-
-    /* Cartão de tarefa */
-    .entre {
-      background: white;
-      border-radius: 20px;
-      padding: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.02);
-      margin: 16px 0;
-      border: 1px solid #ffe1e7;
-    }
-
-    .entre-txt {
-      font-weight: 600;
-      color: #1f1f1f;
-      font-size: 15px;
-    }
-
-    .entre-pts {
-      background: rgba(37,244,238,0.1);
-      color: #0b8b87;
-      font-weight: 700;
-      padding: 4px 8px;
-      border-radius: 40px;
-      margin: 0 4px;
-    }
-
-    .entre-data {
-      color: #888;
-      font-size: 13px;
-    }
-
-    .btn-concluido {
-      background: white;
-      border: 2px solid #25f4ee;
-      border-radius: 40px;
-      padding: 8px 18px;
-      font-weight: 700;
-      color: #0b8b87;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      transition: 0.15s;
-    }
-
-    .btn-concluido.concluido {
-      background: #25f4ee;
-      color: black;
-      border-color: #0b8b87;
-    }
-
-    .concluiu {
-      background: #f0fffe;
-      border-radius: 30px;
-      padding: 12px;
-      text-align: center;
-      font-weight: 500;
-      color: #1e6f6b;
-      margin: 10px 0;
-    }
-
-    /* track de dias */
-    .day-tracker {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: space-between;
-      margin: 24px 0;
-    }
-
-    .day-tracker__item {
-      flex: 0 0 auto;
-      text-align: center;
-      width: 70px;
-    }
-
-    .day-tracker__box {
-      width: 60px;
-      height: 60px;
-      background: linear-gradient(145deg, #f8f8f8, #ffffff);
-      border-radius: 18px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      border: 2px solid #fe2c55;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.02);
-      margin-bottom: 6px;
-    }
-
-    .day-tracker__coin i {
-      font-size: 20px;
-      color: #f5b342;
-    }
-
-    .day-tracker__value {
-      font-weight: 800;
-      font-size: 16px;
-      color: #121212;
-    }
-
-    .day-tracker__overlay {
-      position: absolute;
-      top: -6px;
-      right: -6px;
-      background: #25f4ee;
-      border-radius: 50%;
-      width: 22px;
-      height: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: black;
-      font-size: 14px;
-      border: 2px solid white;
-    }
-
-    /* timer - com cores ajustadas */
-    .timer-wrapper {
-      background: #1e1e1e;
-      border-radius: 60px;
-      padding: 12px 18px;
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      color: white;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-
-    .timer-label {
-      font-weight: 700;
-      color: #fe2c55; /* rosa TikTok */
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      font-size: 14px;
-    }
-
-    .timer-clock {
-      display: flex;
-      gap: 6px;
-      font-weight: 800;
-      font-size: 22px;
-      background: #2d2d2d;
-      padding: 6px 12px;
-      border-radius: 40px;
-    }
-
-    .timer-box {
-      min-width: 36px;
-      text-align: center;
-      color: #25f4ee; /* ciano TikTok */
-      text-shadow: 0 0 5px rgba(37,244,238,0.5);
-    }
-
-    .timer-separator {
-      color: #fe2c55;
-      font-weight: 800;
-    }
-
-    /* modal overlay */
-    .modal-overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      visibility: hidden;
-      opacity: 0;
-      transition: 0.2s;
-    }
-
-    .modal-overlay.show {
-      visibility: visible;
-      opacity: 1;
-    }
-
-    .modal-content {
-      background: white;
-      max-width: 360px;
-      width: 90%;
-      border-radius: 48px;
-      padding: 32px 24px;
-      text-align: center;
-      box-shadow: 0 20px 40px rgba(254,44,85,0.1);
-      border: 3px solid #fe2c55;
-    }
-
-    .gol {
-      font-size: 32px;
-      font-weight: 800;
-      background: linear-gradient(135deg, #fe2c55, #25f4ee);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin: 16px 0 8px;
-    }
-
-    .btn-fechar {
-      background: #fe2c55;
-      border: none;
-      border-radius: 60px;
-      padding: 14px 32px;
-      color: white;
-      font-weight: 700;
-      width: 100%;
-      font-size: 18px;
-      margin-top: 24px;
-      box-shadow: 0 4px 10px rgba(254,44,85,0.2);
-      cursor: pointer;
-    }
-
-    /* Formulários e PIX */
-    .form-group {
-      margin-bottom: 20px;
-      text-align: left;
-    }
-
-    .field-label {
-      font-weight: 600;
-      color: #121212;
-      margin-bottom: 6px;
-      display: block;
-    }
-
-    .input-field {
-      width: 100%;
-      padding: 16px;
-      background: #f9f9f9;
-      border: 2px solid #eee;
-      border-radius: 30px;
-      font-size: 16px;
-      transition: 0.2s;
-    }
-
-    .input-field:focus {
-      border-color: #fe2c55;
-      outline: none;
-    }
-
-    .pix-selector {
-      background: #f9f9f9;
-      border: 2px solid #eee;
-      border-radius: 30px;
-      padding: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-    }
-
-    .pix-key-display {
-      background: #f9f9f9;
-      border-radius: 20px;
-      padding: 16px;
-      font-family: monospace;
-      font-size: 16px;
-      word-break: break-all;
-      border: 2px dashed #fe2c55;
-      margin: 16px 0;
-    }
-
-    .copy-btn {
-      background: #25f4ee;
-      border: none;
-      border-radius: 40px;
-      padding: 12px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      width: 100%;
-      cursor: pointer;
-    }
-
-    /* tela de confirmação (nine) */
-    .confirmation-container {
-      background: white;
-      color: #121212;
-      border-radius: 40px;
-      padding: 24px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.02);
-    }
-
-    .confirmation-balance-amount {
-      font-size: 48px;
-      font-weight: 800;
-      background: linear-gradient(145deg, #121212, #fe2c55);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .confirmation-section-title {
-      color: #fe2c55;
-      font-weight: 700;
-      margin: 20px 0 10px;
-    }
-
-    .confirmation-fee-amount {
-      font-size: 32px;
-      font-weight: 800;
-      color: #fe2c55;
-    }
-
-    .confirmation-reembolso-badge {
-      background: #25f4ee;
-      color: black;
-      padding: 6px 12px;
-      border-radius: 40px;
-      font-size: 14px;
-    }
-
-    .confirmation-cta-button {
-      display: block;
-      background: linear-gradient(145deg, #fe2c55, #d41f43);
-      padding: 20px;
-      border-radius: 60px;
-      color: white;
-      font-weight: 800;
-      text-align: center;
-      text-decoration: none;
-      font-size: 20px;
-      margin: 30px 0;
-      box-shadow: 0 8px 15px rgba(254,44,85,0.2);
-    }
-
-    .confirmation-pix-area {
-      background: #f9f9f9;
-      border-radius: 24px;
-      padding: 20px;
-      margin: 20px 0;
-      border: 1px solid #eee;
-    }
-
-    .confirmation-pix-key {
-      font-size: 13px;
-      font-family: 'Courier New', monospace;
-      background: #fff;
-      padding: 12px;
-      border-radius: 16px;
-      word-break: break-all;
-      border: 1px solid #fe2c55;
-      line-height: 1.4;
-    }
-
-    .confirmation-footer {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 24px;
-      font-size: 14px;
-      color: #666;
-    }
-
-    /* Seção de depoimentos - elegante e integrada */
-    .testimonials-section {
-      margin-top: 40px;
-      padding-top: 20px;
-      border-top: 1px solid #f0f0f0;
-    }
-
-    .testimonials-title {
-      font-size: 18px;
-      font-weight: 600;
-      color: #fe2c55;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 16px;
-    }
-
-    .testimonial-card {
-      background: #fafafa;
-      border-radius: 24px;
-      padding: 16px;
-      border: 1px solid #f0f0f0;
-      transition: 0.2s;
-    }
-
-    .testimonial-card:hover {
-      box-shadow: 0 8px 20px rgba(254,44,85,0.05);
-    }
-
-    .testimonial-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .testimonial-avatar {
-      width: 40px;
-      height: 40px;
-      background: linear-gradient(135deg, #fe2c55, #25f4ee);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 700;
-      font-size: 18px;
-    }
-
-    .testimonial-name {
-      font-weight: 700;
-      color: #121212;
-    }
-
-    .testimonial-username {
-      font-size: 12px;
-      color: #888;
-    }
-
-    .testimonial-text {
-      font-size: 14px;
-      color: #444;
-      line-height: 1.4;
-      margin-bottom: 12px;
-    }
-
-    .testimonial-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      color: #999;
-    }
-
-    .testimonial-badge {
-      background: #25f4ee;
-      color: black;
-      padding: 4px 8px;
-      border-radius: 20px;
-      font-weight: 600;
-      font-size: 10px;
-    }
-
-    /* sticky footer */
-    .sticky-footer {
-      position: sticky;
-      bottom: 0;
-      background: white;
-      border-top: 2px solid #fe2c55;
-      padding: 12px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      color: #121212;
-      margin-top: 24px;
-      box-shadow: 0 -4px 10px rgba(0,0,0,0.02);
-    }
-
-    .hidden {
-      display: none !important;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TikVeri.Com | Official Site | Get Watch & Earn Option</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+    <script src="assets/js/app.js"></script>
 </head>
-<body>
-
-<div id="app">
-  <!-- TELA 1: PRINCIPAL -->
-  <section id="screen-main" class="screen active">
-    <div class="title"><i class="fab fa-tiktok"></i> TikTok Bônus</div>
-    <div class="saldo">
-      <div class="container-saldo">
-        <div>
-          <div class="saldo-label"><i class="fas fa-coins" style="color: #f5b342;"></i> Seu saldo</div>
-          <div class="saldo-valor" id="saldo-principal" data-amount="4361.52">R$ 4.361,52</div>
-        </div>
-        <button class="btn-sacar" id="btn-sacar-main"><span>Sacar</span> <i class="fab fa-tiktok"></i></button>
-      </div>
-    </div>
-
-    <div class="parabens">
-      <div>
-        <span class="parabens-txtum">Parabéns!</span>
-        <span class="parabens-txtdois">Você concluiu todas as tarefas!</span>
-        <span class="parabens-valor">R$ 4.361,52</span>
-      </div>
-      <div class="parabens-img"><i class="fas fa-star" style="color: #fe2c55;"></i></div>
-    </div>
-
-    <div class="line"></div>
-
-    <div class="entre">
-      <span class="entre-txt"><i class="fas fa-calendar-alt"></i> Entre 14 dias <span class="entre-pts">8.414 pts</span> <span class="entre-data">12 nov - 25 nov</span></span>
-      <button class="btn-concluido task-btn" data-task="14dias"><i class="fas fa-check"></i> Concluído</button>
-    </div>
-    <div class="concluiu"><i class="fas fa-check-circle"></i> Você concluiu todos os dias de check-in.</div>
-
-    <div class="day-tracker">
-      <div class="day-tracker__item"><div class="day-tracker__box"><span class="day-tracker__coin"><i class="fas fa-coins"></i></span><span class="day-tracker__value">50</span><div class="day-tracker__overlay"><i class="fas fa-check"></i></div></div><div>Dia 01</div></div>
-      <div class="day-tracker__item"><div class="day-tracker__box"><span class="day-tracker__coin"><i class="fas fa-coins"></i></span><span class="day-tracker__value">100</span><div class="day-tracker__overlay"><i class="fas fa-check"></i></div></div><div>Dia 02</div></div>
-      <div class="day-tracker__item"><div class="day-tracker__box"><span class="day-tracker__coin"><i class="fas fa-coins"></i></span><span class="day-tracker__value">150</span><div class="day-tracker__overlay"><i class="fas fa-check"></i></div></div><div>Dia 03</div></div>
-      <div class="day-tracker__item"><div class="day-tracker__box"><span class="day-tracker__coin"><i class="fas fa-coins"></i></span><span class="day-tracker__value">200</span><div class="day-tracker__overlay"><i class="fas fa-check"></i></div></div><div>Dia 04</div></div>
-      <div class="day-tracker__item"><div class="day-tracker__box"><span class="day-tracker__coin"><i class="fas fa-coins"></i></span><span class="day-tracker__value">250</span><div class="day-tracker__overlay"><i class="fas fa-check"></i></div></div><div>Dia 05</div></div>
-      <div class="day-tracker__item"><div class="day-tracker__box"><span class="day-tracker__coin"><i class="fas fa-coins"></i></span><span class="day-tracker__value">300</span><div class="day-tracker__overlay"><i class="fas fa-check"></i></div></div><div>Dia 06</div></div>
-    </div>
-
-    <div class="entre">
-      <span class="entre-txt"><i class="fas fa-ad"></i> Anúncios direcionados <span class="entre-pts">2.730 pts</span> <span class="entre-data">30/30</span></span>
-      <button class="btn-concluido task-btn" data-task="ads"><i class="fas fa-check"></i> Concluído</button>
-    </div>
-
-    <div class="entre">
-      <span class="entre-txt"><i class="fas fa-video"></i> Assistir vídeos <span class="entre-pts">500 pts</span></span>
-      <button class="btn-concluido task-btn"><i class="fas fa-check"></i> Concluído</button>
-    </div>
-
-    <div class="timer-wrapper" style="width:100%; justify-content:center; margin-top:20px;">
-      <span class="timer-label">Expira em</span>
-      <div class="timer-clock" id="timer-main">
-        <span class="timer-box" id="hours">00</span><span class="timer-separator">:</span>
-        <span class="timer-box" id="minutes">16</span><span class="timer-separator">:</span>
-        <span class="timer-box" id="seconds">38</span>
-      </div>
-    </div>
-
-    <!-- SEÇÃO DE DEPOIMENTOS INTEGRADA -->
-    <div class="testimonials-section">
-      <div class="testimonials-title">
-        <i class="fas fa-star" style="color: #fe2c55;"></i> Últimos saques confirmados
-      </div>
-      <div class="testimonials-grid">
-        <!-- Depoimento 1 -->
-        <div class="testimonial-card">
-          <div class="testimonial-header">
-            <div class="testimonial-avatar">LM</div>
-            <div>
-              <div class="testimonial-name">Lucas M.</div>
-              <div class="testimonial-username">@lucas_ml</div>
+<body x-data="mainApp()" class="antialiased overflow-x-hidden">
+    <header class="w-full py-6">
+        <div class="max-w-6xl mx-auto px-6 flex items-center justify-center">
+            <!-- Logo Image Placeholder -->
+            <div class="w-48 h-20 flex items-center justify-center">
+                <img src="assets/img/logo.webp" alt="Logo" class="w-full h-full object-contain" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'text-gray-400 text-sm font-semibold\'>LOGO</span>'">
             </div>
-          </div>
-          <div class="testimonial-text">
-            "Paguei a taxa de R$19,72 e em 2 minutos o reembolso veio. Saquei R$4.596 direto pro PIX!"
-          </div>
-          <div class="testimonial-footer">
-            <span><i class="fas fa-check-circle" style="color: #25f4ee;"></i> Confirmado</span>
-            <span class="testimonial-badge">há 8 min</span>
-          </div>
         </div>
-        <!-- Depoimento 2 -->
-        <div class="testimonial-card">
-          <div class="testimonial-header">
-            <div class="testimonial-avatar">CA</div>
-            <div>
-              <div class="testimonial-name">Carla A.</div>
-              <div class="testimonial-username">@carla_ofc</div>
+    </header>
+    <!-- Main Wrapper -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 pt-4 pb-16">
+        <div class="w-full">
+            <!-- Hero Text -->
+            <div class="text-center space-y-6 pt-4 pb-8">
+                <div class="inline-flex items-center px-4 py-2 bg-black text-white rounded-full">
+                    <span class="text-xs font-extrabold uppercase leading-tight tracking-wider">Beta Access Live</span>
+                </div>
+                <h1 class="text-4xl sm:text-6xl lg:text-8xl font-extrabold tracking-tight text-gray-900 leading-[1.05]">
+                    Ganhe Dinheiro Assistindo <br>
+                    <span class="text-gradient">Vídeos do TikTok</span>
+                </h1>
+                <p class="text-xl text-gray-500 max-w-2xl mx-auto font-medium">
+                    Junte-se ao programa Beta exclusivo. Monetize seu tempo de tela hoje.                </p>
             </div>
-          </div>
-          <div class="testimonial-text">
-            "Já são 3 saques esse mês. TikTok tá pagando mesmo! Confiável e rápido."
-          </div>
-          <div class="testimonial-footer">
-            <span><i class="fas fa-check-circle" style="color: #25f4ee;"></i> Confirmado</span>
-            <span class="testimonial-badge">há 15 min</span>
-          </div>
-        </div>
-        <!-- Depoimento 3 -->
-        <div class="testimonial-card">
-          <div class="testimonial-header">
-            <div class="testimonial-avatar">PH</div>
-            <div>
-              <div class="testimonial-name">Pedro H.</div>
-              <div class="testimonial-username">@pedro_h</div>
+            <!-- TikTok-Style Input Card -->
+            <div class="max-w-2xl mx-auto">
+                <div class="bg-white rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.06)] p-8 sm:p-10 border-2 border-gray-100 relative overflow-hidden backdrop-blur-xl">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-tiktok-cyan/10 to-tiktok-red/10 rounded-full blur-3xl -z-0"></div>
+                    <div class="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-tiktok-red/10 to-tiktok-cyan/10 rounded-full blur-3xl -z-0"></div>
+                    <div class="relative z-10">            
+                        <div x-show="state === 'input'"
+                            x-transition:enter="transition ease-out duration-500"
+                            x-transition:enter-start="opacity-0 -translate-x-full"
+                            x-transition:enter-end="opacity-100 translate-x-0"
+                            x-transition:leave="transition ease-in duration-300 absolute top-0 left-0 w-full"
+                            x-transition:leave-start="opacity-100 translate-x-0"
+                            x-transition:leave-end="opacity-0 -translate-x-full">
+
+                            <label class="block text-base font-bold text-gray-900 mb-3">Digite seu nome de usuário do TikTok</label>
+                            <div class="relative group mb-5">
+                                <div class="absolute left-6 top-1/2 -translate-y-1/2">
+                                    <span class="text-gray-400 font-bold text-2xl">@</span>
+                                </div>
+                                <input type="text" x-model="username" @keydown.enter="checkEarnings()"
+                                    placeholder="Digite seu nome de usuário"
+                                    class="w-full pl-14 pr-5 py-6 bg-gray-50 border-2 border-gray-200 rounded-2xl text-xl font-semibold text-gray-900 placeholder-gray-400 outline-none focus:border-tiktok-red focus:bg-white transition-all duration-200">
+                            </div>
+
+                            <button @click="checkEarnings()"
+                                    :disabled="username.length < 3"
+                                    :class="{'opacity-50 cursor-not-allowed': username.length < 3, 'hover:scale-[1.02] active:scale-[0.98]': username.length >= 3}"
+                                    class="w-full bg-tiktok-red text-white font-bold text-xl py-6 rounded-2xl transition-all duration-200 shadow-lg shadow-tiktok-red/25 hover:shadow-xl hover:shadow-tiktok-red/30 relative overflow-hidden group">
+                                <span class="absolute inset-0 bg-gradient-to-r from-tiktok-red to-red-600 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
+                                <span class="relative z-10 flex items-center justify-center gap-3">
+                                    Verificar Elegibilidade                                    <svg class="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                                </span>
+                            </button>
+                        </div>
+
+                        <div x-show="state === 'loading'"
+                            style="display:none;"
+                            class="py-8 text-center"
+                            x-transition:enter="transition ease-out duration-500 delay-100"
+                            x-transition:enter-start="opacity-0 translate-x-full"
+                            x-transition:enter-end="opacity-100 translate-x-0"
+                            x-transition:leave="transition ease-in duration-300 absolute top-0 left-0 w-full"
+                            x-transition:leave-start="opacity-100 translate-x-0"
+                            x-transition:leave-end="opacity-0 -translate-x-full">
+                            
+                            <div class="w-20 h-20 border-4 border-gray-100 border-t-tiktok-red rounded-full animate-spin mx-auto mb-6"></div>
+                            <h3 class="text-2xl font-bold text-gray-900 mb-2">Analisando dados do perfil...</h3>
+                            <p class="text-base text-gray-500">Conectando ao servidor...</p>
+                            <!-- Progress bar -->
+                            <div class="w-full bg-gray-100 h-3 rounded-full mt-8 overflow-hidden">
+                                <div class="bg-gradient-to-r from-tiktok-cyan to-tiktok-red h-full rounded-full transition-all duration-300 ease-linear" :style="'width: ' + progress + '%'"></div>
+                            </div>
+                        </div>
+
+                        <div x-show="state === 'ready'"
+                            style="display:none;"
+                            class="py-4"
+                            x-transition:enter="transition ease-out duration-500 delay-100"
+                            x-transition:enter-start="opacity-0 translate-x-full"
+                            x-transition:enter-end="opacity-100 translate-x-0">
+                            
+                            <!-- Success Icon & Username -->
+                            <div class="flex flex-col items-center mb-6">
+                                <div class="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mb-3">
+                                    <svg class="w-8 h-8 text-green-500" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                                </div>
+                                <p class="text-lg font-bold text-gray-900" x-text="'@' + username"></p>
+                            </div>
+
+                            <!-- Title -->
+                            <p class="text-center text-gray-600 font-semibold text-sm mb-6 uppercase tracking-wider">Ganhos Semanais Estimados</p>
+
+                            <div class="bg-gradient-to-br from-gray-50 to-white border-2 border-gray-200 rounded-3xl p-8 mb-8 relative overflow-hidden group hover:border-tiktok-cyan/30 transition-colors duration-300">
+                                <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-tiktok-cyan/10 to-tiktok-red/10 rounded-full blur-2xl"></div>
+
+                                <div class="relative text-center">
+                                    <div class="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-3 mb-2">
+                                        <h2 class="text-4xl sm:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-700 tracking-tight">
+                                            R$2.830
+                                        </h2>
+                                        <span class="text-2xl sm:text-4xl font-black text-gray-400 hidden sm:block">-</span>
+                                        <span class="text-lg font-black text-gray-300 sm:hidden">TO</span>
+                                        <h2 class="text-4xl sm:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-700 tracking-tight">
+                                            R$5.346
+                                        </h2>
+                                    </div>
+                                    <p class="text-xs text-gray-500 font-semibold uppercase tracking-wider">Por Semana</p>
+                                </div>
+                            </div>
+
+                            <!-- CTA Button -->
+                            <button @click="openModal()" class="w-full bg-gradient-to-r from-tiktok-red to-red-600 hover:from-red-600 hover:to-tiktok-red text-white font-bold text-2xl py-6 rounded-2xl shadow-2xl shadow-tiktok-red/30 hover:shadow-tiktok-red/40 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]">
+                                Começar a Ganhar Agora                            </button>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 mt-8 px-4">
+                                        <div class="flex items-center gap-3">
+                        <div class="flex items-center justify-center flex-shrink-0">
+                            <svg class="w-5 h-5" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>                        </div>
+                        <span class="text-xs font-semibold text-gray-600">Nenhum download necessário</span>
+                    </div>
+                                        <div class="hidden sm:block w-px h-4 bg-gray-300"></div>
+                                                            <div class="flex items-center gap-3">
+                        <div class="flex items-center justify-center flex-shrink-0">
+                            <svg class="w-5 h-5" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>                        </div>
+                        <span class="text-xs font-semibold text-gray-600">Programa seguro e verificado</span>
+                    </div>
+                                        <div class="hidden sm:block w-px h-4 bg-gray-300"></div>
+                                                            <div class="flex items-center gap-3">
+                        <div class="flex items-center justify-center flex-shrink-0">
+                            <svg class="w-5 h-5" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 21a8 8 0 0 0-16 0"/><circle cx="10" cy="8" r="5"/><path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/></svg>                        </div>
+                        <span class="text-xs font-semibold text-gray-600">Mais de 15.000 ganhadores ativos</span>
+                    </div>
+                                                        </div>
             </div>
-          </div>
-          <div class="testimonial-text">
-            "Desconfiei no começo, mas paguei a taxa e fui reembolsado. Já saquei mais de 4k!"
-          </div>
-          <div class="testimonial-footer">
-            <span><i class="fas fa-check-circle" style="color: #25f4ee;"></i> Confirmado</span>
-            <span class="testimonial-badge">há 23 min</span>
-          </div>
+
         </div>
-        <!-- Depoimento 4 -->
-        <div class="testimonial-card">
-          <div class="testimonial-header">
-            <div class="testimonial-avatar">JF</div>
-            <div>
-              <div class="testimonial-name">Juliana F.</div>
-              <div class="testimonial-username">@ju_fernandes</div>
+
+        <!-- Recent Activity -->
+        <div class="mt-20">
+            <div class="text-center mb-10">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-3">Atividade Recente</h2>
+                <p class="text-lg text-gray-500 font-medium">Veja o que outras pessoas estão ganhando agora</p>
             </div>
-          </div>
-          <div class="testimonial-text">
-            "Recomendo! O suporte é ótimo e o dinheiro cai na hora. Já indiquei 3 amigos."
-          </div>
-          <div class="testimonial-footer">
-            <span><i class="fas fa-check-circle" style="color: #25f4ee;"></i> Confirmado</span>
-            <span class="testimonial-badge">há 31 min</span>
-          </div>
-        </div>
-        <!-- Depoimento 5 -->
-        <div class="testimonial-card">
-          <div class="testimonial-header">
-            <div class="testimonial-avatar">RS</div>
-            <div>
-              <div class="testimonial-name">Rafael S.</div>
-              <div class="testimonial-username">@rafa_souza</div>
+
+            <div class="max-w-3xl mx-auto">
+                <div class="bg-white rounded-[2.5rem] border-2 border-gray-100 shadow-xl overflow-hidden relative">
+                    <!-- Feed Header -->
+                    <div class="relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900"></div>
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute top-0 right-0 w-64 h-64 bg-tiktok-cyan rounded-full blur-3xl"></div>
+                            <div class="absolute bottom-0 left-0 w-64 h-64 bg-tiktok-red rounded-full blur-3xl"></div>
+                        </div>
+
+                        <div class="relative p-6 flex items-center justify-between">
+                            <div class="flex items-center gap-4">
+                                <div class="relative">
+                                    <div class="absolute inset-0 bg-green-500 rounded-2xl animate-pulse opacity-30"></div>
+                                    <div class="relative w-14 h-14 bg-gradient-to-br from-green-400 to-green-600 rounded-2xl flex items-center justify-center shadow-lg shadow-green-500/50">
+                                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="font-black text-white text-xl mb-1 flex items-center gap-2">
+                                        Feed de Pagamentos ao Vivo                                        <span class="flex items-center gap-1 px-2 py-1 bg-green-500/20 border border-green-500/30 rounded-lg">
+                                            <span class="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
+                                            <span class="text-xs font-bold text-green-400">AO VIVO</span>
+                                        </span>
+                                    </h3>
+                                    <p class="text-gray-400 text-sm font-semibold">Ganhos em tempo real da nossa comunidade global</p>
+                                </div>
+                            </div>
+
+                            <div class="hidden md:flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
+                                <svg class="w-4 h-4 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span class="text-sm font-bold text-white/80">Global</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feed Content (Vertical Marquee) -->
+                    <div class="marquee-container h-[450px] relative overflow-hidden bg-white">
+                        <div class="absolute top-0 left-0 w-full p-6 space-y-3 animate-[marqueeVertical_25s_linear_infinite]">
+                                                            <div class="group bg-gray-50 border-2 border-gray-100 rounded-2xl p-5 hover:bg-white hover:border-gray-200 hover:shadow-md transition-all duration-300">
+                                    <div class="flex items-center gap-4">
+                                        <!-- Avatar -->
+                                        <div class="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-base font-black text-gray-700 border-2 border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            S                                        </div>
+
+                                        <!-- Content -->
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-gray-700 font-medium leading-relaxed">
+                                                <span class="font-black text-gray-900">Sarah D.</span>
+                                                <span class="text-gray-600"> ganhou </span>
+                                                <span class="font-black text-green-600">R$9.676,31</span>
+                                                <span class="text-gray-500"> por avaliações esta semana</span>
+                                            </p>
+                                        </div>
+
+                                        <!-- Timestamp badge -->
+                                        <div class="flex-shrink-0 px-3 py-1.5 bg-white rounded-lg border border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            <span class="text-xs font-bold text-gray-500">Agora mesmo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                                            <div class="group bg-gray-50 border-2 border-gray-100 rounded-2xl p-5 hover:bg-white hover:border-gray-200 hover:shadow-md transition-all duration-300">
+                                    <div class="flex items-center gap-4">
+                                        <!-- Avatar -->
+                                        <div class="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-base font-black text-gray-700 border-2 border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            M                                        </div>
+
+                                        <!-- Content -->
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-gray-700 font-medium leading-relaxed">
+                                                <span class="font-black text-gray-900">Mike T.</span>
+                                                <span class="text-gray-600"> ganhou </span>
+                                                <span class="font-black text-green-600">R$17.900,63</span>
+                                                <span class="text-gray-500"> por assistir vídeos</span>
+                                            </p>
+                                        </div>
+
+                                        <!-- Timestamp badge -->
+                                        <div class="flex-shrink-0 px-3 py-1.5 bg-white rounded-lg border border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            <span class="text-xs font-bold text-gray-500">Agora mesmo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                                            <div class="group bg-gray-50 border-2 border-gray-100 rounded-2xl p-5 hover:bg-white hover:border-gray-200 hover:shadow-md transition-all duration-300">
+                                    <div class="flex items-center gap-4">
+                                        <!-- Avatar -->
+                                        <div class="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-base font-black text-gray-700 border-2 border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            J                                        </div>
+
+                                        <!-- Content -->
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-gray-700 font-medium leading-relaxed">
+                                                <span class="font-black text-gray-900">Jessica K.</span>
+                                                <span class="text-gray-600"> ganhou </span>
+                                                <span class="font-black text-green-600">R$5.610,68</span>
+                                                <span class="text-gray-500"> por completar tarefas hoje</span>
+                                            </p>
+                                        </div>
+
+                                        <!-- Timestamp badge -->
+                                        <div class="flex-shrink-0 px-3 py-1.5 bg-white rounded-lg border border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            <span class="text-xs font-bold text-gray-500">Agora mesmo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                                            <div class="group bg-gray-50 border-2 border-gray-100 rounded-2xl p-5 hover:bg-white hover:border-gray-200 hover:shadow-md transition-all duration-300">
+                                    <div class="flex items-center gap-4">
+                                        <!-- Avatar -->
+                                        <div class="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-base font-black text-gray-700 border-2 border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            A                                        </div>
+
+                                        <!-- Content -->
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-gray-700 font-medium leading-relaxed">
+                                                <span class="font-black text-gray-900">Alex R.</span>
+                                                <span class="text-gray-600"> ganhou </span>
+                                                <span class="font-black text-green-600">R$20.152,00</span>
+                                                <span class="text-gray-500"> por avaliações neste mês</span>
+                                            </p>
+                                        </div>
+
+                                        <!-- Timestamp badge -->
+                                        <div class="flex-shrink-0 px-3 py-1.5 bg-white rounded-lg border border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            <span class="text-xs font-bold text-gray-500">Agora mesmo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                                            <div class="group bg-gray-50 border-2 border-gray-100 rounded-2xl p-5 hover:bg-white hover:border-gray-200 hover:shadow-md transition-all duration-300">
+                                    <div class="flex items-center gap-4">
+                                        <!-- Avatar -->
+                                        <div class="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-base font-black text-gray-700 border-2 border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            D                                        </div>
+
+                                        <!-- Content -->
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-gray-700 font-medium leading-relaxed">
+                                                <span class="font-black text-gray-900">David B.</span>
+                                                <span class="text-gray-600"> ganhou </span>
+                                                <span class="font-black text-green-600">R$7.270,24</span>
+                                                <span class="text-gray-500"> por engajamento diário</span>
+                                            </p>
+                                        </div>
+
+                                        <!-- Timestamp badge -->
+                                        <div class="flex-shrink-0 px-3 py-1.5 bg-white rounded-lg border border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            <span class="text-xs font-bold text-gray-500">Agora mesmo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                                            <div class="group bg-gray-50 border-2 border-gray-100 rounded-2xl p-5 hover:bg-white hover:border-gray-200 hover:shadow-md transition-all duration-300">
+                                    <div class="flex items-center gap-4">
+                                        <!-- Avatar -->
+                                        <div class="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-base font-black text-gray-700 border-2 border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            E                                        </div>
+
+                                        <!-- Content -->
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-gray-700 font-medium leading-relaxed">
+                                                <span class="font-black text-gray-900">Emily W.</span>
+                                                <span class="text-gray-600"> ganhou </span>
+                                                <span class="font-black text-green-600">R$28.433,09</span>
+                                                <span class="text-gray-500"> por assistir vídeos</span>
+                                            </p>
+                                        </div>
+
+                                        <!-- Timestamp badge -->
+                                        <div class="flex-shrink-0 px-3 py-1.5 bg-white rounded-lg border border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            <span class="text-xs font-bold text-gray-500">Agora mesmo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                                            <div class="group bg-gray-50 border-2 border-gray-100 rounded-2xl p-5 hover:bg-white hover:border-gray-200 hover:shadow-md transition-all duration-300">
+                                    <div class="flex items-center gap-4">
+                                        <!-- Avatar -->
+                                        <div class="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-base font-black text-gray-700 border-2 border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            J                                        </div>
+
+                                        <!-- Content -->
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-gray-700 font-medium leading-relaxed">
+                                                <span class="font-black text-gray-900">John D.</span>
+                                                <span class="text-gray-600"> ganhou </span>
+                                                <span class="font-black text-green-600">R$4.264,62</span>
+                                                <span class="text-gray-500"> por completar pesquisas</span>
+                                            </p>
+                                        </div>
+
+                                        <!-- Timestamp badge -->
+                                        <div class="flex-shrink-0 px-3 py-1.5 bg-white rounded-lg border border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            <span class="text-xs font-bold text-gray-500">Agora mesmo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                                            <div class="group bg-gray-50 border-2 border-gray-100 rounded-2xl p-5 hover:bg-white hover:border-gray-200 hover:shadow-md transition-all duration-300">
+                                    <div class="flex items-center gap-4">
+                                        <!-- Avatar -->
+                                        <div class="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-base font-black text-gray-700 border-2 border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            C                                        </div>
+
+                                        <!-- Content -->
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-gray-700 font-medium leading-relaxed">
+                                                <span class="font-black text-gray-900">Chris P.</span>
+                                                <span class="text-gray-600"> ganhou </span>
+                                                <span class="font-black text-green-600">R$13.153,97</span>
+                                                <span class="text-gray-500"> por avaliar produtos</span>
+                                            </p>
+                                        </div>
+
+                                        <!-- Timestamp badge -->
+                                        <div class="flex-shrink-0 px-3 py-1.5 bg-white rounded-lg border border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            <span class="text-xs font-bold text-gray-500">Agora mesmo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                                            <div class="group bg-gray-50 border-2 border-gray-100 rounded-2xl p-5 hover:bg-white hover:border-gray-200 hover:shadow-md transition-all duration-300">
+                                    <div class="flex items-center gap-4">
+                                        <!-- Avatar -->
+                                        <div class="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-base font-black text-gray-700 border-2 border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            S                                        </div>
+
+                                        <!-- Content -->
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-gray-700 font-medium leading-relaxed">
+                                                <span class="font-black text-gray-900">Sarah D.</span>
+                                                <span class="text-gray-600"> ganhou </span>
+                                                <span class="font-black text-green-600">R$9.676,31</span>
+                                                <span class="text-gray-500"> por avaliações esta semana</span>
+                                            </p>
+                                        </div>
+
+                                        <!-- Timestamp badge -->
+                                        <div class="flex-shrink-0 px-3 py-1.5 bg-white rounded-lg border border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            <span class="text-xs font-bold text-gray-500">Agora mesmo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                                            <div class="group bg-gray-50 border-2 border-gray-100 rounded-2xl p-5 hover:bg-white hover:border-gray-200 hover:shadow-md transition-all duration-300">
+                                    <div class="flex items-center gap-4">
+                                        <!-- Avatar -->
+                                        <div class="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-base font-black text-gray-700 border-2 border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            M                                        </div>
+
+                                        <!-- Content -->
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-gray-700 font-medium leading-relaxed">
+                                                <span class="font-black text-gray-900">Mike T.</span>
+                                                <span class="text-gray-600"> ganhou </span>
+                                                <span class="font-black text-green-600">R$17.900,63</span>
+                                                <span class="text-gray-500"> por assistir vídeos</span>
+                                            </p>
+                                        </div>
+
+                                        <!-- Timestamp badge -->
+                                        <div class="flex-shrink-0 px-3 py-1.5 bg-white rounded-lg border border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            <span class="text-xs font-bold text-gray-500">Agora mesmo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                                            <div class="group bg-gray-50 border-2 border-gray-100 rounded-2xl p-5 hover:bg-white hover:border-gray-200 hover:shadow-md transition-all duration-300">
+                                    <div class="flex items-center gap-4">
+                                        <!-- Avatar -->
+                                        <div class="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-base font-black text-gray-700 border-2 border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            J                                        </div>
+
+                                        <!-- Content -->
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-gray-700 font-medium leading-relaxed">
+                                                <span class="font-black text-gray-900">Jessica K.</span>
+                                                <span class="text-gray-600"> ganhou </span>
+                                                <span class="font-black text-green-600">R$5.610,68</span>
+                                                <span class="text-gray-500"> por completar tarefas hoje</span>
+                                            </p>
+                                        </div>
+
+                                        <!-- Timestamp badge -->
+                                        <div class="flex-shrink-0 px-3 py-1.5 bg-white rounded-lg border border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            <span class="text-xs font-bold text-gray-500">Agora mesmo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                                            <div class="group bg-gray-50 border-2 border-gray-100 rounded-2xl p-5 hover:bg-white hover:border-gray-200 hover:shadow-md transition-all duration-300">
+                                    <div class="flex items-center gap-4">
+                                        <!-- Avatar -->
+                                        <div class="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-base font-black text-gray-700 border-2 border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            A                                        </div>
+
+                                        <!-- Content -->
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-gray-700 font-medium leading-relaxed">
+                                                <span class="font-black text-gray-900">Alex R.</span>
+                                                <span class="text-gray-600"> ganhou </span>
+                                                <span class="font-black text-green-600">R$20.152,00</span>
+                                                <span class="text-gray-500"> por avaliações neste mês</span>
+                                            </p>
+                                        </div>
+
+                                        <!-- Timestamp badge -->
+                                        <div class="flex-shrink-0 px-3 py-1.5 bg-white rounded-lg border border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            <span class="text-xs font-bold text-gray-500">Agora mesmo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                                            <div class="group bg-gray-50 border-2 border-gray-100 rounded-2xl p-5 hover:bg-white hover:border-gray-200 hover:shadow-md transition-all duration-300">
+                                    <div class="flex items-center gap-4">
+                                        <!-- Avatar -->
+                                        <div class="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-base font-black text-gray-700 border-2 border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            D                                        </div>
+
+                                        <!-- Content -->
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-gray-700 font-medium leading-relaxed">
+                                                <span class="font-black text-gray-900">David B.</span>
+                                                <span class="text-gray-600"> ganhou </span>
+                                                <span class="font-black text-green-600">R$7.270,24</span>
+                                                <span class="text-gray-500"> por engajamento diário</span>
+                                            </p>
+                                        </div>
+
+                                        <!-- Timestamp badge -->
+                                        <div class="flex-shrink-0 px-3 py-1.5 bg-white rounded-lg border border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            <span class="text-xs font-bold text-gray-500">Agora mesmo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                                            <div class="group bg-gray-50 border-2 border-gray-100 rounded-2xl p-5 hover:bg-white hover:border-gray-200 hover:shadow-md transition-all duration-300">
+                                    <div class="flex items-center gap-4">
+                                        <!-- Avatar -->
+                                        <div class="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-base font-black text-gray-700 border-2 border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            E                                        </div>
+
+                                        <!-- Content -->
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-gray-700 font-medium leading-relaxed">
+                                                <span class="font-black text-gray-900">Emily W.</span>
+                                                <span class="text-gray-600"> ganhou </span>
+                                                <span class="font-black text-green-600">R$28.433,09</span>
+                                                <span class="text-gray-500"> por assistir vídeos</span>
+                                            </p>
+                                        </div>
+
+                                        <!-- Timestamp badge -->
+                                        <div class="flex-shrink-0 px-3 py-1.5 bg-white rounded-lg border border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            <span class="text-xs font-bold text-gray-500">Agora mesmo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                                            <div class="group bg-gray-50 border-2 border-gray-100 rounded-2xl p-5 hover:bg-white hover:border-gray-200 hover:shadow-md transition-all duration-300">
+                                    <div class="flex items-center gap-4">
+                                        <!-- Avatar -->
+                                        <div class="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-base font-black text-gray-700 border-2 border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            J                                        </div>
+
+                                        <!-- Content -->
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-gray-700 font-medium leading-relaxed">
+                                                <span class="font-black text-gray-900">John D.</span>
+                                                <span class="text-gray-600"> ganhou </span>
+                                                <span class="font-black text-green-600">R$4.264,62</span>
+                                                <span class="text-gray-500"> por completar pesquisas</span>
+                                            </p>
+                                        </div>
+
+                                        <!-- Timestamp badge -->
+                                        <div class="flex-shrink-0 px-3 py-1.5 bg-white rounded-lg border border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            <span class="text-xs font-bold text-gray-500">Agora mesmo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                                            <div class="group bg-gray-50 border-2 border-gray-100 rounded-2xl p-5 hover:bg-white hover:border-gray-200 hover:shadow-md transition-all duration-300">
+                                    <div class="flex items-center gap-4">
+                                        <!-- Avatar -->
+                                        <div class="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-base font-black text-gray-700 border-2 border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            C                                        </div>
+
+                                        <!-- Content -->
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-gray-700 font-medium leading-relaxed">
+                                                <span class="font-black text-gray-900">Chris P.</span>
+                                                <span class="text-gray-600"> ganhou </span>
+                                                <span class="font-black text-green-600">R$13.153,97</span>
+                                                <span class="text-gray-500"> por avaliar produtos</span>
+                                            </p>
+                                        </div>
+
+                                        <!-- Timestamp badge -->
+                                        <div class="flex-shrink-0 px-3 py-1.5 bg-white rounded-lg border border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            <span class="text-xs font-bold text-gray-500">Agora mesmo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                                            <div class="group bg-gray-50 border-2 border-gray-100 rounded-2xl p-5 hover:bg-white hover:border-gray-200 hover:shadow-md transition-all duration-300">
+                                    <div class="flex items-center gap-4">
+                                        <!-- Avatar -->
+                                        <div class="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-base font-black text-gray-700 border-2 border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            S                                        </div>
+
+                                        <!-- Content -->
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-gray-700 font-medium leading-relaxed">
+                                                <span class="font-black text-gray-900">Sarah D.</span>
+                                                <span class="text-gray-600"> ganhou </span>
+                                                <span class="font-black text-green-600">R$9.676,31</span>
+                                                <span class="text-gray-500"> por avaliações esta semana</span>
+                                            </p>
+                                        </div>
+
+                                        <!-- Timestamp badge -->
+                                        <div class="flex-shrink-0 px-3 py-1.5 bg-white rounded-lg border border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            <span class="text-xs font-bold text-gray-500">Agora mesmo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                                            <div class="group bg-gray-50 border-2 border-gray-100 rounded-2xl p-5 hover:bg-white hover:border-gray-200 hover:shadow-md transition-all duration-300">
+                                    <div class="flex items-center gap-4">
+                                        <!-- Avatar -->
+                                        <div class="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-base font-black text-gray-700 border-2 border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            M                                        </div>
+
+                                        <!-- Content -->
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-gray-700 font-medium leading-relaxed">
+                                                <span class="font-black text-gray-900">Mike T.</span>
+                                                <span class="text-gray-600"> ganhou </span>
+                                                <span class="font-black text-green-600">R$17.900,63</span>
+                                                <span class="text-gray-500"> por assistir vídeos</span>
+                                            </p>
+                                        </div>
+
+                                        <!-- Timestamp badge -->
+                                        <div class="flex-shrink-0 px-3 py-1.5 bg-white rounded-lg border border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            <span class="text-xs font-bold text-gray-500">Agora mesmo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                                            <div class="group bg-gray-50 border-2 border-gray-100 rounded-2xl p-5 hover:bg-white hover:border-gray-200 hover:shadow-md transition-all duration-300">
+                                    <div class="flex items-center gap-4">
+                                        <!-- Avatar -->
+                                        <div class="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-base font-black text-gray-700 border-2 border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            J                                        </div>
+
+                                        <!-- Content -->
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-gray-700 font-medium leading-relaxed">
+                                                <span class="font-black text-gray-900">Jessica K.</span>
+                                                <span class="text-gray-600"> ganhou </span>
+                                                <span class="font-black text-green-600">R$5.610,68</span>
+                                                <span class="text-gray-500"> por completar tarefas hoje</span>
+                                            </p>
+                                        </div>
+
+                                        <!-- Timestamp badge -->
+                                        <div class="flex-shrink-0 px-3 py-1.5 bg-white rounded-lg border border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            <span class="text-xs font-bold text-gray-500">Agora mesmo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                                            <div class="group bg-gray-50 border-2 border-gray-100 rounded-2xl p-5 hover:bg-white hover:border-gray-200 hover:shadow-md transition-all duration-300">
+                                    <div class="flex items-center gap-4">
+                                        <!-- Avatar -->
+                                        <div class="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-base font-black text-gray-700 border-2 border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            A                                        </div>
+
+                                        <!-- Content -->
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-gray-700 font-medium leading-relaxed">
+                                                <span class="font-black text-gray-900">Alex R.</span>
+                                                <span class="text-gray-600"> ganhou </span>
+                                                <span class="font-black text-green-600">R$20.152,00</span>
+                                                <span class="text-gray-500"> por avaliações neste mês</span>
+                                            </p>
+                                        </div>
+
+                                        <!-- Timestamp badge -->
+                                        <div class="flex-shrink-0 px-3 py-1.5 bg-white rounded-lg border border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            <span class="text-xs font-bold text-gray-500">Agora mesmo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                                            <div class="group bg-gray-50 border-2 border-gray-100 rounded-2xl p-5 hover:bg-white hover:border-gray-200 hover:shadow-md transition-all duration-300">
+                                    <div class="flex items-center gap-4">
+                                        <!-- Avatar -->
+                                        <div class="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-base font-black text-gray-700 border-2 border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            D                                        </div>
+
+                                        <!-- Content -->
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-gray-700 font-medium leading-relaxed">
+                                                <span class="font-black text-gray-900">David B.</span>
+                                                <span class="text-gray-600"> ganhou </span>
+                                                <span class="font-black text-green-600">R$7.270,24</span>
+                                                <span class="text-gray-500"> por engajamento diário</span>
+                                            </p>
+                                        </div>
+
+                                        <!-- Timestamp badge -->
+                                        <div class="flex-shrink-0 px-3 py-1.5 bg-white rounded-lg border border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            <span class="text-xs font-bold text-gray-500">Agora mesmo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                                            <div class="group bg-gray-50 border-2 border-gray-100 rounded-2xl p-5 hover:bg-white hover:border-gray-200 hover:shadow-md transition-all duration-300">
+                                    <div class="flex items-center gap-4">
+                                        <!-- Avatar -->
+                                        <div class="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-base font-black text-gray-700 border-2 border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            E                                        </div>
+
+                                        <!-- Content -->
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-gray-700 font-medium leading-relaxed">
+                                                <span class="font-black text-gray-900">Emily W.</span>
+                                                <span class="text-gray-600"> ganhou </span>
+                                                <span class="font-black text-green-600">R$28.433,09</span>
+                                                <span class="text-gray-500"> por assistir vídeos</span>
+                                            </p>
+                                        </div>
+
+                                        <!-- Timestamp badge -->
+                                        <div class="flex-shrink-0 px-3 py-1.5 bg-white rounded-lg border border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            <span class="text-xs font-bold text-gray-500">Agora mesmo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                                            <div class="group bg-gray-50 border-2 border-gray-100 rounded-2xl p-5 hover:bg-white hover:border-gray-200 hover:shadow-md transition-all duration-300">
+                                    <div class="flex items-center gap-4">
+                                        <!-- Avatar -->
+                                        <div class="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-base font-black text-gray-700 border-2 border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            J                                        </div>
+
+                                        <!-- Content -->
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-gray-700 font-medium leading-relaxed">
+                                                <span class="font-black text-gray-900">John D.</span>
+                                                <span class="text-gray-600"> ganhou </span>
+                                                <span class="font-black text-green-600">R$4.264,62</span>
+                                                <span class="text-gray-500"> por completar pesquisas</span>
+                                            </p>
+                                        </div>
+
+                                        <!-- Timestamp badge -->
+                                        <div class="flex-shrink-0 px-3 py-1.5 bg-white rounded-lg border border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            <span class="text-xs font-bold text-gray-500">Agora mesmo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                                            <div class="group bg-gray-50 border-2 border-gray-100 rounded-2xl p-5 hover:bg-white hover:border-gray-200 hover:shadow-md transition-all duration-300">
+                                    <div class="flex items-center gap-4">
+                                        <!-- Avatar -->
+                                        <div class="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-base font-black text-gray-700 border-2 border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            C                                        </div>
+
+                                        <!-- Content -->
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-gray-700 font-medium leading-relaxed">
+                                                <span class="font-black text-gray-900">Chris P.</span>
+                                                <span class="text-gray-600"> ganhou </span>
+                                                <span class="font-black text-green-600">R$13.153,97</span>
+                                                <span class="text-gray-500"> por avaliar produtos</span>
+                                            </p>
+                                        </div>
+
+                                        <!-- Timestamp badge -->
+                                        <div class="flex-shrink-0 px-3 py-1.5 bg-white rounded-lg border border-gray-200 group-hover:border-gray-300 transition-colors">
+                                            <span class="text-xs font-bold text-gray-500">Agora mesmo</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                                    </div>
+                    </div>
+
+                    <!-- Bottom fade effect -->
+                    <div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent pointer-events-none z-10"></div>
+                </div>
             </div>
-          </div>
-          <div class="testimonial-text">
-            "Processo muito seguro. Paguei a taxa, veio o reembolso e saquei tudo. 5 estrelas!"
-          </div>
-          <div class="testimonial-footer">
-            <span><i class="fas fa-check-circle" style="color: #25f4ee;"></i> Confirmado</span>
-            <span class="testimonial-badge">há 42 min</span>
-          </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- MODAL GOL -->
-  <div class="modal-overlay" id="modal-gol">
-    <div class="modal-content">
-      <i class="fas fa-trophy" style="font-size:70px; color:#fe2c55;"></i>
-      <div class="gol">Gol de Prêmios</div>
-      <p style="color:#333;">Parabéns! Campanha exclusiva.</p>
-      <div class="saldo-valor" data-amount="4596.72">R$ 4.361,52</div>
-      <div class="timer-wrapper" style="margin:20px 0; background:#f0f0f0;">
-        <span class="timer-label">Expira em</span>
-        <div class="timer-clock" id="modal-timer">
-          <span class="timer-box">00</span>:<span class="timer-box">16</span>:<span class="timer-box">38</span>
+        <!-- QUICK START -->
+        <div class="mt-32 mb-16">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-extrabold text-gray-900 mb-4">Guia de Início Rápido</h2>
+                <p class="text-xl text-gray-500">Three simple steps to start earning</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-12 gap-6 max-w-7xl mx-auto">
+
+                <div class="col-span-2 md:col-span-12 bg-gradient-to-br from-tiktok-red via-red-600 to-rose-700 rounded-[2.5rem] p-8 md:p-12 text-white relative overflow-hidden group hover:shadow-2xl hover:shadow-tiktok-red/30 transition-all duration-300">
+                    <!-- Decorative elements -->
+                    <div class="absolute -top-32 -right-32 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-black/10 rounded-full blur-3xl"></div>
+
+                    <div class="relative z-10 grid md:grid-cols-2 gap-12 items-center">
+                        <!-- Text Content -->
+                        <div>
+                            <div class="inline-flex items-center justify-center w-20 h-20 bg-white/20 backdrop-blur-sm rounded-3xl mb-6 border-2 border-white/30">
+                                <span class="text-5xl font-black">1</span>
+                            </div>
+                            <h3 class="text-5xl md:text-6xl font-black mb-6 leading-[1.1]">Crie Sua Conta</h3>
+                            <p class="text-2xl text-white/90 leading-relaxed mb-8 max-w-xl">Digite seu nome de usuário para entrar no Beta de Ganhos do TikTok.</p>
+                            <div class="flex items-center gap-4">
+                                                                <div class="px-6 py-3 bg-white/20 backdrop-blur-md rounded-2xl border border-white/30">
+                                    <span class="font-bold text-lg">Cadastro em 30 segundos</span>
+                                </div>
+                                                                <div class="px-6 py-3 bg-white/20 backdrop-blur-md rounded-2xl border border-white/30">
+                                    <span class="font-bold text-lg">Sem cartão de crédito</span>
+                                </div>
+                                                            </div>
+                        </div>
+
+                        <!-- Image -->
+                        <div class="relative">
+                            <div class="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-3xl blur-2xl"></div>
+                            <img src="assets/img/bento-img-1.jpg" alt="Create Account" class="relative z-10 w-full rounded-3xl shadow-2xl border-4 border-white/20 transform hover:scale-105 transition-transform duration-500" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-span-2 md:col-span-7 md:row-span-2 bg-black rounded-[2.5rem] p-8 md:p-10 text-white relative overflow-hidden group hover:shadow-2xl transition-all duration-300">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-tiktok-cyan/20 rounded-full blur-3xl"></div>
+                    <div class="absolute bottom-0 left-0 w-48 h-48 bg-tiktok-red/10 rounded-full blur-2xl"></div>
+
+                    <div class="relative z-10 h-full flex flex-col">
+                        <div class="inline-flex items-center justify-center w-20 h-20 bg-tiktok-cyan rounded-3xl mb-6 border-2 border-tiktok-cyan/50 self-start">
+                            <span class="text-5xl font-black text-black">2</span>
+                        </div>
+                        <h3 class="text-4xl md:text-5xl font-black mb-4 leading-tight">Assista e Ganhe</h3>
+                        <p class="text-xl text-white/80 leading-relaxed mb-10 max-w-lg">Assista a clipes curtos do TikTok diariamente — cada visualização concluída adiciona saldo à sua conta.</p>
+
+                        <!-- Earnings Counter Animation -->
+                        <div class="mt-auto space-y-6">
+                            <div class="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md rounded-3xl p-6 border border-white/10">
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="text-white/60 font-semibold text-sm uppercase tracking-wider">Ganhos de Hoje</span>
+                                    <div class="flex items-center gap-1.5">
+                                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                        <span class="text-green-400 text-sm font-bold">Ao Vivo</span>
+                                    </div>
+                                </div>
+                                <div class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-tiktok-cyan to-green-400 mb-4">
+                                    R$267,33                                </div>
+                                <div class="flex gap-2">
+                                    <div class="flex-1 bg-white/10 rounded-xl p-3 border border-white/20">
+                                        <div class="text-2xl font-black mb-1">127</div>
+                                        <div class="text-white/60 text-xs font-semibold">Vídeos Assistidos</div>
+                                    </div>
+                                    <div class="flex-1 bg-white/10 rounded-xl p-3 border border-white/20">
+                                        <div class="text-2xl font-black mb-1">3h 45m</div>
+                                        <div class="text-white/60 text-xs font-semibold">Tempo Assistido</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Progress Indicator -->
+                            <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-white/80 text-sm font-semibold">Progresso da Meta Diária</span>
+                                    <span class="text-tiktok-cyan font-black">85%</span>
+                                </div>
+                                <div class="w-full bg-white/10 h-3 rounded-full overflow-hidden">
+                                    <div class="h-full bg-gradient-to-r from-tiktok-cyan to-green-400 rounded-full" style="width: 85%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-span-2 md:col-span-5 bg-gradient-to-br from-tiktok-cyan via-cyan-400 to-blue-500 rounded-[2.5rem] p-8 text-black relative overflow-hidden group hover:shadow-2xl hover:shadow-tiktok-cyan/30 transition-all duration-300">
+                    <div class="absolute -bottom-16 -right-16 w-56 h-56 bg-white/30 rounded-full blur-3xl"></div>
+
+                    <div class="relative z-10">
+                        <div class="inline-flex items-center justify-center w-20 h-20 bg-black/20 backdrop-blur-sm rounded-3xl mb-6 border-2 border-black/20">
+                            <span class="text-5xl font-black text-white">3</span>
+                        </div>
+                        <h3 class="text-4xl font-black mb-4 leading-tight">Saque dos Ganhos</h3>
+                        <p class="text-xl text-black/80 leading-relaxed font-semibold mb-8">Receba pagamentos instantâneos via PayPal, CashApp ou depósito direto.</p>
+
+                        <!-- Payment Methods -->
+                        <div class="space-y-3">
+                                                        <div class="bg-white/90 backdrop-blur-sm rounded-2xl p-4 border border-black/10 flex items-center gap-4 hover:scale-105 transition-transform duration-200">
+                                <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
+                                                                        <svg class="w-7 h-7 text-white" fill="#fff" width="24" height="24" viewBox="0 0 32 32">
+                                        <path d="M10.962 18.494c-0.219 1.2-1.087 6.794-1.344 8.375-0.019 0.113-0.063 0.156-0.188 0.156h-4.662c-0.475 0-0.819-0.412-0.756-0.869l3.663-23.244c0.094-0.6 0.631-1.056 1.25-1.056 9.519 0 10.319-0.231 12.75 0.713 3.756 1.456 4.1 4.969 2.75 8.769-1.344 3.913-4.531 5.594-8.756 5.644-2.712 0.044-4.344-0.438-4.706 1.512zM26.319 9.5c-0.113-0.081-0.156-0.113-0.188 0.081-0.125 0.712-0.319 1.406-0.55 2.1-2.494 7.113-9.406 6.494-12.781 6.494-0.381 0-0.631 0.206-0.681 0.587-1.412 8.775-1.694 10.606-1.694 10.606-0.063 0.444 0.219 0.806 0.662 0.806h3.969c0.538 0 0.981-0.394 1.088-0.931 0.044-0.337-0.069 0.381 0.9-5.706 0.288-1.375 0.894-1.231 1.831-1.231 4.438 0 7.9-1.8 8.931-7.019 0.406-2.175 0.288-4.463-1.487-5.788z"/>
+                                    </svg>
+                                                                    </div>
+                                <div class="flex-1">
+                                    <div class="font-black text-lg">PayPal</div>
+                                    <div class="text-sm text-black/60 font-semibold">Transferência instantânea</div>
+                                </div>
+                                <svg class="w-5 h-5 text-black/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                            </div>
+                                                        <div class="bg-white/90 backdrop-blur-sm rounded-2xl p-4 border border-black/10 flex items-center gap-4 hover:scale-105 transition-transform duration-200">
+                                <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center">
+                                                                        <span class="font-black text-white text-xl">$</span>
+                                                                    </div>
+                                <div class="flex-1">
+                                    <div class="font-black text-lg">CashApp</div>
+                                    <div class="text-sm text-black/60 font-semibold">Pagamento no mesmo dia</div>
+                                </div>
+                                <svg class="w-5 h-5 text-black/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                            </div>
+                                                    </div>
+                    </div>
+                </div>
+
+                <div class="col-span-1 md:col-span-3 bg-white border-2 border-gray-100 rounded-[2rem] p-6 relative overflow-hidden hover:border-gray-200 hover:shadow-xl transition-all duration-300">
+                    <div class="flex flex-col h-full">
+                        <div class="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl flex items-center justify-center mb-4 border border-blue-200">
+                            <svg class="w-6 h-6 md:w-7 md:h-7 text-blue-600" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users-round-icon lucide-users-round"><path d="M18 21a8 8 0 0 0-16 0"/><circle cx="10" cy="8" r="5"/><path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/></svg>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-2xl md:text-3xl font-black text-gray-900 mb-2">15.000+</h4>
+                            <p class="text-xs font-bold text-gray-600 mb-3 uppercase tracking-wider">Usuários Ativos</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-span-1 md:col-span-2 bg-white border-2 border-gray-100 rounded-[2rem] p-6 relative overflow-hidden hover:border-gray-200 hover:shadow-xl transition-all duration-300">
+                    <div class="flex flex-col h-full">
+                        <div class="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl flex items-center justify-center mb-4 border border-green-200">
+                            <svg class="w-6 h-6 md:w-7 md:h-7 text-green-600" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-badge-dollar-sign-icon lucide-badge-dollar-sign"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>    
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-2xl md:text-3xl font-black text-gray-900 mb-2">R$15M+</h4>
+                            <p class="text-xs font-bold text-gray-600 uppercase tracking-wider">Total Pago</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-      </div>
-      <p style="margin-top:10px;"><a href="#" onclick="showScreen('four'); closeModal();" style="color:#fe2c55; font-weight:600;">Quero vincular meu PIX</a></p>
-      <button class="btn-fechar" id="fechar-modal">Obrigado</button>
-    </div>
-  </div>
 
-  <!-- TELA 4: MÉTODO PIX -->
-  <section id="screen-four" class="screen">
-    <div class="title"><i class="fas fa-arrow-left" onclick="showScreen('main')" style="font-size:24px; margin-right:10px;"></i> Adicionar método</div>
-    <div class="pix-selector" onclick="showScreen('five')">
-      <span><i class="fas fa-pix" style="color:#32BCAD;"></i> PIX - Recebimento imediato</span>
-      <i class="fas fa-chevron-right"></i>
-    </div>
-  </section>
+        <div class="mt-32 mb-16">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-extrabold text-gray-900 mb-4">O Que Nossos Usuários Dizem</h2>
+                <p class="text-xl text-gray-500">Histórias reais da nossa comunidade</p>
+            </div>
 
-  <!-- TELA 5: VINCULAR PIX -->
-  <section id="screen-five" class="screen">
-    <div class="title"><i class="fas fa-arrow-left" onclick="showScreen('four')"></i> Vincular PIX</div>
-    <div class="form-group">
-      <label class="field-label">Nome completo</label>
-      <input type="text" class="input-field" id="pix-nome" placeholder="Como no CPF">
-    </div>
-    <div class="form-group">
-      <label class="field-label">Tipo de chave</label>
-      <div class="pix-selector" onclick="showScreen('six')">
-        <span id="pix-type-display">Escolha a chave</span>
-        <i class="fas fa-chevron-right"></i>
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="field-label">Chave PIX</label>
-      <input type="text" class="input-field" id="pix-chave" placeholder="Digite sua chave" disabled>
-    </div>
-    <button class="btn-sacar" style="width:100%; justify-content:center;" onclick="simularVinculo()">Continuar</button>
-  </section>
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 max-w-7xl mx-auto">
 
-  <!-- TELA 6: TIPO DE CHAVE -->
-  <section id="screen-six" class="screen">
-    <div class="title"><i class="fas fa-arrow-left" onclick="showScreen('five')"></i> Tipo de chave</div>
-    <div style="margin: 20px 0;">
-      <label style="display:flex; justify-content:space-between; padding:16px; background:#f9f9f9; border-radius:30px; margin-bottom:10px;">
-        <span>CPF</span> <input type="radio" name="pixkey" value="CPF" checked>
-      </label>
-      <label style="display:flex; justify-content:space-between; padding:16px; background:#f9f9f9; border-radius:30px; margin-bottom:10px;">
-        <span>E-mail</span> <input type="radio" name="pixkey" value="Email">
-      </label>
-      <label style="display:flex; justify-content:space-between; padding:16px; background:#f9f9f9; border-radius:30px; margin-bottom:10px;">
-        <span>Celular</span> <input type="radio" name="pixkey" value="Celular">
-      </label>
-      <label style="display:flex; justify-content:space-between; padding:16px; background:#f9f9f9; border-radius:30px;">
-        <span>Chave aleatória</span> <input type="radio" name="pixkey" value="Aleatoria">
-      </label>
-    </div>
-    <button class="btn-sacar" style="width:100%;" onclick="selecionarChave()">Confirmar</button>
-  </section>
+                <div class="md:col-span-7 md:row-span-2 bg-white border-2 border-gray-100 rounded-[2.5rem] p-10 relative overflow-hidden group hover:border-gray-200 hover:shadow-xl transition-all duration-300">
 
-  <!-- TELA 7: LOADING -->
-  <section id="screen-seven" class="screen">
-    <div style="text-align:center; padding:40px;">
-      <i class="fab fa-tiktok fa-4x" style="color:#fe2c55;"></i>
-      <h3 style="margin:20px 0;" id="loading-text">Validando dados bancários...</h3>
-      <div style="height:10px; background:#f0f0f0; border-radius:40px;">
-        <div id="progress-bar" style="width:20%; height:100%; background:linear-gradient(90deg,#fe2c55,#25f4ee); border-radius:40px;"></div>
-      </div>
-    </div>
-  </section>
+                    <div class="relative z-10 h-full flex flex-col">
+                        <!-- Profile -->
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-2xl font-black text-gray-700 border-2 border-gray-200">
+                                JP                            </div>
+                            <div>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <h4 class="text-2xl font-black text-gray-900">Jordan P.</h4>
+                                    <svg class="w-6 h-6 text-green-500" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-badge-check-icon lucide-badge-check"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg>
+                                </div>
+                                <div class="flex text-yellow-400 text-base gap-0.5">★★★★★</div>
+                            </div>
+                        </div>
 
-  <!-- TELA 9: CONFIRMAÇÃO (com link e PIX) -->
-  <section id="screen-nine" class="screen">
-    <div class="confirmation-container">
-      <div style="text-align:center;"><i class="fab fa-tiktok fa-3x" style="color:#fe2c55;"></i></div>
-      <div class="confirmation-balance">
-        <div class="confirmation-balance-title">SALDO DISPONÍVEL</div>
-        <div class="confirmation-balance-amount" data-amount="4596.72">R$ 4.361,52</div>
-        <div style="color:#666;">Aguardando confirmação para saque</div>
-      </div>
+                        <!-- Quote -->
+                        <div class="flex-1 flex flex-col justify-center">
+                            <svg class="w-10 h-10 text-gray-200 mb-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                            </svg>
+                            <p class="text-2xl md:text-3xl leading-relaxed font-semibold text-gray-800 mb-6">"No começo eu não acreditava que fosse real, mas depois do primeiro pagamento fiquei viciado!"</p>
+                        </div>
 
-      <div class="confirmation-section-title">CONFIRMAÇÃO DE IDENTIDADE</div>
-      <div class="confirmation-fee-amount">R$ 19,72 <span class="confirmation-reembolso-badge">REEMBOLSÁVEL</span></div>
-      <p style="color:#666;">Taxa de R$19,72 será reembolsada em 1 min.</p>
+                        <!-- Stats Badge -->
+                                                <div class="mt-auto flex gap-3">
+                            <div class="px-4 py-2 bg-gray-100 rounded-xl border border-gray-200">
+                                <span class="font-bold text-sm text-gray-700">R$15.400,50+</span>
+                            </div>
+                            <div class="px-4 py-2 bg-gray-100 rounded-xl border border-gray-200">
+                                <span class="font-bold text-sm text-gray-700">Membro desde Out 2025</span>
+                            </div>
+                        </div>
+                                            </div>
+                </div>
 
-      <!-- Link de pagamento -->
-      <div class="confirmation-pix-area">
-        <div style="display:flex; gap:8px; align-items:center; margin-bottom:16px;">
-          <i class="fas fa-link" style="color:#fe2c55;"></i>
-          <span style="font-weight:600;">Link de pagamento seguro</span>
+                <div class="md:col-span-5 bg-white border-2 border-gray-100 rounded-[2.5rem] p-8 relative overflow-hidden hover:border-gray-200 hover:shadow-xl transition-all duration-300">
+                    <div class="flex items-start gap-4 mb-6">
+                        <div class="w-14 h-14 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-xl font-black text-gray-700 border-2 border-gray-200">
+                            ML                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-1">
+                                <h4 class="text-xl font-black text-gray-900">Mia L.</h4>
+                                <svg class="w-6 h-6 text-green-500" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-badge-check-icon lucide-badge-check"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg>
+                            </div>
+                            <div class="flex text-yellow-400 text-base gap-0.5">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="text-lg text-gray-700 leading-relaxed font-medium">"Plataforma legítima. Os pagamentos são rápidos e o processo é super simples."</p>
+
+                    <!-- Badge if exists -->
+                                        <div class="mt-6 inline-flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-200 rounded-xl">
+                        <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span class="font-black text-green-700 text-sm">Ganhadora Verificada</span>
+                    </div>
+                                    </div>
+
+                <div class="md:col-span-5 bg-white border-2 border-gray-100 rounded-[2.5rem] p-8 relative overflow-hidden hover:border-gray-200 hover:shadow-xl transition-all duration-300">
+                    <div class="flex items-start gap-4 mb-6">
+                        <div class="w-14 h-14 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-xl font-black text-gray-700 border-2 border-gray-200">
+                            CD                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-1">
+                                <h4 class="text-xl font-black text-gray-900">Chris D.</h4>
+                                <svg class="w-6 h-6 text-green-500" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-badge-check-icon lucide-badge-check"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg>
+                            </div>
+                            <div class="flex text-yellow-400 text-base gap-0.5">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="text-lg text-gray-700 leading-relaxed font-medium">"Estou literalmente ganhando dinheiro enquanto navego no TikTok. Não poderia pedir algo melhor!"</p>
+                </div>
+
+                <div class="md:col-span-7 bg-white border-2 border-gray-100 rounded-[2.5rem] p-8 relative overflow-hidden hover:border-gray-200 hover:shadow-xl transition-all duration-300">
+                    <div class="relative z-10 flex flex-col sm:flex-row items-start gap-6">
+                        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-2xl font-black text-gray-700 border-2 border-gray-200 flex-shrink-0">
+                            ER                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-2">
+                                <h4 class="text-2xl font-black text-gray-900">Emma R.</h4>
+                                <svg class="w-6 h-6 text-green-500" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-badge-check-icon lucide-badge-check"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg>
+                            </div>
+                            <div class="flex text-yellow-400 text-base gap-0.5 mb-4">★★★★★</div>
+                            <p class="text-xl text-gray-700 leading-relaxed font-medium">"Adoro o design e a simplicidade. As recompensas diárias me mantêm motivada."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-5 bg-white border-2 border-gray-100 rounded-[2.5rem] p-8 relative overflow-hidden hover:border-gray-200 hover:shadow-xl transition-all duration-300">
+                    <div class="relative z-10 flex items-center">
+                        <div>
+                            <div class="mb-6">
+                                <div class="flex items-baseline gap-2 mb-2">
+                                    <h4 class="text-5xl font-black text-gray-900">4.9</h4>
+                                    <span class="text-2xl font-bold text-gray-400">/5.0</span>
+                                </div>
+                                <p class="text-lg font-bold text-gray-900 mb-1">Avaliação Excelente</p>
+                                <p class="text-sm text-gray-500 font-medium">Baseado em mais de 12.000 avaliações verificadas</p>
+                            </div>
+                            <div class="flex items-center gap-1 text-yellow-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star-icon lucide-star"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star-icon lucide-star"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star-icon lucide-star"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star-icon lucide-star"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star-icon lucide-star"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star-icon lucide-star"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+                            </div>
+                            <div class="mt-6 px-4 py-2 bg-gray-100 border border-gray-200 rounded-xl inline-flex items-center gap-2">
+                                <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span class="font-bold text-sm text-gray-700">Plataforma Confiável</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-        <div style="background:#fff; border-radius:20px; padding:12px; word-break:break-all; font-family:monospace; border:1px solid #fe2c55; font-size:13px;">
-          https://pagamento.tiktok.com/secure/8a3f7b2e1d5c9a4f
+    </main>
+    <footer class="text-center py-8 text-gray-400 text-sm">
+        <div class="flex justify-center gap-6 mb-4">
+            <a href="#" class="hover:text-gray-900">Política de Privacidade</a>
+            <a href="#" class="hover:text-gray-900">Termos de Serviço</a>
+            <a href="#" class="hover:text-gray-900">Suporte</a>
         </div>
-        <button class="copy-btn" style="margin-top:16px;" onclick="copiarLink()"><i class="fas fa-copy"></i> Copiar link</button>
-      </div>
-
-      <!-- Chave PIX copia e cola (fonte reduzida) -->
-      <div class="confirmation-pix-area">
-        <div style="display:flex; gap:8px; margin-bottom:16px;">
-          <i class="fas fa-pix" style="color:#32BCAD; font-size:20px;"></i>
-          <span style="font-weight:600;">Chave PIX (copia e cola)</span>
+        <p>© 2026 TikEarn Beta. Não afiliado ao TikTok.</p>
+    </footer>
+    <div x-show="modalOpen" 
+         style="display:none;"
+         class="fixed inset-0 z-[100] flex items-end sm:items-center justify-center sm:p-4">
+        <div x-show="modalOpen"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0"
+             x-transition:enter-end="opacity-100"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100"
+             x-transition:leave-end="opacity-0"
+             @click="modalOpen = false"
+             class="absolute inset-0 bg-black/60 backdrop-blur-md transition-opacity">
         </div>
-        <div class="confirmation-pix-key" id="pix-copia-cola">
-          00020126580014BR.GOV.BCB.PIX01366d51cf69-55ed-4006-afa1-c5d962a54ffb520400005303986540519.725802BR5925JORGE VYTOR GOMES PEREIRA6014RIO DE JANEIRO622605224kBG3XR6LWN7sqIoEFUZvb63046301
+        <div x-show="modalOpen"
+             class="bg-white w-full max-w-lg rounded-t-[2.5rem] sm:rounded-3xl shadow-2xl overflow-hidden relative h-[85vh] sm:h-[auto] sm:max-h-[85vh] flex flex-col z-10"
+             x-transition:enter="transition cubic-bezier(0.32, 0.72, 0, 1) duration-500 delay-75"
+             x-transition:enter-start="translate-y-full opacity-0 sm:translate-y-8 sm:scale-95"
+             x-transition:enter-end="translate-y-0 opacity-100 sm:translate-y-0 sm:scale-100"
+             x-transition:leave="transition ease-in duration-300"
+             x-transition:leave-start="translate-y-0 opacity-100 sm:translate-y-0 sm:scale-100"
+             x-transition:leave-end="translate-y-full opacity-0 sm:translate-y-8 sm:scale-95">
+            <button @click="modalOpen = false" class="absolute top-5 right-5 z-50 p-2 bg-gray-100/80 backdrop-blur-sm rounded-full hover:bg-gray-200 transition">
+                <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div class="w-full flex justify-center pt-4 pb-1 sm:hidden">
+                <div class="w-12 h-1.5 bg-gray-300 rounded-full"></div>
+            </div>
+            <div x-html="modalContent" class="flex-1 overflow-hidden relative flex flex-col">
+                <div class="h-full flex flex-col items-center justify-center space-y-4">
+                    <div class="w-12 h-12 border-4 border-gray-200 border-t-tiktok-black rounded-full animate-spin"></div>
+                </div>
+            </div>
         </div>
-        <button class="copy-btn" style="margin-top:12px;" onclick="copiarPix()"><i class="fas fa-copy"></i> Copiar código PIX</button>
-      </div>
-
-      <a href="#" class="confirmation-cta-button" onclick="simularPagamento()">Pagar taxa para Liberar Saque</a>
-
-      <div class="confirmation-footer">
-        <span><i class="fas fa-lock" style="color:#25f4ee;"></i> 100% seguro</span>
-        <a href="#" style="color:#fe2c55;">Precisa de ajuda?</a>
-      </div>
     </div>
-  </section>
-
-  <!-- STICKY FOOTER -->
-  <div class="sticky-footer">
-    <div class="timer-clock" style="font-size:18px;">
-      <span id="footer-hours">00</span>:<span id="footer-minutes">42</span>:<span id="footer-seconds">37</span>
-    </div>
-    <div style="display:flex; align-items:center; gap:8px;">
-      <span><i class="fas fa-coins" style="color:#f5b342;"></i> R$4.361,52</span>
-      <button class="btn-sacar" style="padding:6px 14px;" id="footer-sacar"><span>Sacar</span> <i class="fab fa-tiktok"></i></button>
-    </div>
-  </div>
-</div>
-
-<script>
-  // Controle de telas
-  function showScreen(id) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    const target = document.getElementById('screen-'+id);
-    if (target) target.classList.add('active');
-  }
-
-  // Modal gol
-  const modal = document.getElementById('modal-gol');
-  function openModal() { modal.classList.add('show'); }
-  function closeModal() { modal.classList.remove('show'); }
-
-  document.getElementById('btn-sacar-main').addEventListener('click', openModal);
-  document.getElementById('footer-sacar').addEventListener('click', openModal);
-  document.getElementById('fechar-modal').addEventListener('click', closeModal);
-  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-
-  // Temporizador regressivo (16:38)
-  function startTimer() {
-    let totalSeconds = 16 * 60 + 38;
-    function update() {
-      if (totalSeconds <= 0) totalSeconds = 0;
-      const hrs = Math.floor(totalSeconds / 3600);
-      const mins = Math.floor((totalSeconds % 3600) / 60);
-      const secs = totalSeconds % 60;
-      const pad = n => n.toString().padStart(2,'0');
-      document.querySelectorAll('#hours, #footer-hours').forEach(el => el.textContent = pad(hrs));
-      document.querySelectorAll('#minutes, #footer-minutes').forEach(el => el.textContent = pad(mins));
-      document.querySelectorAll('#seconds, #footer-seconds').forEach(el => el.textContent = pad(secs));
-      if (totalSeconds > 0) totalSeconds--;
-    }
-    update();
-    setInterval(update, 1000);
-  }
-  startTimer();
-
-  // Botões concluído
-  document.querySelectorAll('.task-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      this.classList.toggle('concluido');
-      this.innerHTML = this.classList.contains('concluido') ? '<i class="fas fa-check-circle"></i> Concluído' : '<i class="fas fa-check"></i> Concluído';
-    });
-  });
-
-  // Simulação de fluxo PIX
-  window.simularVinculo = function() {
-    showScreen('seven');
-    let progress = 20;
-    const bar = document.getElementById('progress-bar');
-    const text = document.getElementById('loading-text');
-    const interval = setInterval(() => {
-      progress += 20;
-      bar.style.width = progress + '%';
-      if (progress >= 100) {
-        clearInterval(interval);
-        text.innerText = 'Redirecionando...';
-        setTimeout(() => showScreen('nine'), 800);
-      }
-    }, 600);
-  };
-
-  window.selecionarChave = function() {
-    const selected = document.querySelector('input[name="pixkey"]:checked');
-    if (selected) {
-      document.getElementById('pix-type-display').innerText = selected.value;
-      document.getElementById('pix-chave').disabled = false;
-      document.getElementById('pix-chave').placeholder = 'Digite sua ' + selected.value;
-    }
-    showScreen('five');
-  };
-
-  window.copiarLink = function() {
-    navigator.clipboard.writeText('https://pagamento.tiktok.com/secure/8a3f7b2e1d5c9a4f');
-    alert('Link copiado!');
-  };
-  window.copiarPix = function() {
-    const pix = document.getElementById('pix-copia-cola').innerText;
-    navigator.clipboard.writeText(pix);
-    alert('Código PIX copiado!');
-  };
-  window.simularPagamento = function(e) {
-    e.preventDefault();
-    alert('Redirecionando para gateway de pagamento seguro...');
-  };
-</script>
 </body>
 </html>
